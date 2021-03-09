@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:34:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/08 23:58:53 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdlib.h>
 # include <limits.h>
+# include <unistd.h>
 
 
 
@@ -53,22 +54,23 @@ int			ft_chrinset(char r, char const *sset);
 int			ft_strchrinset(char *t, char const *sset);
 int			ft_chrsame(char a, char b);
 int			rgx_fun_in(int fun);
-char	*rgx_chk_function(int mode, char *sh, char *blk);
-void	rgx_maybe_free(char *blk, int fun);
+char		*rgx_chk_function(int mode, char *sh, char *blk);
+void		rgx_maybe_free(char *blk, int fun);
 int			ft_insp_count(char *h, char x);
-int		rgx_function_n(char *rh);
+int			rgx_function_n(char *rh);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			ft_strbegins(const char *str, const char *beg);
-char	*ft_inside(char *h);
-void	rgx_set_rep(int *mm, char *mod);
-char	*ft_inskip(char *h);
-char	*rgx_sk_mod(char *mod);
-char	*ft_findstr(char *str, char c);
-size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
-size_t	ft_strlen(const char *s);
-size_t	ft_strarrlen(char **s);
-int		ft_enclosure(char *io, char h);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
+char		*ft_inside(char *h);
+void		rgx_set_rep(int *mm, char *mod);
+char		*ft_inskip(char *h);
+char		*rgx_sk_mod(char *mod);
+char		*ft_findstr(char *str, char c);
+size_t		ft_strlcpy(char *dst, const char *src, size_t dstsize);
+size_t		ft_strlen(const char *s);
+size_t		ft_strarrlen(char **s);
+int			ft_enclosure(char *io, char h);
+char		*ft_substr(char const *s, unsigned int start, size_t len);
+void		error_out(void);
 
 # define TRIM_SET	" \t\n\r\v\f"
 
