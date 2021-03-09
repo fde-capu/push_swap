@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/08 23:36:50 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/08 23:47:28 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,19 +80,23 @@ ta:		$(NAME_A)
 	-./$(NAME_A) $(ARGS_A)
 tb:		$(NAME_B)
 	-./$(NAME_B) $(ARGS_B)
-t:		all ta tb
+t:		ta tb
 
 rta:	rea ta
 rtb:	reb tb
 rt:		re t
-tt:		re t
+tt:		rt
 
 vv:	re v
-
-vf:	all
-	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
-	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_B)
-
-v:	all
+rv:	vv
+va:	$(NAME_A)
 	-$(VALGRIND) ./$(NAME_A) $(ARGS_A)
+vb:	$(NAME_B)
 	-$(VALGRIND) ./$(NAME_B) $(ARGS_B)
+v:	va vb
+
+vfa: $(NAME_A)
+	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
+vfb: $(NAME_B)
+	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_B)
+vf:	vfa vfb
