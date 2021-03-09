@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:58:53 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 07:52:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 
 
 
-typedef struct			s_argument
+typedef struct			s_stack
 {
-	int					id;
 	int					val;
-	struct s_argument	*nxt;
-}						t_arg;
+	struct s_stack		*nx;
+	struct s_stack		*pv;
+}						t_stk;
 
 long long	ft_atoi(const char *str);
 int			ft_isdigit(int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strtrimx(char *s1, char *set);
-int			init_arg(t_arg **arg_dst, char *argv);
+int			init_arg(t_stk **arg_dst, char *argv);
 char		*ft_check(const char *sh, char *rh);
 char		**ft_insplit(const char *str, char x);
 void		ft_strfree2d(char **str);
@@ -71,6 +71,10 @@ size_t		ft_strarrlen(char **s);
 int			ft_enclosure(char *io, char h);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		error_out(void);
+t_stk		*init_stack(int argc, char **argv);
+void		stack_log(t_stk *stk);
+int			end_routine(t_stk *stack_a);
+void		destroy_stack(t_stk *stk);
 
 # define TRIM_SET	" \t\n\r\v\f"
 
