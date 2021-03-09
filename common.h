@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 14:45:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 15:59:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,10 @@ void		*ft_x(void *a1, void *a2);
 char		*ft_strcpy(char *dst, const char *src);
 char		*ft_strcatxr(char *s1, char *s2);
 char		*ft_strcatxx(char *s1, char *s2);
+t_stk		*stack_chain_init(int argc, char **argv);
+t_stk		*stack_chain_next(t_stk *stk);
+t_stk		*stack_head(t_stk *stk);
+char		*stack_double_log_level(t_stk *a, t_stk *b);
 
 # define TRIM_SET	" \t\n\r\v\f"
 
