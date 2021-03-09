@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 07:52:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:14:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
+# include <stdio.h>
 
 
 
@@ -75,6 +76,10 @@ t_stk		*init_stack(int argc, char **argv);
 void		stack_log(t_stk *stk);
 int			end_routine(t_stk *stack_a);
 void		destroy_stack(t_stk *stk);
+char		*ft_itoa(int n);
+char		*ft_strcat(const char *dst, const char *src);
+char		*ft_strcatxl(char *s1, char *s2);
+void		ft_print_stdout(const char *str);
 
 # define TRIM_SET	" \t\n\r\v\f"
 

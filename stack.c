@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 10:56:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 11:15:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,6 @@ t_stk	*stack_head(t_stk *stk)
 
 t_stk	*stack_chain_next(t_stk *stk)
 {
-	if (&(stk))
-		printf(">");
-	else
-		printf("?");
-	printf("#%d# ", stk->val);
 	if (stk->pv)
 	{
 		stk->pv->nx = stk;
@@ -44,7 +39,6 @@ t_stk	*stack_chain_init(int argc, char **argv)
 		return (0);
 	stk = ft_calloc(sizeof(t_stk), 1);
 	stk->val = *i_from_a;
-	printf("-%d- ", stk->val);
 	free(i_from_a);
 	if (argc > 1)
 		stk->pv = stack_chain_init(--argc, argv);
@@ -70,8 +64,12 @@ void	destroy_stack(t_stk *stk)
 
 void	stack_log(t_stk *stk)
 {
-	printf("[%d] ", stk->val);
+	char	*str;
+
 	if (stk->nx)
 		stack_log(stk->nx);
+	str = ft_strcatxl(ft_itoa(stk->val), "\n");
+	ft_print_stdout(str);
+	free(str);
 	return ;
 }
