@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 11:15:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 13:58:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,13 @@ t_stk	*stack_head(t_stk *stk)
 {
 	if (stk->pv)
 		return (stack_head(stk->pv));
+	return (stk);
+}
+
+t_stk	*stack_tail(t_stk *stk)
+{
+	if (stk->nx)
+		return (stack_tail(stk->nx));
 	return (stk);
 }
 
@@ -66,10 +73,12 @@ void	stack_log(t_stk *stk)
 {
 	char	*str;
 
-	if (stk->nx)
-		stack_log(stk->nx);
-	str = ft_strcatxl(ft_itoa(stk->val), "\n");
-	ft_print_stdout(str);
-	free(str);
+	while (stk)
+	{
+		str = ft_strcatxl(ft_itoa(stk->val), "\n");
+		ft_print_stdout(str);
+		free(str);
+		stk = stk->nx;
+	}
 	return ;
 }
