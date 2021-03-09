@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:00:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 00:00:23 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 00:04:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	strict_char_set(const char *str, const char *set)
 			if (*rset == *rchar)
 			{
 				ok = 1;
-				break;
+				break ;
 			}
 			rset++;
 		}

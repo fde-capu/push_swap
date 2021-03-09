@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:24:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 00:01:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 00:04:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int	init_arg(t_arg **arg_dst, char *argv)
+int				init_arg(t_arg **arg_dst, char *argv)
 {
 	int	*i_from_a;
 
@@ -26,7 +26,7 @@ int	init_arg(t_arg **arg_dst, char *argv)
 	return (1);
 }
 
-int	validate_args(int argc, char **argv)
+int				validate_args(int argc, char **argv)
 {
 	t_arg	*arg_dst;
 	int		arg_i;
@@ -38,12 +38,12 @@ int	validate_args(int argc, char **argv)
 	{
 		if (!(init_arg(&arg_dst, argv[arg_i])))
 			return (0);
-		free (arg_dst);
+		free(arg_dst);
 	}
 	return (1);
 }
 
-void	error_out(void)
+void			error_out(void)
 {
 	write(2, "Error\n", 6);
 	return ;
