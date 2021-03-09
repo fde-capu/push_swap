@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/09 11:15:03 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/09 14:36:27 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,8 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ft_regex_h1.c ft_regex_h2.c ft_insplit.c ft_strnstr.c \
 	ft_inskip.c ft_findstr.c ft_strlcpy.c ft_strlen.c \
 	ft_strfree2d.c ft_substr.c args_helpers.c stack.c \
-	ft_itoa.c ft_strcat.c ft_print.c
+	ft_itoa.c ft_strcat.c ft_print.c ft_split.c ft_strdup.c \
+	ft_xlloc.c ft_strcpy.c
 HEAD_COMMON	=	common.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g

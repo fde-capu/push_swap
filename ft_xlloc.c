@@ -1,19 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_xlloc.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 14:16:28 by fde-capu         ###   ########.fr       */
+/*   Created: 2020/03/05 02:46:48 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/09 14:23:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	ft_print_stdout(const char *str)
+/*
+** Frees arg1, returns arg2.
+*/
+
+void	*ft_xlloc(void *arg1, void *arg2)
 {
-	write(1, str, ft_strlen(str));
-	return ;
+	if (arg1)
+		free(arg1);
+	return (arg2);
+}
+
+void	*ft_x(void *a1, void *a2)
+{
+	return (ft_xlloc(a1, a2));
 }

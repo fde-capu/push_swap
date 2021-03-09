@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/20 19:18:03 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 11:06:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/09 14:45:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,24 @@ char	*ft_strcatxl(char *s1, char *s2)
 
 	x = ft_strcat(s1, s2);
 	free(s1);
+	return (x);
+}
+
+char	*ft_strcatxr(char *s1, char *s2)
+{
+	char	*x;
+
+	x = ft_strcat(s1, s2);
+	free(s2);
+	return (x);
+}
+
+char	*ft_strcatxx(char *s1, char *s2)
+{
+	char	*x;
+
+	x = ft_strcat(s1, s2);
+	free(s1);
+	free(s2);
 	return (x);
 }

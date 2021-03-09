@@ -1,19 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 14:16:28 by fde-capu         ###   ########.fr       */
+/*   Created: 2020/03/02 16:24:58 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/09 14:36:39 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	ft_print_stdout(const char *str)
+char	*ft_strcpy(char *dst, const char *src)
 {
-	write(1, str, ft_strlen(str));
-	return ;
+	char	*d;
+	char	*s;
+
+	s = (char *)src;
+	d = (char *)dst;
+	while ((s) && (*s))
+	{
+		*d = *s;
+		d++;
+		s++;
+	}
+	*d = 0;
+	return (dst);
 }
