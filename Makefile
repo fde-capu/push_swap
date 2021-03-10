@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/09 15:57:17 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/09 23:53:46 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -96,6 +96,10 @@ va:	$(NAME_A)
 vb:	$(NAME_B)
 	-$(VALGRIND) ./$(NAME_B) $(ARGS_B)
 v:	va vb
+vva: re va
+rva: vva
+vvb: re vb
+rvb: vvb
 
 vfa: $(NAME_A)
 	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)

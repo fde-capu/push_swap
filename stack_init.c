@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:55:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 15:56:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:04:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_stk	*stack_chain_init(int argc, char **argv)
 	return (stk);
 }
 
-t_stk	*init_stack(int argc, char **argv)
+t_stk	*init_stack_from_args(int argc, char **argv)
 {
 	t_stk	*stk;
 

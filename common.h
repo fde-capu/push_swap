@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 15:59:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:15:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ long long	ft_atoi(const char *str);
 int			ft_isdigit(int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strtrimx(char *s1, char *set);
-int			init_arg(t_stk **arg_dst, char *argv);
 char		*ft_check(const char *sh, char *rh);
 char		**ft_insplit(const char *str, char x);
 void		ft_strfree2d(char **str);
@@ -72,9 +71,9 @@ size_t		ft_strarrlen(char **s);
 int			ft_enclosure(char *io, char h);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 void		error_out(void);
-t_stk		*init_stack(int argc, char **argv);
+t_stk		*init_stack_from_args(int argc, char **argv);
 void		stack_log(t_stk *stk);
-int			end_routine(t_stk *stack_a);
+int			end_routine(t_stk *stack_a, t_stk *stack_b);
 void		destroy_stack(t_stk *stk);
 char		*ft_itoa(int n);
 char		*ft_strcat(const char *dst, const char *src);
@@ -97,6 +96,8 @@ t_stk		*stack_chain_init(int argc, char **argv);
 t_stk		*stack_chain_next(t_stk *stk);
 t_stk		*stack_head(t_stk *stk);
 char		*stack_double_log_level(t_stk *a, t_stk *b);
+int			repeated_int_in_arg(int argc, char **argv);
+
 
 # define TRIM_SET	" \t\n\r\v\f"
 

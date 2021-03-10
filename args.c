@@ -6,38 +6,62 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:24:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 07:45:23 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:19:06 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int				init_arg(t_stk **arg_dst, char *argv)
+int				all_strict_int(int argc, char **argv)
 {
-	int	*i_from_a;
+	int		arg_i;
+	int		*i_from_a;
 
 	i_from_a = malloc(sizeof(int));
-	if (!(strict_atoi(i_from_a, argv)))
-		return (0);
-	*arg_dst = malloc(sizeof(t_stk));
+	arg_i = 0;
+	while (++arg_i < argc)
+	{
+		if (!(strict_atoi(i_from_a, argv[arg_i])))
+			return (0);
+	}
 	free(i_from_a);
 	return (1);
 }
 
+int				chain_repeated(t_stk *stk)
+{
+	t_stk	*cmp;
+
+	while (stk)
+	{
+		cmp = stk->nx;
+		while (cmp)
+		{
+			if (cmp->val == stk->val)
+				return (1);
+			cmp = cmp->nx;
+		}
+		stk = stk->nx;
+	}	
+	return (0);
+}
+
+int				unrepeated(int argc, char **argv)
+{
+	t_stk	*stk;
+	int		is_it;
+
+	stk = init_stack_from_args(argc, argv);
+	is_it = chain_repeated(stk);
+	destroy_stack(stk);
+	return (!is_it);
+}
+
 int				validate_args(int argc, char **argv)
 {
-	t_stk	*arg_dst;
-	int		arg_i;
-
-	if (argc == 1)
+	if ((argc == 1) || (!(all_strict_int(argc, argv))) \
+		|| (!(unrepeated(argc, argv))))
 		return (0);
-	arg_i = 0;
-	while (++arg_i < argc)
-	{
-		if (!(init_arg(&arg_dst, argv[arg_i])))
-			return (0);
-		free(arg_dst);
-	}
 	return (1);
 }
 
