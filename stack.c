@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:32:03 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:32:52 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	stack_double_log(t_stk *a, t_stk *b)
 	}
 	pile = ft_strcatxx(pile, line);
 	ft_print_stdout(pile);
-	ft_print_stdout("---\t---\n a \t b \n");
+	ft_print_stdout("___\t___\n a \t b \n");
 	free (pile);
 	return ;
 }
