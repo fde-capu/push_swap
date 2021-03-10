@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 10:21:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:38:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			error_out(void);
 t_stk		*init_stack_from_args(int argc, char **argv);
 void		stack_log(t_stk *stk);
-int			end_routine(t_stk *stack_a, t_stk *stack_b);
+int			end_routine(t_stk *stack_a, t_stk *stack_b, int out);
 void		destroy_stack(t_stk *stk);
 char		*ft_itoa(int n);
 char		*ft_strcat(const char *dst, const char *src);
@@ -99,7 +99,7 @@ t_stk		*stack_head(t_stk *stk);
 char		*stack_double_log_level(t_stk *a, t_stk *b);
 int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
-void		gnl(void);
+int			gnl(t_stk *a, t_stk *b);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char		*ft_strstr(const char *a, const char *b);
 
