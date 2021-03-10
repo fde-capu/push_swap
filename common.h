@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:34:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:56:15 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ t_stk		*stack_head(t_stk *stk);
 char		*stack_double_log_level(t_stk *a, t_stk *b);
 int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
+void		gnl(void);
 
 
 # define TRIM_SET	" \t\n\r\v\f"

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:38:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 01:08:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,20 @@ int	end_routine(t_stk *stack_a, t_stk *stack_b)
 	return (0);
 }
 
+void	gnl(void)
+{
+	char	*line;
+	
+	line = 0;
+	while (get_next_line(0, &line))
+	{
+		ft_print_stdout(line);
+		free(line);
+	}
+	free(line);
+	return ;
+}
+
 int	main(int argc, char **argv)
 {
 	t_stk	*stack_a;
@@ -29,6 +43,7 @@ int	main(int argc, char **argv)
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
 		stack_double_log(stack_a, stack_b);
+		gnl();
 		exit(end_routine(stack_a, stack_b));
 	}
 	else
