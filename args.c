@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:24:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:19:06 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:34:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int				validate_args(int argc, char **argv)
 	return (1);
 }
 
-void			error_out(void)
+int				error_out(void)
 {
 	write(2, "Error\n", 6);
-	return ;
+	return (1);
 }

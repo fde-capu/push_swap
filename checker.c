@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:23:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:35:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,12 @@ int	main(int argc, char **argv)
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
 		stack_double_log(stack_a, stack_b);
-		printf("valid ");
 		exit(end_routine(stack_a, stack_b));
 	}
 	else
 	{
 		if (argc != 1)
-			error_out();
+			exit(error_out());
+		exit (0);
 	}
-	exit (0);
 }
