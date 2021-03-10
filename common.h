@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:15:59 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:26:53 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct			s_stack
 	int					val;
 	struct s_stack		*nx;
 	struct s_stack		*pv;
+	int					empty;
 }						t_stk;
 
 long long	ft_atoi(const char *str);
@@ -97,6 +98,7 @@ t_stk		*stack_chain_next(t_stk *stk);
 t_stk		*stack_head(t_stk *stk);
 char		*stack_double_log_level(t_stk *a, t_stk *b);
 int			repeated_int_in_arg(int argc, char **argv);
+t_stk		*init_stack_empty(void);
 
 
 # define TRIM_SET	" \t\n\r\v\f"

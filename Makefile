@@ -6,11 +6,11 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/09 23:53:46 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/10 00:21:40 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ARGS_A		=	1 2 3
+ARGS_A		=	1 2 3 5 0 4
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c

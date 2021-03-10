@@ -6,11 +6,20 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:55:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:04:33 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:27:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+t_stk	*init_stack_empty(void)
+{
+	t_stk	*stk;
+
+	stk = ft_calloc(sizeof(t_stk), 1);
+	stk->empty = 1;
+	return (stk);
+}
 
 t_stk	*stack_chain_init(int argc, char **argv)
 {

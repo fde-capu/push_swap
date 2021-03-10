@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 15:58:00 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 00:29:34 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	*stack_double_log_level(t_stk *a, t_stk *b)
 {
 	char	*line;
 
-	if (a && b)
+	if ((a && b) && (!(a->empty) && !(b->empty)))
 	{
 		line = ft_itoa(a->val);
 		line = ft_strcatxl(line, "\t");
@@ -38,13 +38,13 @@ char	*stack_double_log_level(t_stk *a, t_stk *b)
 		line = ft_strcatxl(line, "\n");
 		return (line);
 	}
-	if (a)
+	if ((a) && !(a->empty))
 	{
 		line = ft_itoa(a->val);
 		line = ft_strcatxl(line, "\n");
 		return (line);
 	}
-	if (b)
+	if ((b) && !(b->empty))
 	{
 		line = ft_str("    \t");
 		line = ft_strcatxx(line, ft_itoa(b->val));
