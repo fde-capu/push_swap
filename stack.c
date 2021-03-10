@@ -6,73 +6,31 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 01:14:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:00:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	stack_log(t_stk *stk)
+t_stk	*stack_head(t_stk *stk)
 {
-	char	*str;
-
-	while (stk)
-	{
-		str = ft_strcatxl(ft_itoa(stk->val), "\n");
-		ft_print_stdout(str);
-		free(str);
-		stk = stk->nx;
-	}
-	return ;
+	if (stk->pv)
+		return (stack_head(stk->pv));
+	return (stk);
 }
 
-char	*stack_double_log_level(t_stk *a, t_stk *b)
+t_stk	*stack_tail(t_stk *stk)
 {
-	char	*line;
-
-	if ((a && b) && (!(a->empty) && !(b->empty)))
-	{
-		line = ft_itoa(a->val);
-		line = ft_strcatxl(line, "\t");
-		line = ft_strcatxx(line, ft_itoa(b->val));
-		line = ft_strcatxl(line, "\n");
-		return (line);
-	}
-	if ((a) && !(a->empty))
-	{
-		line = ft_itoa(a->val);
-		line = ft_strcatxl(line, "\n");
-		return (line);
-	}
-	if ((b) && !(b->empty))
-	{
-		line = ft_str("    \t");
-		line = ft_strcatxx(line, ft_itoa(b->val));
-		line = ft_strcatxl(line, "\n");
-		return (line);
-	}
-	return (0);
+	if (stk->nx)
+		return (stack_tail(stk->nx));
+	return (stk);
 }
 
-void	stack_double_log(t_stk *a, t_stk *b)
+int		stack_size(t_stk *stk)
 {
-	char	*line;
-	char	*pile;
-
-	pile = ft_strnew();
-	line = ft_strnew();
-	while (a || b)
-	{
-		pile = ft_strcatxx(pile, line);
-		line = stack_double_log_level(a, b);
-		if (a)
-			a = a->nx;
-		if (b)
-			b = b->nx;
-	}
-	pile = ft_strcatxx(pile, line);
-	ft_print_stdout(pile);
-	ft_print_stdout("___\t___\n a \t b \n");
-	free (pile);
-	return ;
+	if (stk->empty)
+		return (0);
+	if (stk->nx)
+		return (1 + stack_size(stk->nx));
+	return (1);
 }

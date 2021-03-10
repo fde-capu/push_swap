@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 10:38:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 13:53:48 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,9 @@ int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
 int			gnl(t_stk *a, t_stk *b);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
+void		op_exec(char *op, t_stk **a, t_stk **b);
 char		*ft_strstr(const char *a, const char *b);
+char		*ft_strx1(char *s);
 
 
 # define TRIM_SET	" \t\n\r\v\f"
