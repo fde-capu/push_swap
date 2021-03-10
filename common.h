@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 14:52:33 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:07:41 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ typedef struct			s_stack
 	int					val;
 	struct s_stack		*nx;
 	struct s_stack		*pv;
-	int					empty;
 }						t_stk;
 
 long long	ft_atoi(const char *str);
@@ -74,7 +73,6 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			error_out(void);
 t_stk		*init_stack_from_args(int argc, char **argv);
 void		stack_log(t_stk *stk);
-int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out);
 void		destroy_stack(t_stk *stk);
 char		*ft_itoa(int n);
 char		*ft_strcat(const char *dst, const char *src);
@@ -100,11 +98,22 @@ char		*stack_double_log_level(t_stk *a, t_stk *b);
 int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
-void		op_exec(char *op, t_stk **a, t_stk **b);
+void		op_exec(char **ops, t_stk **a, t_stk **b);
 char		*ft_strstr(const char *a, const char *b);
 char		*ft_strx1(char *s);
-int			validate_stdin_ops(char ***ops);
-int			validate_op(char *op);
+int			ft_stridentical(const char *s1, const char *s2);
+void		sa(t_stk **a, t_stk **b);
+void		sb(t_stk **a, t_stk **b);
+void		ss(t_stk **a, t_stk **b);
+void		pa(t_stk **a, t_stk **b);
+void		pb(t_stk **a, t_stk **b);
+void		ra(t_stk **a, t_stk **b);
+void		rb(t_stk **a, t_stk **b);
+void		rr(t_stk **a, t_stk **b);
+void		rra(t_stk **a, t_stk **b);
+void		rrb(t_stk **a, t_stk **b);
+void		rrr(t_stk **a, t_stk **b);
+void		switch_top(t_stk **s);
 
 
 # define TRIM_SET	" \t\n\r\v\f"

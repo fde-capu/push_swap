@@ -1,36 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   ops_p.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 17:04:45 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/03/10 18:03:40 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/10 18:07:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-t_stk	*stack_head(t_stk *stk)
+void	push_top(t_stk **dst, t_stk **src)
 {
-	if (stk->pv)
-		return (stack_head(stk->pv));
-	return (stk);
+	t_stk	*h;
+
+	if (!(*src))
+		return ;
+	h = (*src);
+	(*src) = (*src)->nx;
+	h->nx = (*dst);
+	if (*dst)
+		(*dst)->pv = h;
+	(*dst) = h;
+	return ;
 }
 
-t_stk	*stack_tail(t_stk *stk)
-{
-	if (stk->nx)
-		return (stack_tail(stk->nx));
-	return (stk);
+void	pa(t_stk **a, t_stk **b)
+{ 
+	push_top(a, b);
+	return ;
 }
 
-int		stack_size(t_stk *stk)
-{
-	if (!stk)
-		return (0);
-	if (stk->nx)
-		return (1 + stack_size(stk->nx));
-	return (1);
+void	pb(t_stk **a, t_stk **b)
+{ 
+	push_top(b, a);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 14:02:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:06:18 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,19 @@
 void	stack_log(t_stk *stk)
 {
 	char	*str;
+	int		something;
 
+	something = 0;
 	while (stk)
 	{
-		if (!(stk->empty))
-		{
-			str = ft_strcatxl(ft_itoa(stk->val), "\n");
-			ft_print_stdout(str);
-			free(str);
-		}
-		else
-			ft_print_stdout("(empty)\n");
+		str = ft_strcatxl(ft_itoa(stk->val), "\n");
+		ft_print_stdout(str);
+		free(str);
+		something = 1;
 		stk = stk->nx;
 	}
+	if (!something)
+		ft_print_stdout("(empty)\n");
 	return ;
 }
 
@@ -35,7 +35,7 @@ char	*stack_double_log_level(t_stk *a, t_stk *b)
 {
 	char	*line;
 
-	if ((a && b) && (!(a->empty) && !(b->empty)))
+	if (a && b)
 	{
 		line = ft_itoa(a->val);
 		line = ft_strcatxl(line, "\t");
@@ -43,13 +43,13 @@ char	*stack_double_log_level(t_stk *a, t_stk *b)
 		line = ft_strcatxl(line, "\n");
 		return (line);
 	}
-	if ((a) && !(a->empty))
+	if (a)
 	{
 		line = ft_itoa(a->val);
 		line = ft_strcatxl(line, "\n");
 		return (line);
 	}
-	if ((b) && !(b->empty))
+	if (b)
 	{
 		line = ft_str("    \t");
 		line = ft_strcatxx(line, ft_itoa(b->val));

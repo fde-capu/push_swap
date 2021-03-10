@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:55:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:27:33 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 17:09:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,7 @@
 
 t_stk	*init_stack_empty(void)
 {
-	t_stk	*stk;
-
-	stk = ft_calloc(sizeof(t_stk), 1);
-	stk->empty = 1;
-	return (stk);
+	return (0);
 }
 
 t_stk	*stack_chain_init(int argc, char **argv)
@@ -48,6 +44,8 @@ t_stk	*init_stack_from_args(int argc, char **argv)
 
 void	destroy_stack(t_stk *stk)
 {
+	if (!stk)
+		return ;
 	if (stk->nx)
 		destroy_stack(stk->nx);
 	free(stk);

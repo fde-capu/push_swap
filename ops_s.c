@@ -1,36 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   stack.c                                            :+:      :+:    :+:   */
+/*   ops_s.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 17:04:45 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/03/10 16:20:16 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/10 18:07:03 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-t_stk	*stack_head(t_stk *stk)
+void	switch_top(t_stk **s)
 {
-	if (stk->pv)
-		return (stack_head(stk->pv));
-	return (stk);
+	if (stack_size(*s) <= 1)
+		return ;
+	(*s) = (*s)->nx;
+	(*s)->pv->nx = (*s)->nx;
+	(*s)->nx = (*s)->pv;
+	(*s)->pv = 0;
+	return ;
 }
 
-t_stk	*stack_tail(t_stk *stk)
-{
-	if (stk->nx)
-		return (stack_tail(stk->nx));
-	return (stk);
+void	sa(t_stk **a, t_stk **b)
+{ 
+	switch_top(a);
+	(void)b;
+	return ;
 }
 
-int		stack_size(t_stk *stk)
-{
-	if (!stk)
-		return (0);
-	if (stk->nx)
-		return (1 + stack_size(stk->nx));
-	return (1);
+void	sb(t_stk **a, t_stk **b)
+{ 
+	switch_top(b);
+	(void)a;
+	return ;
+}
+
+void	ss(t_stk **a, t_stk **b)
+{ 
+	switch_top(a);
+	switch_top(b);
+	return ;
 }
