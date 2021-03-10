@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 00:56:15 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:21:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 
 
 
-
+# define OP_NAMES		"sa sb ss pa pb ra rb rr rra rrb rrr"
 
 typedef struct			s_stack
 {
@@ -100,6 +100,8 @@ char		*stack_double_log_level(t_stk *a, t_stk *b);
 int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
 void		gnl(void);
+char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
+char		*ft_strstr(const char *a, const char *b);
 
 
 # define TRIM_SET	" \t\n\r\v\f"

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 01:08:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 10:24:18 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,15 @@ int	end_routine(t_stk *stack_a, t_stk *stack_b)
 	return (0);
 }
 
+int		validate_op(char *op)
+{
+	if (ft_check(op, " *"))
+		return (0);
+	if (ft_strstr(op, OP_NAMES))
+		return (1);
+	return (0);
+}
+
 void	gnl(void)
 {
 	char	*line;
@@ -26,7 +35,10 @@ void	gnl(void)
 	line = 0;
 	while (get_next_line(0, &line))
 	{
-		ft_print_stdout(line);
+		if (validate_op(line))
+			ft_print_stdout("valid");
+		else
+			ft_print_stdout("INvalid");
 		free(line);
 	}
 	free(line);
