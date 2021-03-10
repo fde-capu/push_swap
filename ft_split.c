@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/27 10:48:36 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 14:02:58 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:56:04 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ char		**ft_split(char const *s, char c)
 	int		i;
 	int		w;
 
+	if (!s)
+		return (0);
 	z = (char *)s;
 	spl = (char **)ft_calloc(sizeof(char *) * (stc_count(z, c) + 1), 1);
 	if (!spl)

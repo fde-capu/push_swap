@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 11:39:18 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 14:50:17 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 14:58:40 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,11 @@ int			validate_stdin_ops(char ***ops)
 		free(line);
 	}
 	free(line);
+	if (!ops_stream)
+	{
+		free(ops_stream);
+		return (0);
+	}
 	printf(">>>%s<<<\n", ops_stream);
 	*ops = ft_split(ops_stream, ',');
 	free(ops_stream);
