@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:18:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 00:18:45 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,8 @@ void	stack_double_log_bottom(int size_a, int size_b)
 	pile = ft_strcatxx(pile, ft_itoa(size_a));
 	pile = ft_strcatxl(pile, ")\t(");
 	pile = ft_strcatxx(pile, ft_itoa(size_b));
-	pile = ft_strcatxl(pile, ")\n a \t b \n");
+	pile = ft_strcatxl(pile, ")\n a \t b \n\n");
+	ft_print_stdout(pile);
 	free(pile);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:39:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 00:29:58 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <stdlib.h>
 # include <limits.h>
 # include <unistd.h>
-# include <stdio.h>
 # include "defs.h"
 
 long long	ft_atoi(const char *str);

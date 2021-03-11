@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:17:20 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:36:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 00:17:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int			validate_stdin_ops(char ***ops)
 	while (get_next_line(0, &line))
 	{
 		if (!(validate_op(line)))
+		{
 			return (xxret(line, ops_stream, 0));
+		}
 		if (ops_stream)
 		{
 			ops_stream = ft_strcatxl(ops_stream, ",");
@@ -51,5 +53,5 @@ int			validate_stdin_ops(char ***ops)
 	if (!ops_stream)
 		return (xxret(line, ops_stream, 0));
 	*ops = ft_split(ops_stream, ',');
-	return (xxret(line, op_stream, 0));
+	return (xxret(line, ops_stream, 1));
 }

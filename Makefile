@@ -6,11 +6,13 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/10 23:09:30 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/11 00:32:20 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-ARGS_A		=	1 2 3 5 0 4
+SHELL		=	/bin/bash
+ARGS_A_PRE	=	echo -e "sa\nsa" |
+ARGS_A		=	1 2 3
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c get_next_line_bonus.c get_next_line_utils_bonus.c \
@@ -82,9 +84,9 @@ reb:	fcleanb $(NAME_B)
 re:		fclean all
 
 ta:		$(NAME_A)
-	-./$(NAME_A) $(ARGS_A)
+	$(ARGS_A_PRE) ./$(NAME_A) $(ARGS_A)
 tb:		$(NAME_B)
-	-./$(NAME_B) $(ARGS_B)
+	./$(NAME_B) $(ARGS_B)
 t:		ta tb
 
 rta:	rea ta
@@ -95,9 +97,9 @@ tt:		rt
 vv:	re v
 rv:	vv
 va:	$(NAME_A)
-	-$(VALGRIND) ./$(NAME_A) $(ARGS_A)
+	$(ARGS_A_PRE) $(VALGRIND) ./$(NAME_A) $(ARGS_A)
 vb:	$(NAME_B)
-	-$(VALGRIND) ./$(NAME_B) $(ARGS_B)
+	$(VALGRIND) ./$(NAME_B) $(ARGS_B)
 v:	va vb
 vva: re va
 rva: vva
@@ -105,7 +107,7 @@ vvb: re vb
 rvb: vvb
 
 vfa: $(NAME_A)
-	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
+	$(ARGS_A_PRE) $(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
 vfb: $(NAME_B)
-	-$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_B)
+	$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_B)
 vf:	vfa vfb

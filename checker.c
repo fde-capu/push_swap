@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:38:10 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 00:20:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,10 @@ int			main(int argc, char **argv)
 	{
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
-		ft_print_stdout("Initial:\n");
+		ft_print_stdout("\nInitial:\n\n");
 		stack_double_log(stack_a, stack_b);
 		op_exec(ops, &stack_a, &stack_b);
-		ft_print_stdout("Final:\n");
+		ft_print_stdout("Final:\n\n");
 		stack_double_log(stack_a, stack_b);
 		if (is_in_order(stack_a) && !(stack_size(stack_b)))
 			exit(end_routine(stack_a, stack_b, ops, OK));

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:57:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 16:42:03 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 00:29:18 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,9 @@ void	op_exec(char **ops, t_stk **stack_a, t_stk **stack_b)
 {
 	while (*ops)
 	{
-		printf(">>> %s \n", *ops);
+		ft_print_stdout(">>> ");
+		ft_print_stdout(*ops);
+		ft_print_stdout("\n\n");
 		op_run_str(*ops, stack_a, stack_b);
 		stack_double_log(*stack_a, *stack_b);
 		ops++;
