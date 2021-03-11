@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 18:03:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 18:07:28 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:18:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,13 @@ void	push_top(t_stk **dst, t_stk **src)
 }
 
 void	pa(t_stk **a, t_stk **b)
-{ 
+{
 	push_top(a, b);
 	return ;
 }
 
 void	pb(t_stk **a, t_stk **b)
-{ 
+{
 	push_top(b, a);
 	return ;
 }

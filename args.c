@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:24:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 14:38:38 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:38:44 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int				chain_repeated(t_stk *stk)
 			cmp = cmp->nx;
 		}
 		stk = stk->nx;
-	}	
+	}
 	return (0);
 }
 

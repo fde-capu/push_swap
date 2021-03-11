@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 17:06:18 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:18:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,19 @@ char	*stack_double_log_level(t_stk *a, t_stk *b)
 	return (0);
 }
 
+void	stack_double_log_bottom(int size_a, int size_b)
+{
+	char	*pile;
+
+	pile = ft_str("___\t___\n(");
+	pile = ft_strcatxx(pile, ft_itoa(size_a));
+	pile = ft_strcatxl(pile, ")\t(");
+	pile = ft_strcatxx(pile, ft_itoa(size_b));
+	pile = ft_strcatxl(pile, ")\n a \t b \n");
+	free(pile);
+	return ;
+}
+
 void	stack_double_log(t_stk *a, t_stk *b)
 {
 	char	*line;
@@ -79,12 +92,8 @@ void	stack_double_log(t_stk *a, t_stk *b)
 			b = b->nx;
 	}
 	pile = ft_strcatxx(pile, line);
-	pile = ft_strcatxl(pile, "___\t___\n(");
-	pile = ft_strcatxx(pile, ft_itoa(stack_size(stk[0])));
-	pile = ft_strcatxl(pile, ")\t(");
-	pile = ft_strcatxx(pile, ft_itoa(stack_size(stk[1])));
-	pile = ft_strcatxl(pile, ")\n a \t b \n");
 	ft_print_stdout(pile);
-	free (pile);
+	stack_double_log_bottom(stack_size(stk[0]), stack_size(stk[1]));
+	free(pile);
 	return ;
 }

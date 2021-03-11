@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:17:20 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 16:17:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:36:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,13 @@ int			validate_op(char *op)
 	return (0);
 }
 
+int			xxret(char *a, char *b, int ret)
+{
+	free(a);
+	free(b);
+	return (ret);
+}
+
 int			validate_stdin_ops(char ***ops)
 {
 	char	*line;
@@ -31,11 +38,7 @@ int			validate_stdin_ops(char ***ops)
 	while (get_next_line(0, &line))
 	{
 		if (!(validate_op(line)))
-		{
-			free(line);
-			free(ops_stream);
-			return (0);
-		}
+			return (xxret(line, ops_stream, 0));
 		if (ops_stream)
 		{
 			ops_stream = ft_strcatxl(ops_stream, ",");
@@ -45,13 +48,8 @@ int			validate_stdin_ops(char ***ops)
 			ops_stream = ft_str(line);
 		free(line);
 	}
-	free(line);
 	if (!ops_stream)
-	{
-		free(ops_stream);
-		return (0);
-	}
+		return (xxret(line, ops_stream, 0));
 	*ops = ft_split(ops_stream, ',');
-	free(ops_stream);
-	return (1);
+	return (xxret(line, op_stream, 0));
 }

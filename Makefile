@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/10 18:05:50 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/10 23:09:30 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ft_xlloc.c ft_strcpy.c stack_init.c stack_ops.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
 	ops_r.c ops_rr.c
-HEAD_COMMON	=	common.h
+HEAD_COMMON	=	common.h defs.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g
 OBJS_A		=	$(SRCS_A:.c=.o)

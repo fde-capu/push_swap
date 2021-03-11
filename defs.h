@@ -1,45 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ops_s.c                                            :+:      :+:    :+:   */
+/*   defs.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/10 16:20:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:13:57 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/10 23:13:00 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "common.h"
+#ifndef DEFS_H
+# define DEFS_H
 
-void	switch_top(t_stk **s)
-{
-	if (stack_size(*s) <= 1)
-		return ;
-	(*s) = (*s)->nx;
-	(*s)->pv->nx = (*s)->nx;
-	(*s)->nx = (*s)->pv;
-	(*s)->pv = 0;
-	return ;
-}
+# define OP_NAMES	"sa sb ss pa pb ra rb rr rra rrb rrr"
 
-void	sa(t_stk **a, t_stk **b)
-{
-	switch_top(a);
-	(void)b;
-	return ;
-}
+# define ER	-1
+# define OK	0
+# define KO	1
 
-void	sb(t_stk **a, t_stk **b)
-{
-	switch_top(b);
-	(void)a;
-	return ;
-}
+# define FUN_DIG		1
+# define FUN_PAR		2
+# define FUN_SET		3
+# define FUN_CHR		4
+# define ENCLOSURES		"()[]{}"
+# define ENCLOSE_OPEN	"([{"
+# define TRIM_SET		" \t\n\r\v\f"
 
-void	ss(t_stk **a, t_stk **b)
+typedef struct			s_stack
 {
-	switch_top(a);
-	switch_top(b);
-	return ;
-}
+	int					val;
+	struct s_stack		*nx;
+	struct s_stack		*pv;
+}						t_stk;
+
+#endif

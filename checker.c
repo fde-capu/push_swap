@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:05:44 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:38:10 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 	{
 		error_out();
 		ft_strfree2d(ops);
-		return(-1);
+		return (-1);
 	}
 	if (out == KO)
 	{
 		ft_print_stdout("KO\n");
 		ft_strfree2d(ops);
-		return(0);
+		return (0);
 	}
 	if (out == OK)
 	{
@@ -77,7 +77,9 @@ int			main(int argc, char **argv)
 		exit(end_routine(stack_a, stack_b, ops, KO));
 	}
 	else
+	{
 		if (argc != 1)
 			exit(error_out());
-	exit (0);
+	}
+	exit(0);
 }

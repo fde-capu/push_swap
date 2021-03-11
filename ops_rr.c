@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 18:05:05 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 18:07:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:19:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,21 @@ void	reverse_rotate(t_stk **s)
 }
 
 void	rra(t_stk **a, t_stk **b)
-{ 
+{
 	reverse_rotate(a);
 	(void)b;
 	return ;
 }
 
 void	rrb(t_stk **a, t_stk **b)
-{ 
+{
 	reverse_rotate(b);
 	(void)a;
 	return ;
 }
 
 void	rrr(t_stk **a, t_stk **b)
-{ 
+{
 	reverse_rotate(a);
 	reverse_rotate(b);
 	return ;

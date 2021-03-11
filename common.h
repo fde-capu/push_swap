@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:05:17 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:39:51 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,26 +17,7 @@
 # include <limits.h>
 # include <unistd.h>
 # include <stdio.h>
-
-
-
-
-
-# include <stdio.h>
-
-
-
-# define OP_NAMES		"sa sb ss pa pb ra rb rr rra rrb rrr"
-# define ER	-1
-# define OK	0
-# define KO	1
-
-typedef struct			s_stack
-{
-	int					val;
-	struct s_stack		*nx;
-	struct s_stack		*pv;
-}						t_stk;
+# include "defs.h"
 
 long long	ft_atoi(const char *str);
 int			ft_isdigit(int c);
@@ -103,7 +84,6 @@ t_stk		*init_stack_empty(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void		op_exec(char **ops, t_stk **a, t_stk **b);
 char		*ft_strstr(const char *a, const char *b);
-char		*ft_strx1(char *s);
 int			ft_stridentical(const char *s1, const char *s2);
 void		sa(t_stk **a, t_stk **b);
 void		sb(t_stk **a, t_stk **b);
@@ -119,21 +99,5 @@ void		rrr(t_stk **a, t_stk **b);
 void		switch_top(t_stk **s);
 void		ft_print_x(char *str);
 size_t		ft_strlen2d(char **s);
-
-
-# define TRIM_SET	" \t\n\r\v\f"
-
-/*
-** ft_check related:
-*/
-
-# define REG_DOUBLE				"-?\\d+\\.?\\d*"
-# define REG_UDOUBLE			"\\d+\\.?\\d*"
-# define FUN_DIG				1
-# define FUN_PAR				2
-# define FUN_SET				3
-# define FUN_CHR				4
-# define ENCLOSURES				"()[]{}"
-# define ENCLOSE_OPEN			"([{"
 
 #endif
