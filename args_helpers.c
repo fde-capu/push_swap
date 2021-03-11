@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 00:00:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 07:48:56 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 08:34:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	strict_atoi(int *i_from_a, const char *argv)
 
 	int_bounds = ft_atol(argv);
 	if ((!(ft_check(argv, "[-+]?[0123456789]+$")))
-	|| ((int_bounds < INT_MIN) || (int_bounds > INT_MAX)))
+	|| ((int_bounds < INT_MIN) || (int_bounds > INT_MAX))
+	|| (ft_check(argv, "[-+]$")))
 	{
 		free(i_from_a);
 		return (0);
