@@ -6,13 +6,13 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/11 00:32:20 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/11 07:50:53 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/bash
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	1 2 3
+ARGS_A		=	1 -2147483649 3
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c get_next_line_bonus.c get_next_line_utils_bonus.c \
@@ -28,7 +28,7 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ft_itoa.c ft_strcat.c ft_print.c ft_split.c ft_strdup.c \
 	ft_xlloc.c ft_strcpy.c stack_init.c stack_ops.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
-	ops_r.c ops_rr.c
+	ops_r.c ops_rr.c ft_atol.c
 HEAD_COMMON	=	common.h defs.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g
@@ -86,7 +86,7 @@ re:		fclean all
 ta:		$(NAME_A)
 	$(ARGS_A_PRE) ./$(NAME_A) $(ARGS_A)
 tb:		$(NAME_B)
-	./$(NAME_B) $(ARGS_B)
+	./$(NAME_B) $(ARGS_A)
 t:		ta tb
 
 rta:	rea ta
@@ -99,7 +99,7 @@ rv:	vv
 va:	$(NAME_A)
 	$(ARGS_A_PRE) $(VALGRIND) ./$(NAME_A) $(ARGS_A)
 vb:	$(NAME_B)
-	$(VALGRIND) ./$(NAME_B) $(ARGS_B)
+	$(VALGRIND) ./$(NAME_B) $(ARGS_A)
 v:	va vb
 vva: re va
 rva: vva
@@ -109,5 +109,5 @@ rvb: vvb
 vfa: $(NAME_A)
 	$(ARGS_A_PRE) $(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
 vfb: $(NAME_B)
-	$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_B)
+	$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_A)
 vf:	vfa vfb

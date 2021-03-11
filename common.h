@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 00:29:58 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/11 07:49:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 # include <unistd.h>
 # include "defs.h"
 
+
+#include <stdio.h>
+
 long long	ft_atoi(const char *str);
+long long	ft_atol(const char *str);
 int			ft_isdigit(int c);
 char		*ft_strtrim(char const *s1, char const *set);
 char		*ft_strtrimx(char *s1, char *set);
