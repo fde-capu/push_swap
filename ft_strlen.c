@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:24:42 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:30:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:04:13 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,9 @@ size_t	ft_strarrlen(char **s)
 	while ((s[l]) && (*s[l]))
 		l++;
 	return (l);
+}
+
+size_t	ft_strlen2d(char **s)
+{
+	return (ft_strarrlen(s));
 }

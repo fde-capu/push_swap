@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 17:07:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/10 23:05:17 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@
 
 
 # define OP_NAMES		"sa sb ss pa pb ra rb rr rra rrb rrr"
+# define ER	-1
+# define OK	0
+# define KO	1
 
 typedef struct			s_stack
 {
@@ -78,6 +81,7 @@ char		*ft_itoa(int n);
 char		*ft_strcat(const char *dst, const char *src);
 char		*ft_strcatxl(char *s1, char *s2);
 void		ft_print_stdout(const char *str);
+void		ft_print_x(char *str);
 t_stk		*stack_tail(t_stk *stk);
 char		**ft_split(char const *s, char c);
 int			stack_size(t_stk *stk);
@@ -95,7 +99,6 @@ t_stk		*stack_chain_init(int argc, char **argv);
 t_stk		*stack_chain_next(t_stk *stk);
 t_stk		*stack_head(t_stk *stk);
 char		*stack_double_log_level(t_stk *a, t_stk *b);
-int			repeated_int_in_arg(int argc, char **argv);
 t_stk		*init_stack_empty(void);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 void		op_exec(char **ops, t_stk **a, t_stk **b);
@@ -114,6 +117,8 @@ void		rra(t_stk **a, t_stk **b);
 void		rrb(t_stk **a, t_stk **b);
 void		rrr(t_stk **a, t_stk **b);
 void		switch_top(t_stk **s);
+void		ft_print_x(char *str);
+size_t		ft_strlen2d(char **s);
 
 
 # define TRIM_SET	" \t\n\r\v\f"
