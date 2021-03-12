@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 11:06:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 13:18:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ int			ft_enclosure(char *io, char h);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			error_out(void);
 t_stk		*init_stack_from_args(int argc, char **argv);
+t_stk		*stack_init(char *stk_str);
 void		stack_log(t_stk *stk);
 void		destroy_stack(t_stk *stk);
 char		*ft_itoa(int n);
@@ -105,5 +106,6 @@ void		ft_print_x(char *str);
 size_t		ft_strlen2d(char **s);
 t_stk		*stack_clone(t_stk *s);
 void		strategy_destroy(t_ttg *k);
+void		op_run_str(char *o, t_stk **a, t_stk **b);
 
 #endif

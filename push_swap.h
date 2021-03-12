@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 10:38:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 12:43:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 void		sort_flush(t_stk **a, t_stk **b);
 t_ttg		**init_known_strategies(t_ttg **k);
 void		solve_known_strategies(t_ttg *k, t_stk *a);
+char		*gen_split_low_high(t_stk **a, t_stk **b, int about);
 
 #endif
