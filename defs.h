@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:13:00 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 10:32:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,21 @@
 # define ENCLOSE_OPEN	"([{"
 # define TRIM_SET		" \t\n\r\v\f"
 
-typedef struct			s_stack
+typedef struct			s_tack
 {
 	int					val;
-	struct s_stack		*nx;
-	struct s_stack		*pv;
-}						t_stk;
+	struct s_tack		*nx;
+	struct s_tack		*pv;
+}						t_stk, t_stack_buffer;
+
+typedef struct			s_trategy
+{
+	char				*(*function)(t_stk **a, t_stk **b);
+	char				*formula;
+	int					result;
+	t_stack_buffer		*a;
+	t_stack_buffer		*b;
+	struct s_trategy	*nx;
+}						t_ttg;
 
 #endif

@@ -6,19 +6,18 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/11 07:50:53 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/11 08:56:59 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/bash
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	1 -2147483649 3
+ARGS_A		=	1 2 -3 4 -6 3
 NAME_A		=	checker
 NAME_B		=	push_swap
-SRCS_A		=	checker.c get_next_line_bonus.c get_next_line_utils_bonus.c \
-	ops_check.c
-SRCS_B		=	push_swap.c
-HEADS_A		=	checker.h get_next_line_bonus.h
+SRCS_A		=	checker.c ops_check.c
+SRCS_B		=	push_swap.c known_strategies.c
+HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
 SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ft_calloc.c ft_bzero.c ft_chrinset.c ft_regex.c \
@@ -28,8 +27,9 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ft_itoa.c ft_strcat.c ft_print.c ft_split.c ft_strdup.c \
 	ft_xlloc.c ft_strcpy.c stack_init.c stack_ops.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
-	ops_r.c ops_rr.c ft_atol.c
-HEAD_COMMON	=	common.h defs.h
+	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
+	get_next_line_utils_bonus.c
+HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g
 OBJS_A		=	$(SRCS_A:.c=.o)
@@ -42,72 +42,57 @@ VALGFLAGS	=	--leak-check=full \
 				--show-reachable=yes
 
 all:		$(NAME_A) $(NAME_B)
-
 a:			$(NAME_A)
 b:			$(NAME_B)
 
 $(NAME_A):	$(OBJS_A) $(OBJS_COMMON)
 	$(CC) $(CCFLAGS) $(OBJS_A) $(OBJS_COMMON) -o $(NAME_A)
-
 $(NAME_B):	$(OBJS_B) $(OBJS_COMMON)
 	$(CC) $(CCFLAGS) $(OBJS_B) $(OBJS_COMMON) -o $(NAME_B)
-
 $(OBJS_A):	%.o : %.c $(HEADS_A)
 	$(CC) $(CCFLAGS) -o $@ -c $<
-
 $(OBJS_B):	%.o : %.c $(HEADS_B)
 	$(CC) $(CCFLAGS) -o $@ -c $<
-
 $(OBJS_COMMON):	%.o : %.c $(HEAD_COMMON)
 	$(CC) $(CCFLAGS) -o $@ -c $<
 
 fclean:		fcleana fcleanb
-
 clean:		cleana cleanb
-
 fcleana:	cleana
 	-rm -f $(NAME_A)
-
 fcleanb:	cleanb
 	-rm -f $(NAME_B)
 	-rm -f $(OBJS_COMMON)
-
 cleana:
 	-rm -f $(OBJS_A)
 	-rm -f $(OBJS_COMMON)
-
 cleanb:
 	-rm -f $(OBJS_B)
-
-rea:	fcleana $(NAME_A)
-reb:	fcleanb $(NAME_B)
-re:		fclean all
-
-ta:		$(NAME_A)
+rea:		fcleana $(NAME_A)
+reb:		fcleanb $(NAME_B)
+re:			fclean all
+ta:			$(NAME_A)
 	$(ARGS_A_PRE) ./$(NAME_A) $(ARGS_A)
-tb:		$(NAME_B)
+tb:			$(NAME_B)
 	./$(NAME_B) $(ARGS_A)
-t:		ta tb
-
-rta:	rea ta
-rtb:	reb tb
-rt:		re t
-tt:		rt
-
-vv:	re v
-rv:	vv
-va:	$(NAME_A)
+t:			ta tb
+rta:		rea ta
+rtb:		reb tb
+rt:			re t
+tt:			rt
+vv:			re v
+rv:			vv
+va:			$(NAME_A)
 	$(ARGS_A_PRE) $(VALGRIND) ./$(NAME_A) $(ARGS_A)
-vb:	$(NAME_B)
+vb:			$(NAME_B)
 	$(VALGRIND) ./$(NAME_B) $(ARGS_A)
-v:	va vb
-vva: re va
-rva: vva
-vvb: re vb
-rvb: vvb
-
-vfa: $(NAME_A)
+v:			va vb
+vva:		re va
+rva: 		vva
+vvb: 		re vb
+rvb: 		vvb
+vfa:		$(NAME_A)
 	$(ARGS_A_PRE) $(VALGRIND) $(VALGFLAGS) ./$(NAME_A) $(ARGS_A)
-vfb: $(NAME_B)
+vfb:		$(NAME_B)
 	$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_A)
-vf:	vfa vfb
+vf:			vfa vfb
