@@ -1,22 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
+/*   stack_init_2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 10:38:34 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/03/12 10:41:39 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/03/12 10:58:51 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PUSH_SWAP_H
-# define PUSH_SWAP_H
+#include "common.h"
 
-# include "common.h"
+t_stk	*stack_init(char *stk_str)
+{
+	int		argc;
+	char	**argv;
+	t_stk	*out;
 
-void		sort_flush(t_stk **a, t_stk **b);
-t_ttg		**init_known_strategies(t_ttg **k);
-void		solve_known_strategies(t_ttg *k, t_stk *a);
-
-#endif
+	stk_str = ft_strcat("foo,", stk_str);
+	argv = ft_split(stk_str, ',');
+	argc = ft_strlen2d(argv);
+	out = init_stack_from_args(argc, argv);
+	ft_strfree2d(argv);
+	free (stk_str);
+	return (out);
+}

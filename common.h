@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 10:21:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 11:06:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,5 +103,7 @@ void		rrr(t_stk **a, t_stk **b);
 void		switch_top(t_stk **s);
 void		ft_print_x(char *str);
 size_t		ft_strlen2d(char **s);
+t_stk		*stack_clone(t_stk *s);
+void		strategy_destroy(t_ttg *k);
 
 #endif

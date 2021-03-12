@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 09:48:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 11:11:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int			main(int argc, char **argv)
 		ft_print_stdout("\nInitial:\n\n");
 		stack_double_log(stack_a, stack_b);
 		init_known_strategies(&k_strat);
-		solve_known_strategies(k_strat, stack_a, stack_b);
+		solve_known_strategies(k_strat, stack_a);
+		strategy_destroy(k_strat);
+		destroy_stack(stack_a);
+		destroy_stack(stack_b);
 		//op_exec(ops, &stack_a, &stack_b);
 		//ft_print_stdout("Final:\n\n");
 		//stack_double_log(stack_a, stack_b);
