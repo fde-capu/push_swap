@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:41:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 10:58:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 13:26:48 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,4 +25,22 @@ t_stk	*stack_init(char *stk_str)
 	ft_strfree2d(argv);
 	free (stk_str);
 	return (out);
+}
+
+int			is_in_order(t_stk *s)
+{
+	int		max_control;
+
+	if ((!s) || (stack_size(s) == 1))
+		return (1);
+	max_control = s->val;
+	while (s)
+	{
+		if (s->val < max_control)
+			return (0);
+		if (s->val > max_control)
+			max_control = s->val;
+		s = s->nx;
+	}
+	return (1);
 }

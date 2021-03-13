@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 11:18:31 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 15:23:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,9 @@ typedef struct			s_trategy
 {
 	char				*(*function)(t_stk **a, t_stk **b);
 	char				*formula;
-	char				**ops;
 	int					result;
 	t_stack_buffer		*a;
 	t_stack_buffer		*b;
-	struct s_trategy	*nx;
 }						t_ttg;
 
 #endif

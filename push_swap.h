@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 12:43:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 22:33:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,11 @@
 # include "common.h"
 
 void		sort_flush(t_stk **a, t_stk **b);
-t_ttg		**init_known_strategies(t_ttg **k);
-void		solve_known_strategies(t_ttg *k, t_stk *a);
+t_ttg		**init_ps_strategy(t_ttg **k);
 char		*gen_split_low_high(t_stk **a, t_stk **b, int about);
+void		get_put_dump(t_stk **a, t_stk **b, char **o);
+int			count_instructions_in_str(char *str);
+char		*gen_push_swap(t_stk **a, t_stk **b);
+void		give_it_to_stdout(t_ttg *s);
 
 #endif

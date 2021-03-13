@@ -6,17 +6,17 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/12 12:43:46 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/12 22:49:06 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SHELL		=	/bin/bash
+SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	1 2 -3 4 -6 3
+ARGS_A		=	1 2
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
-SRCS_B		=	push_swap.c known_strategies.c \
+SRCS_B		=	push_swap.c ps_strategy.c \
 	generic_stack_ops.c
 HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
@@ -97,3 +97,7 @@ vfa:		$(NAME_A)
 vfb:		$(NAME_B)
 	$(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $(ARGS_A)
 vf:			vfa vfb
+tx:			all
+	./$(NAME_B) $(ARGS_A) | ./$(NAME_A) $(ARGS_A)
+tv:			all
+	$(VALGRIND) ./$(NAME_B) $(ARGS_A) | $(VALGRIND) ./$(NAME_A) $(ARGS_A)

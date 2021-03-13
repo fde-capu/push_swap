@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 07:58:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/12 13:22:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,6 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 		ft_strfree2d(ops);
 	}
 	return (0);
-}
-
-int			is_in_order(t_stk *s)
-{
-	int		max_control;
-
-	if (!s)
-		return (0);
-	max_control = s->val;
-	while (s)
-	{
-		if (s->val < max_control)
-			return (0);
-		if (s->val > max_control)
-			max_control = s->val;
-		s = s->nx;
-	}
-	return (1);
 }
 
 int			main(int argc, char **argv)
