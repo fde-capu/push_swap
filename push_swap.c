@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 23:37:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:16:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 {
 	char	*o;
 
-	(void)a; (void)b;
-	o = ft_str("sa,sa");
+	o = ft_str("");
+	chain_push_swap(a, b, &o);
+	o = ft_x(o, ft_strtrim(o, ","));
 	return (o);
 
 //	while (!(is_in_order(*a)))
@@ -68,6 +69,7 @@ int			main(int argc, char **argv)
 		//stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
+		//printf("---%s---", ps_strat->formula);
 		give_it_to_stdout(ps_strat);
 		//op_exec(ops, &stack_a, &stack_b);
 		//ft_print_stdout("Final:\n\n");

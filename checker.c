@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 13:22:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:29:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,14 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 	if (out == OK)
 	{
 		ft_print_stdout("OK\nMoves: ");
-		ft_print_x(ft_itoa(ft_strlen2d(ops)));
+		if (ops)
+		{
+			ft_print_x(ft_itoa(ft_strlen2d(ops)));
+			ft_strfree2d(ops);
+		}
+		else
+			ft_print_stdout("None.");
 		ft_print_stdout("\n");
-		ft_strfree2d(ops);
 	}
 	return (0);
 }
@@ -54,7 +59,7 @@ int			main(int argc, char **argv)
 		op_exec(ops, &stack_a, &stack_b);
 		ft_print_stdout("Final:\n\n");
 		stack_double_log(stack_a, stack_b);
-		if (is_in_order(stack_a) && !(stack_size(stack_b)))
+		if (estas_finita(stack_a, stack_b))
 			exit(end_routine(stack_a, stack_b, ops, OK));
 		exit(end_routine(stack_a, stack_b, ops, KO));
 	}

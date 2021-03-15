@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:57:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 00:29:18 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:28:00 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	op_run_str(char *o, t_stk **a, t_stk **b)
 
 void	op_exec(char **ops, t_stk **stack_a, t_stk **stack_b)
 {
+	if (!ops)
+		return ;
 	while (*ops)
 	{
 		ft_print_stdout(">>> ");

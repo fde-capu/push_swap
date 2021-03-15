@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:49:38 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 23:37:38 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:18:19 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,8 @@ void	give_it_to_stdout(t_ttg *s)
 {
 	char	*h;
 
+	if (!(s->formula))
+		return ;
 	h = s->formula;
 	while (*h)
 	{
@@ -47,6 +49,7 @@ void	give_it_to_stdout(t_ttg *s)
 			write(1, h, 1);
 		h++;
 	}
-	write(1, "\n", 1);
+	if (h != s->formula)
+		write(1, "\n", 1);
 	return ;
 }

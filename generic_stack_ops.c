@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:29:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 13:34:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 09:14:42 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ char	*gen_split_low_high(t_stk **a, t_stk **b, int about)
 			ouch(a, b, &o, "rra");
 		h = *a;
 	}
-	o = ft_x(o, ft_str(o + 1));
 	printf(":--%s--:\n", o);
 	return (o);
 }

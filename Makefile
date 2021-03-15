@@ -6,18 +6,18 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/12 22:49:06 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/15 09:03:56 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	1 2
+ARGS_A		=	4 2 3
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
 SRCS_B		=	push_swap.c ps_strategy.c \
-	generic_stack_ops.c
+	generic_stack_ops.c chains.c
 HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
 SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
