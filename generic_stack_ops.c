@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:29:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 09:14:42 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 12:24:13 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,23 +40,18 @@ void	ouch(t_stk **a, t_stk **b, char **o, char *op)
 	op_run_str(op, a, b);
 }
 
-char	*gen_split_low_high(t_stk **a, t_stk **b, int about)
+void	gen_split_low_high(t_stk **a, t_stk **b, int about, char **o)
 {
 	t_stk	*h;
-	char	*o;
 
-	o = ft_str("");
 	h = *a;
-	printf("XXX %d XXXX\n", about);
-	stack_double_log(*a, *b);
 	while (!(all_lowereq(h, about)))
 	{
 		if (h->val > about)
-			ouch(a, b, &o, "pb");
+			ouch(a, b, o, "pb");
 		else
-			ouch(a, b, &o, "rra");
+			ouch(a, b, o, "rra");
 		h = *a;
 	}
-	printf(":--%s--:\n", o);
-	return (o);
+	return ;
 }

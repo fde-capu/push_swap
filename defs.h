@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 15:23:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 11:02:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,10 @@
 # define ER	-1
 # define OK	0
 # define KO	1
+# define TEST	0
+# define EXEC	1
+# define ASCEND		1
+# define DESCEND	2
 
 # define FUN_DIG		1
 # define FUN_PAR		2

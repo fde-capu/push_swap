@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 09:16:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 12:27:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	o = ft_str("");
 	chain_push_swap(a, b, &o);
 	o = ft_x(o, ft_strtrim(o, ","));
+//	stack_double_log(*a, *b);
 	return (o);
 
 //	while (!(is_in_order(*a)))
