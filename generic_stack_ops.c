@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:29:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:07:06 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:20:23 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void	get_put_dump(t_stk **a, t_stk **b, char **o)
 
 void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
 {
-	printf("reouch: '%s'\n", ops);
-	(void)a; (void)b; (void)o;
+//	printf("re_ouch '%s'\n", ops);
+	(void)a; (void)b; (void)o; (void)ops;
 	return ;
 }
 
@@ -80,7 +80,5 @@ void	ouch(t_stk **a, t_stk **b, char **o, char *op)
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);
 	op_run_str(op, a, b);
-	printf("LOG %s\n", op);
-	stack_double_log(*a, *b);
 	return ;
 }

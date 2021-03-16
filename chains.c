@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:17:20 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:19:14 by fde-capu         ###   ########.fr       */
 
 /* ************************************************************************** */
 
@@ -162,7 +162,6 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 	int		combo_stp[4];
 	int		best;
 
-	printf("combo rewind!\n");
 	combo_str[0] = ft_str("");
 	combo_str[1] = ft_str("");
 	combo_str[2] = ft_str("");
@@ -201,7 +200,6 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 		if (ps_try_bubble(a, b, o))
 			return (1);
 		pivot = stack_tail(*a);
-		printf("New pivot: %d\n", pivot->val);
 		h = *a;
 		while (1)
 		{

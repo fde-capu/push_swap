@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:14:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:20:38 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	solve_push_swap(t_ttg *k, t_stk *a)
 	k->b = init_stack_empty();
 	k->formula = (k->function)(&k->a, &k->b);
 	k->result = count_instructions_in_str(k->formula);
-//	printf(">>count %d\n", k->result);
 	return ;
 }
 
@@ -52,10 +51,9 @@ int			main(int argc, char **argv)
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
 		//ft_print_stdout("\nInitial:\n\n");
-		stack_double_log(stack_a, stack_b);
+		//stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
-		//printf("---%s---", ps_strat->formula);
 		give_it_to_stdout(ps_strat);
 		//op_exec(ops, &stack_a, &stack_b);
 		//ft_print_stdout("Final:\n\n");
@@ -136,7 +134,6 @@ t_stk		*max_cell(t_stk *ss)
 
 int				in_order_out_of_rot(t_stk *a)
 {
-	printf("check inorderout\n");
 	int		loop;
 	t_stk	*h;
 	int		prev;
@@ -149,7 +146,6 @@ int				in_order_out_of_rot(t_stk *a)
 		h = h->nx;
 		if (!h)
 			h = a;
-		printf("hval %d orev %d\n", h->val, prev);
 		if ((h->val < prev) && (h != min_cell(a)))
 			return (0);
 	}
@@ -158,7 +154,6 @@ int				in_order_out_of_rot(t_stk *a)
 
 int				in_reverse_out_of_rot(t_stk *a)
 {
-	printf("check reverseout\n");
 	int		loop;
 	t_stk	*h;
 	int		prev;
