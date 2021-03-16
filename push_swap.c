@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 16:24:56 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 13:14:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,6 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	chain_push_swap(a, b, &o);
 	o = ft_x(o, ft_strtrim(o, ","));
 	return (o);
-
-//	while (!(is_in_order(*a)))
-//	{
-//		while (!(is_in_order(*a)))
-//		{
-//			o = ft_strcatxl(o, \
-//				gen_split_low_high(a, b, stack_tail(*a)->val));
-//		}
-////		printf(">GO>\n");
-////		printf("out:--%s--\n", o);
-//		get_put_dump(a, b, &o);
-//	}
-//	return (o);
 }
 
 int			main(int argc, char **argv)
@@ -86,4 +73,106 @@ int			main(int argc, char **argv)
 			exit(error_out());
 	}
 	exit(0);
+}
+
+t_stk		*cell_by_val(t_stk *s, int control)
+{
+	while (s)
+	{
+		if (s->val == control)
+			return (s);
+		s = s->nx;
+	}
+	return (0);
+}
+
+int			min_val(t_stk *ss)
+{
+	int		control;
+	t_stk	*s;
+
+	s = ss;
+	control = s->val;
+	while (s)
+	{
+		if (s->val < control)
+			control = s->val;
+		s = s->nx;
+	}
+	return (control);
+}
+
+int			max_val(t_stk *ss)
+{
+	int		control;
+	t_stk	*s;
+
+	s = ss;
+	control = s->val;
+	while (s)
+	{
+		if (s->val > control)
+			control = s->val;
+		s = s->nx;
+	}
+	return (control);
+}
+
+t_stk		*min_cell(t_stk *ss)
+{
+	int		control;
+
+	control = min_val(ss);
+	return (cell_by_val(ss, control));
+}
+
+t_stk		*max_cell(t_stk *ss)
+{
+	int		control;
+
+	control = max_val(ss);
+	return (cell_by_val(ss, control));
+}
+
+int				in_order_out_of_rot(t_stk *a)
+{
+	printf("check inorderout\n");
+	int		loop;
+	t_stk	*h;
+	int		prev;
+
+	loop = stack_size(a);
+	h = min_cell(a);
+	while (loop--)
+	{
+		prev = h->val;
+		h = h->nx;
+		if (!h)
+			h = a;
+		printf("hval %d orev %d\n", h->val, prev);
+		if ((h->val < prev) && (h != min_cell(a)))
+			return (0);
+	}
+	return (1);
+}
+
+int				in_reverse_out_of_rot(t_stk *a)
+{
+	printf("check reverseout\n");
+	int		loop;
+	t_stk	*h;
+	int		prev;
+
+	loop = stack_size(a);
+	h = max_cell(a);
+	while (loop--)
+	{
+		prev = h->val;
+		h = h->nx;
+		if (!h)
+			h = a;
+		if ((h->val > prev) && (h != max_cell(a)))
+			return (0);
+	}
+	return (1);
 }

@@ -6,13 +6,13 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/15 21:13:06 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/16 10:58:25 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	5 7 1 3 4 2
+ARGS_A		=	1 5 2 4 3
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
