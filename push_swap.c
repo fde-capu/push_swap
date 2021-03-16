@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:20:38 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:42:07 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int			main(int argc, char **argv)
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
 		//ft_print_stdout("\nInitial:\n\n");
-		//stack_double_log(stack_a, stack_b);
+		deb_stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
 		give_it_to_stdout(ps_strat);
@@ -106,6 +106,8 @@ int			max_val(t_stk *ss)
 	t_stk	*s;
 
 	s = ss;
+	if (!ss)
+		return (INT_MIN);
 	control = s->val;
 	while (s)
 	{
@@ -170,4 +172,36 @@ int				in_reverse_out_of_rot(t_stk *a)
 			return (0);
 	}
 	return (1);
+}
+
+void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
+{
+	char	**spl;
+	int		spl_len;
+	int		i;
+
+	spl = ft_split(ops, ',');
+	spl_len = ft_strlen2d(spl);
+	i = 0;
+	while (i < spl_len)
+	{
+		ouch(a, b, o, spl[i]); 
+		i++;
+	}
+	ft_strfree2d(spl);
+	return ;
+}
+
+void	ouch(t_stk **a, t_stk **b, char **o, char *op)
+{
+	*o = ft_strcatxl(*o, ",");
+	*o = ft_strcatxl(*o, op);
+	op_run_str(op, a, b);
+	if (DEBUG)
+	{
+		ft_print_stdout(op);
+		ft_print_stdout(":\n");
+		stack_double_log(*a, *b);
+	}
+	return ;
 }

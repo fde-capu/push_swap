@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/12 12:51:43 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:22:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_stk	*stack_clone(t_stk *s)
 	char	*arg_str;
 	t_stk	*o;
 
+	if (!s)
+		return (init_stack_empty());
 	arg_str = ft_str("");
 	while (s)
 	{

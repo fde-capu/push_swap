@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:04:33 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:24:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_stk		*min_cell(t_stk *ss);
 t_stk		*max_cell(t_stk *ss);
 int			in_order(t_stk *s);
 int			in_reverse(t_stk *s);
-void	pre_ouch(t_stk **a, t_stk **b, char **o, char *op);
 void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops);
 int				in_order_out_of_rot(t_stk *a);
 int				in_reverse_out_of_rot(t_stk *a);
+void			deb_stack_double_log(t_stk *a, t_stk *b);
 
 
 #endif

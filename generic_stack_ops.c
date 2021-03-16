@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:29:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 13:20:23 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/16 14:38:38 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,35 +50,5 @@ void	get_put_dump(t_stk **a, t_stk **b, char **o)
 		*o = ft_strcatxl(*o, ",pa");
 		pa(a, b);
 	}
-	return ;
-}
-
-void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
-{
-//	printf("re_ouch '%s'\n", ops);
-	(void)a; (void)b; (void)o; (void)ops;
-	return ;
-}
-
-void	pre_ouch(t_stk **a, t_stk **b, char **o, char *op)
-{
-	t_stk	*pre_a;
-	t_stk	*pre_b;
-
-	pre_a = stack_clone(*a);
-	pre_b = stack_clone(*b);
-	*o = ft_strcatxl(*o, ",");
-	*o = ft_strcatxl(*o, op);
-	op_run_str(op, &pre_a, &pre_b);
-	destroy_stack(pre_a);
-	destroy_stack(pre_b);
-	return ;
-}
-
-void	ouch(t_stk **a, t_stk **b, char **o, char *op)
-{
-	*o = ft_strcatxl(*o, ",");
-	*o = ft_strcatxl(*o, op);
-	op_run_str(op, a, b);
 	return ;
 }

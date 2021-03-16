@@ -6,13 +6,15 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/16 10:58:25 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/16 14:44:19 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nsa" |
-ARGS_A		=	1 5 2 4 3
+ARGS_A		=	2 1 0
+ARGS_B		=	1 5 2 4 3
+ARGS_C		=	9 10 -3 0 -115
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
@@ -101,3 +103,13 @@ tx:			all
 	./$(NAME_B) $(ARGS_A) | ./$(NAME_A) $(ARGS_A)
 tv:			all
 	$(VALGRIND) ./$(NAME_B) $(ARGS_A) | $(VALGRIND) ./$(NAME_A) $(ARGS_A)
+xa:			all
+	./$(NAME_B) $(ARGS_A) | ./$(NAME_A) $(ARGS_A)
+xb:			all
+	./$(NAME_B) $(ARGS_B) | ./$(NAME_A) $(ARGS_B)
+xc:			all
+	./$(NAME_B) $(ARGS_C) | ./$(NAME_A) $(ARGS_C)
+xd:			all
+	./$(NAME_B) $(ARGS_D) | ./$(NAME_A) $(ARGS_D)
+xe:			all
+	./$(NAME_B) $(ARGS_E) | ./$(NAME_A) $(ARGS_E)
