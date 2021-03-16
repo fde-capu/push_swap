@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/16 14:48:13 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/16 16:13:38 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,8 @@ SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nsa" |
 ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
-ARGS_C		=	$(shell ./args.sh 3)
+ARGS_C		=	$(shell ./args.sh 5)
+ARGS_X		=	5 2 3 1 4
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
@@ -108,8 +109,10 @@ xa:			all
 xb:			all
 	./$(NAME_B) $(ARGS_B) | ./$(NAME_A) $(ARGS_B)
 xc:			all
-	./$(NAME_B) $(ARGS_C) | ./$(NAME_A) $(ARGS_C)
+	ARGS="$(ARGS_C)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xd:			all
 	./$(NAME_B) $(ARGS_D) | ./$(NAME_A) $(ARGS_D)
 xe:			all
 	./$(NAME_B) $(ARGS_E) | ./$(NAME_A) $(ARGS_E)
+xx:			all
+	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
