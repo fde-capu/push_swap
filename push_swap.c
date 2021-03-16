@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 12:27:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/15 16:24:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	o = ft_str("");
 	chain_push_swap(a, b, &o);
 	o = ft_x(o, ft_strtrim(o, ","));
-//	stack_double_log(*a, *b);
 	return (o);
 
 //	while (!(is_in_order(*a)))
@@ -47,7 +46,6 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 //				gen_split_low_high(a, b, stack_tail(*a)->val));
 //		}
 ////		printf(">GO>\n");
-////		stack_double_log(*a, *b);
 ////		printf("out:--%s--\n", o);
 //		get_put_dump(a, b, &o);
 //	}
@@ -67,14 +65,13 @@ int			main(int argc, char **argv)
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
 		//ft_print_stdout("\nInitial:\n\n");
-		//stack_double_log(stack_a, stack_b);
+		stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
 		//printf("---%s---", ps_strat->formula);
 		give_it_to_stdout(ps_strat);
 		//op_exec(ops, &stack_a, &stack_b);
 		//ft_print_stdout("Final:\n\n");
-		//stack_double_log(stack_a, stack_b);
 		//if (is_in_order(stack_a) && !(stack_size(stack_b)))
 		//	exit(end_routine(stack_a, stack_b, ops, OK));
 		//exit(end_routine(stack_a, stack_b, ops, KO));
