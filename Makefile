@@ -6,12 +6,12 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/17 17:52:59 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/17 18:17:01 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SHELL		=	/bin/sh
-ARGS_A_PRE	=	echo -e "sa\nsa" |
+ARGS_A_PRE	=	echo "sa\nsa\n" |
 ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
@@ -75,10 +75,7 @@ cleanb:
 rea:		fcleana $(NAME_A)
 reb:		fcleanb $(NAME_B)
 re:			fclean all
-ta:			$(NAME_A)
-	$(ARGS_A_PRE) ./$(NAME_A) $(ARGS_A)
 t:			ta tb
-rta:		rea ta
 rtb:		reb tb
 rt:			re t
 tt:			rt

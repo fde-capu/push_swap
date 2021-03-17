@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 18:02:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:12:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,12 @@ t_stk			*this_is_before(t_stk *a, t_stk *b)
 	t_stk	*before;
 	int		once;
 
-	printf("What should preceed %d?\n", b->val);
+	if (DEBUG)
+	{
+		ft_print_stdout("What should preceed ");
+		ft_print_int(b->val);
+		ft_print_stdout("? > ");
+	}
 	once = 1;
 	h = a;
 	while (h)
@@ -204,7 +209,11 @@ t_stk			*this_is_before(t_stk *a, t_stk *b)
 		}
 		h = h->nx;
 	}
-	printf("> %d\n", before->val);
+	if (DEBUG)
+	{
+		ft_print_int(before->val);
+		ft_print_stdout("\n");
+	}
 	return (before);
 }
 
@@ -350,7 +359,6 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 		while (stack_size(*a) > 1)
 		{
 			pivot = stack_median(*a);
-			printf("pivval loop %d\n", pivot->val);
 			deb_pivot(pivot);
 			h = *a;
 //			while (1)
@@ -358,7 +366,6 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 				if (ps_try_bubble(a, b, o, &h))
 					return (1) ;
 				//if (deb++ > 15) { printf("DEBY!\n"); exit (0); }
-				printf("hval %d pivot %d\n", h->val, pivot->val);
 				while (h->val <= pivot->val)
 				{
 					ouch(a, b, o, "pb");
@@ -368,7 +375,6 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 					if (ps_try_bubble(a, b, o, &h))
 						return (1);
 				}
-				printf("pivval QUICK %d\n", pivot->val);
 				if (count_le(*a, pivot->val) > 1)
 				{
 					ouch(a, b, o, "ra");
@@ -405,3 +411,32 @@ void			chain_push_swap(t_stk **a, t_stk **b, char **o)
 	ps_quick_sort(a, b, o);
 	return ;
 }
+
+t_stk	*stack_median(t_stk *s)
+{
+	t_stk	*h;
+	int		le;
+	int		gt;
+	int		test;
+	int		best;
+	t_stk	*median;
+
+	best = INT_MAX;
+	h = s;
+	while (h)
+	{
+		le = count_le(s, h->val);
+		gt = count_gt(s, h->val);
+		test = le - gt - 1;
+		if (test < 0)
+			test *= -1;
+		if (test < best)
+		{
+			median = h;
+			best = test;
+		}
+		h = h->nx;
+	}
+	return (median);
+}
+

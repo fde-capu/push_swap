@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 16:37:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:09:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ int			is_in_order(t_stk *s);
 int			estas_finita(t_stk *a, t_stk *b);
 int		count_le(t_stk *h, int about);
 int		count_gt(t_stk *h, int about);
+void	ft_print_int(int i);
 
 #endif
