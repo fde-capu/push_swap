@@ -6,25 +6,48 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 14:33:04 by fde-capu         ###   ########.fr       */
-
+/*   Updated: 2021/03/17 18:02:11 by fde-capu         ###   ########.fr       */
+/*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int				ps_try_bubble(t_stk **a, t_stk **b, char **o)
+int				ps_try_bubble(t_stk **a, t_stk **b, char **o, t_stk **h)
 {
+	if (DEBUG)
+		ft_print_stdout("try bubble\n");
 	if ((*a) && ((*a)->nx) \
 		&& ((*a)->val > (*a)->nx->val) && (*b) \
 		&& ((*b)->nx) && ((*b)->val < (*b)->nx->val))
+	{
+		if (in_reverse_out_of_rot(*b))
+		{
+			if (*a != max_cell(*a))
+			{
+				ouch(a, b, o, "sa");
+				*h = (*h)->pv;
+			}
+		}
+		else
+		{
 			ouch(a, b, o, "ss");
+			*h = (*h)->pv;
+		}
+		return (ps_flush_ready(a, b, o));
+	}
 	if ((*a) && ((*a)->nx) \
 		&& ((*a)->val > (*a)->nx->val))
+	{
+		if (*a != max_cell(*a))
+		{
 			ouch(a, b, o, "sa");
+			*h = (*h)->pv;
+		}
+	}
 	if ((*b) && ((*b)->nx) \
 		&& ((*b)->val < (*b)->nx->val))
 			ouch(a, b, o, "sb");
-	return (estas_finita((*a), (*b)));
+	return (ps_flush_ready(a, b, o));
 }
 
 int				comb_rr(t_stk **a, t_stk **b, char **comb)
@@ -156,45 +179,142 @@ int				min_int_idx_arr4(int combo_stp[])
 	return (best);
 }
 
+t_stk			*this_is_before(t_stk *a, t_stk *b)
+{
+	t_stk	*h;
+	t_stk	*before;
+	int		once;
+
+	printf("What should preceed %d?\n", b->val);
+	once = 1;
+	h = a;
+	while (h)
+	{
+		if (h->val > b->val)
+		{
+			if (once)
+			{
+				before = h;
+				once = 0;
+			}
+			if (h->val < before->val)
+			{
+				before = h;
+			}
+		}
+		h = h->nx;
+	}
+	printf("> %d\n", before->val);
+	return (before);
+}
+
+int				position_top(t_stk *a, t_stk *h)
+{
+	if (!h)
+		return (-1);
+	return (position_top(a, h->pv) + 1);
+}
+
+int				position_bot(t_stk *a, t_stk *h)
+{
+	if (!h)
+		return (0);
+	return (position_bot(a, h->nx) + 1);
+}
+
+void			shortest_rotation_finish(t_stk **a, char **o)
+{
+	t_stk	*before;
+	int		dist_top;
+	int		dist_bot;
+
+	before = min_cell(*a);
+	dist_top = position_top(*a, before);
+	dist_bot = position_bot(*a, before);
+	if (dist_top < dist_bot)
+	{
+		while (dist_top--)
+			ouch(a, a, o, "ra");
+	}
+	else
+	{
+		while (dist_bot--)
+			ouch(a, a, o, "rra");
+	}
+	return ;
+}
+
+void			shortest_rotation_rewind(t_stk **a, t_stk **b, char **o)
+{
+	t_stk	*before;
+	int		dist_top;
+	int		dist_bot;
+
+	before = this_is_before(*a, *b);
+	dist_top = position_top(*a, before);
+	dist_bot = position_bot(*a, before);
+	if (dist_top < dist_bot)
+	{
+		while (dist_top--)
+			ouch(a, b, o, "ra");
+	}
+	else
+	{
+		while (dist_bot--)
+			ouch(a, b, o, "rra");
+	}
+	return ;
+}
+
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
-	char	*combo_str[4];
-	int		combo_stp[4];
-	t_stk	*combo_stk_a[4];
-	t_stk	*combo_stk_b[4];
-	int		best;
+//	char	*combo_str[4];
+//	int		combo_stp[4];
+//	t_stk	*combo_stk_a[4];
+//	t_stk	*combo_stk_b[4];
+//	int		best;
 
-	combo_stk_a[0] = stack_clone(*a);
-	combo_stk_a[1] = stack_clone(*a);
-	combo_stk_a[2] = stack_clone(*a);
-	combo_stk_a[3] = stack_clone(*a);
-	combo_stk_b[0] = stack_clone(*b);
-	combo_stk_b[1] = stack_clone(*b);
-	combo_stk_b[2] = stack_clone(*b);
-	combo_stk_b[3] = stack_clone(*b);
-	combo_str[0] = ft_str("");
-	combo_str[1] = ft_str("");
-	combo_str[2] = ft_str("");
-	combo_str[3] = ft_str("");
-	combo_stp[0] = comb_rr(&combo_stk_a[0], &combo_stk_b[0], &combo_str[0]);
-	combo_stp[1] = comb_rrr(&combo_stk_a[1], &combo_stk_b[1], &combo_str[1]);
-	combo_stp[2] = comb_ra_rrb(&combo_stk_a[2], &combo_stk_b[2], &combo_str[2]);
-	combo_stp[3] = comb_rra_rb(&combo_stk_a[3], &combo_stk_b[3], &combo_str[3]);
-	best = min_int_idx_arr4(combo_stp);
-	re_ouch(a, b, o, combo_str[best]);
-	free(combo_str[0]);
-	free(combo_str[1]);
-	free(combo_str[2]);
-	free(combo_str[3]);
+	if (DEBUG)
+		ft_print_stdout("Combo Rewind!\n");
+//	combo_stk_a[0] = stack_clone(*a);
+//	combo_stk_a[1] = stack_clone(*a);
+//	combo_stk_a[2] = stack_clone(*a);
+//	combo_stk_a[3] = stack_clone(*a);
+//	combo_stk_b[0] = stack_clone(*b);
+//	combo_stk_b[1] = stack_clone(*b);
+//	combo_stk_b[2] = stack_clone(*b);
+//	combo_stk_b[3] = stack_clone(*b);
+//	combo_str[0] = ft_str("");
+//	combo_str[1] = ft_str("");
+//	combo_str[2] = ft_str("");
+//	combo_str[3] = ft_str("");
+//	combo_stp[0] = comb_rr(&combo_stk_a[0], &combo_stk_b[0], &combo_str[0]);
+//	combo_stp[1] = comb_rrr(&combo_stk_a[1], &combo_stk_b[1], &combo_str[1]);
+//	combo_stp[2] = comb_ra_rrb(&combo_stk_a[2], &combo_stk_b[2], &combo_str[2]);
+//	combo_stp[3] = comb_rra_rb(&combo_stk_a[3], &combo_stk_b[3], &combo_str[3]);
+//	best = min_int_idx_arr4(combo_stp);
+//	re_ouch(a, b, o, combo_str[best]);
+//	free(combo_str[0]);
+//	free(combo_str[1]);
+//	free(combo_str[2]);
+//	free(combo_str[3]);
 	while (stack_size(*b) > 0)
+	{
+		shortest_rotation_rewind(a, b, o);
 		ouch(a, b, o, "pa");
+	}
+	shortest_rotation_finish(a, o);
 	return (1);
 }
 
 int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 {
+	if (DEBUG)
+		ft_print_stdout("Flush_ready? ");
 	if (in_order_out_of_rot(*a) && in_reverse_out_of_rot(*b))
 		return (ps_combo_rewind(a, b, o));
+	if (DEBUG)
+		ft_print_stdout("No.\n");
 	return (0);
 }
 
@@ -221,41 +341,62 @@ void			deb_pivot(t_stk *p)
 
 int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 {
-int deb = 1;
+//int deb = 1;
 	t_stk	*pivot;
 	t_stk	*h;
 
-	while (stack_size(*a) > 1)
+	while (!estas_finita(*a, *b))
 	{
-		if (ps_try_bubble(a, b, o))
-			return (1);
-		pivot = stack_tail(*a);
-		deb_pivot(pivot);
-		h = *a;
-		while (1)
+		while (stack_size(*a) > 1)
 		{
-if (deb++ > 15) { printf("DEBY!\n"); exit (0); }
-			if (ps_try_bubble(a, b, o))
-				return (1);
-			if (ps_flush_ready(a, b, o))
-				return (1);
-			if (h->val <= pivot->val)
-				ouch(a, b, o, "pb");
-			//if ((stack_size(*a) > 1) && (count_le(*a, pivot->val) > 1))
-			if (count_le(*a, pivot->val) > 1)
-				ouch(a, b, o, "ra");
-			else
-			{
-				ouch(a, b, o, "rra");
-				break ;
-			}
+			pivot = stack_median(*a);
+			printf("pivval loop %d\n", pivot->val);
+			deb_pivot(pivot);
 			h = *a;
-			if (h == pivot)
-				break ;
+//			while (1)
+//			{
+				if (ps_try_bubble(a, b, o, &h))
+					return (1) ;
+				//if (deb++ > 15) { printf("DEBY!\n"); exit (0); }
+				printf("hval %d pivot %d\n", h->val, pivot->val);
+				while (h->val <= pivot->val)
+				{
+					ouch(a, b, o, "pb");
+					h = *a;
+//					if (h == pivot)
+//						break ;
+					if (ps_try_bubble(a, b, o, &h))
+						return (1);
+				}
+				printf("pivval QUICK %d\n", pivot->val);
+				if (count_le(*a, pivot->val) > 1)
+				{
+					ouch(a, b, o, "ra");
+					if (ps_try_bubble(a, b, o, &h))
+						return (1);
+				}
+				else
+				{
+					if (stack_size(*a) > 1)
+					{
+						ouch(a, b, o, "rra");
+						if (ps_try_bubble(a, b, o, &h))
+							return (1);
+						break ;
+					}
+				}
+				h = *a;
+//				if (h == pivot)
+//					break ;
+//			}
 		}
+//		while (stack_size(*b) > 0)
+//		{
+//			shortest_rotation_rewind(a, b, o);
+//			ouch(a, b, o, "pa");
+//		}
+//		shortest_rotation_finish(a, o);
 	}
-	while (stack_size(*b) > 0)
-		ouch(a, b, o, "pa");
 	return (1);
 }
 

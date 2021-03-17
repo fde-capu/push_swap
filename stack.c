@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 14:22:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:28:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,34 @@ t_stk	*stack_tail(t_stk *stk)
 	if (stk->nx)
 		return (stack_tail(stk->nx));
 	return (stk);
+}
+
+t_stk	*stack_median(t_stk *s)
+{
+	t_stk	*h;
+	int		le;
+	int		gt;
+	int		test;
+	int		best;
+	t_stk	*median;
+
+	best = INT_MAX;
+	h = s;
+	while (h)
+	{
+		le = count_le(s, h->val);
+		gt = count_gt(s, h->val);
+		test = le - gt - 1;
+		if (test < 0)
+			test *= -1;
+		if (test < best)
+		{
+			median = h;
+			best = test;
+		}
+		h = h->nx;
+	}
+	return (median);
 }
 
 int		stack_size(t_stk *stk)

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 14:24:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:00:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void			get_put_dump(t_stk **a, t_stk **b, char **o);
 int				count_instructions_in_str(char *str);
 char			*gen_push_swap(t_stk **a, t_stk **b);
 void			give_it_to_stdout(t_ttg *s);
-int				ps_try_bubble(t_stk **a, t_stk **b, char **o);
+int				ps_try_bubble(t_stk **a, t_stk **b, char **o, t_stk **h);
 void			chain_push_swap(t_stk **a, t_stk **b, char **o);
 void			ouch(t_stk **a, t_stk **b, char **o, char *op);
 int			is_(t_stk *s);
@@ -36,6 +36,8 @@ void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops);
 int				in_order_out_of_rot(t_stk *a);
 int				in_reverse_out_of_rot(t_stk *a);
 void			deb_stack_double_log(t_stk *a, t_stk *b);
+int				ps_flush_ready(t_stk **a, t_stk **b, char **o);
+t_stk		*stack_median(t_stk *s);
 
 
 #endif

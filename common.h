@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 08:58:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:37:48 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,7 @@ void		strategy_destroy(t_ttg *k);
 void		op_run_str(char *o, t_stk **a, t_stk **b);
 int			is_in_order(t_stk *s);
 int			estas_finita(t_stk *a, t_stk *b);
+int		count_le(t_stk *h, int about);
+int		count_gt(t_stk *h, int about);
 
 #endif

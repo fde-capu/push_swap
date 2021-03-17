@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:20:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 07:25:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:09:19 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,25 @@
 
 void	switch_top(t_stk **s)
 {
-	int	tmp;
+	t_stk	*second;
+	t_stk	*first;
+	t_stk	*third;
 
 	if (stack_size(*s) <= 1)
 		return ;
-	tmp = (*s)->val;
-	(*s)->val = (*s)->nx->val;
-	(*s)->nx->val = tmp;
+	first = (*s)->nx;
+	second = (*s);
+	third = (*s)->nx->nx;
+	if (third)
+		third->pv = second;
+	second->pv = first;
+	first->pv = 0;
+	first->nx = second;
+	if (third)
+		second->nx = third;
+	else
+		second->nx = 0;
+	(*s) = first;
 	return ;
 }
 

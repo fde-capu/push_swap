@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/16 16:13:38 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/17 17:52:59 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ ARGS_A_PRE	=	echo -e "sa\nsa" |
 ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
-ARGS_X		=	5 2 3 1 4
+ARGS_X		=	4 3 2 1 5
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
@@ -77,8 +77,6 @@ reb:		fcleanb $(NAME_B)
 re:			fclean all
 ta:			$(NAME_A)
 	$(ARGS_A_PRE) ./$(NAME_A) $(ARGS_A)
-tb:			$(NAME_B)
-	./$(NAME_B) $(ARGS_A)
 t:			ta tb
 rta:		rea ta
 rtb:		reb tb
@@ -90,6 +88,8 @@ va:			$(NAME_A)
 	$(ARGS_A_PRE) $(VALGRIND) ./$(NAME_A) $(ARGS_A)
 vb:			$(NAME_B)
 	$(VALGRIND) ./$(NAME_B) $(ARGS_A)
+vx:			$(NAME_B)
+	$(VALGRIND) ./$(NAME_B) $(ARGS_X)
 v:			va vb
 vva:		re va
 rva: 		vva
@@ -104,15 +104,31 @@ tx:			all
 	./$(NAME_B) $(ARGS_A) | ./$(NAME_A) $(ARGS_A)
 tv:			all
 	$(VALGRIND) ./$(NAME_B) $(ARGS_A) | $(VALGRIND) ./$(NAME_A) $(ARGS_A)
+
+tba:	$(NAME_B)
+	ARGS="$(ARGS_A)" && ./$(NAME_B) $$ARGS
+tbb:	$(NAME_B)
+	ARGS="$(ARGS_B)" && ./$(NAME_B) $$ARGS
+tbc:	$(NAME_B)
+	ARGS="$(ARGS_C)" && ./$(NAME_B) $$ARGS
+tbd:	$(NAME_B)
+	ARGS="$(ARGS_D)" && ./$(NAME_B) $$ARGS
+tbe:	$(NAME_B)
+	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS
+tbx:	$(NAME_B)
+	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS
+tvx:	$(NAME_B)
+	ARGS="$(ARGS_X)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+
 xa:			all
-	./$(NAME_B) $(ARGS_A) | ./$(NAME_A) $(ARGS_A)
+	ARGS="$(ARGS_A)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xb:			all
-	./$(NAME_B) $(ARGS_B) | ./$(NAME_A) $(ARGS_B)
+	ARGS="$(ARGS_B)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xc:			all
 	ARGS="$(ARGS_C)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xd:			all
-	./$(NAME_B) $(ARGS_D) | ./$(NAME_A) $(ARGS_D)
+	ARGS="$(ARGS_D)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xe:			all
-	./$(NAME_B) $(ARGS_E) | ./$(NAME_A) $(ARGS_E)
+	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xx:			all
 	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
