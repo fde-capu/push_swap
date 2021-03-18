@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/18 10:06:25 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/18 11:59:02 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 6)
-ARGS_X		=	4 3 5 1 6 2
+ARGS_X		=	2 1 3 5 4
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
@@ -34,7 +34,7 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
 	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
 	get_next_line_utils_bonus.c stack_init_2.c \
-	order_check.c get_cell.c
+	order_check.c get_cell.c deb.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g

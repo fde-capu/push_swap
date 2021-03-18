@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 11:15:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:00:34 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 
 # define ASCE	1
 # define DESC	-1
+# define MAX_LOOP	20
 
 void			sort_flush(t_stk **a, t_stk **b);
 t_ttg			**init_ps_strategy(t_ttg **k);

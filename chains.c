@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 11:52:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:16:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			may_bubble(t_stk *a, int dir)
 	int	bot;
 	int	med;
 
-	if (!a || !a->nx)
+	if (!a || !a->nx || !a->nx->nx)
 		return (0);
 	if (dir == ASCE)
 	{
@@ -40,38 +40,6 @@ int			may_bubble(t_stk *a, int dir)
 	if (lower > higher)
 		return (1);
 	return (0);
-}
-
-void	deb_bol_(int i)
-{
-	if (!DEBUG)
-		return ;
-	if (i)
-		ft_print_stdout("Yes.\n");
-	else
-		ft_print_stdout("No.\n");
-	return ;
-}
-
-void	deb_(char *s)
-{
-	if (DEBUG)
-		ft_print_stdout(s);
-	return ;
-}
-
-void	deb_int_(int i)
-{
-	char	*num;
-
-	if (!DEBUG)
-		return ;
-	num = ft_itoa(i);
-	num = ft_strcatxr(" ", num);
-	num = ft_strcatxl(num, " ");
-	deb_(num);
-	free (num);
-	return ;
 }
 
 int				ps_try_bubble(t_stk **a, t_stk **b, char **o)
@@ -366,13 +334,16 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 	t_stk	*h;
 	int		did;
 
-	deb_("Do pb? ...");
 	did = 0;
 	h = *a;
 	while (h->nx)
 	{
-		deb_("for ");
+		if (!(count_le(*a, pivot)))
+			break ;
+		deb_("Try pb ");
 		deb_int_(h->val);
+		deb_("pivot");
+		deb_int_(pivot);
 		if (h->val <= pivot)
 		{
 			did = ouch(a, b, o, "pb");
@@ -386,8 +357,6 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 			break ;
 		h = *a;
 	}
-	deb_("...finished pb: ");
-	deb_bol_(did);
 	return (did);
 }
 
@@ -419,6 +388,7 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 		}
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
+		deb_(".");
 	}
 	return (1);
 }
