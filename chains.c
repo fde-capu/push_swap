@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 13:05:24 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:18:55 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,18 @@ int			may_bubble(t_stk *a, int dir)
 	bot = min_val(a);
 	med = stack_median(a)->val;
 	if ((higher > med && lower <= med) || (higher > med && lower <= med))
+	{
+		deb_("case 1. ");
 		return (0);
-	if (higher == bot && lower == top)
+	}
+	if (dir == ASCE && (higher == bot && lower == top))
+	{
+		deb_("case 2. ");
 		return (0);
+	}
 	if (lower > higher)
 		return (1);
+	deb_("case 3. ");
 	return (0);
 }
 
@@ -203,6 +210,8 @@ t_stk			*this_is_before(t_stk *a, t_stk *b)
 		ft_print_int(b->val);
 		ft_print_stdout("? < ");
 	}
+	if (stack_size(a) == 1)
+		return (a);
 	once = 1;
 	h = a;
 	while (h)
@@ -369,7 +378,7 @@ void		gen_pivot_last(t_stk **a, int *pivot)
 	return ;
 }
 
-void		gen_pivot(t_stk **a, int *pivot)
+void		gen_pivot_median(t_stk **a, int *pivot)
 {
 	int	tmp;
 
@@ -386,23 +395,30 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 	int		pivot;
 	int		new_pivot;
 
-	new_pivot = 1;
+	new_pivot = -1;
 	pivot = 0;
 	while (!(estas_finita(*a, *b)))
 	{
 		if (new_pivot)
 		{
-			gen_pivot(a, &pivot);
+			if (stack_size(*b) || new_pivot == -1)
+				gen_pivot_median(a, &pivot);
+			else
+				gen_pivot_last(a, &pivot);
 			new_pivot = 0;
 		}
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
-		if (ps_combo_rewind(a, b, o))
+		if ((stack_size(*a) <= 2) && (ps_combo_rewind(a, b, o)))
 			continue ;
-		ouch(a, b, o, "rra");
-		new_pivot = 1;
-//		deb_(".");
+//		if (stack_size(*b) > 2)
+//			ouch(a, b, o, "ra");
+		break ;
+//		new_pivot = 1;
 	}
+	if (estas_finita(*a, *b))
+		return (1);
+	ps_quick_sort(a, b, o);
 	return (1);
 }
 

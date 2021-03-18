@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 13:50:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:51:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,24 +151,51 @@ char	*penult_op(char **o)
 	return (out);
 }
 
+# define REDUNDANCIES	",ra>rra,rra>ra,rb>rrb,rrb>rb,pb>pa,pa>pb,"
+
+int		is_redundant(char *op_before, char *op_after)
+{
+	char	*red_str;
+	char	*out_check;
+	int		out;
+
+	if (!*op_before || !*op_after)
+		return (0);
+	red_str = ft_str(",");
+	red_str = ft_strcatxl(red_str, op_before);
+	red_str = ft_strcatxl(red_str, ">");
+	red_str = ft_strcatxl(red_str, op_after);
+	red_str = ft_strcatxl(red_str, ",");
+	deb_("check '");
+	deb_(red_str);
+	deb_("' ");
+	out_check = ft_strstr(red_str, REDUNDANCIES);
+	if (out_check)
+		out = 1;
+	else
+		out = 0;
+	free(red_str);
+	return (out);
+}
+
 int		op_redundant(char **o, char *op)
 {
 	char	*last;
 
 	last = penult_op(o);
-	deb_("Redundant? last: ");
+	deb_("Redundant? (");
 	deb_(last);
-	deb_(", op: ");
+	deb_("->");
 	deb_(op);
-	if (ft_stridentical(op, "ra")) // more cases?
+	deb_("). ");
+	if (is_redundant(op, last))
 	{
-		if (ft_stridentical(last, "rra"))
-		{
-			deb_(". Yes.\n");
-			return (1);
-		}
+		free(last);
+		deb_("Yes.\n");
+		return (1);
 	}
-	deb_(". No.\n");
+	free(last);
+	deb_("No.\n");
 	return (0);
 }
 
