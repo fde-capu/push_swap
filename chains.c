@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 12:42:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:59:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int			may_bubble(t_stk *a, int dir)
 	bot = min_val(a);
 	med = stack_median(a)->val;
 	if ((higher > med && lower <= med) || (higher > med && lower <= med))
+		return (0);
+	if (higher == bot && lower == top)
 		return (0);
 	if (lower > higher)
 		return (1);
@@ -295,7 +297,7 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 		ps_try_bubble(a, b, o);
 	}
 	shortest_rotation_finish(a, o);
-	return (1);
+	return (estas_finita(*a, *b));
 }
 
 int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
@@ -373,6 +375,12 @@ void		gen_pivot(t_stk **a, int *pivot)
 	return ;
 }
 
+void		gen_pivot_last(t_stk **a, int *pivot)
+{
+	*pivot = stack_tail(*a)->val;
+	return ;
+}
+
 int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 {
 	int		pivot;
@@ -389,7 +397,10 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 		}
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
-		ps_combo_rewind(a, b, o);
+		if (ps_combo_rewind(a, b, o))
+			continue ;
+		ouch(a, b, o, "rra");
+		new_pivot = 1;
 //		deb_(".");
 	}
 	return (1);
