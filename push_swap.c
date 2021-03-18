@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 17:51:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:57:06 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,7 +188,7 @@ int		op_redundant(char **o, char *op)
 	deb_("->");
 	deb_(op);
 	deb_("). ");
-	if (is_redundant(op, last))
+	if (is_redundant(last, op))
 	{
 		free(last);
 		deb_("Yes.\n");
