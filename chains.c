@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 12:59:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:05:24 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,21 +363,21 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 	return (did);
 }
 
+void		gen_pivot_last(t_stk **a, int *pivot)
+{
+	*pivot = stack_tail(*a)->val;
+	return ;
+}
+
 void		gen_pivot(t_stk **a, int *pivot)
 {
 	int	tmp;
 
 	tmp = stack_median(*a)->val;
 	if (tmp == *pivot)
-		return ;
+		return (gen_pivot_last(a, pivot));
 	*pivot = tmp;
 	deb_pivot(*pivot);
-	return ;
-}
-
-void		gen_pivot_last(t_stk **a, int *pivot)
-{
-	*pivot = stack_tail(*a)->val;
 	return ;
 }
 

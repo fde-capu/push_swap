@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 11:55:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 13:50:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,11 +92,93 @@ void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
 	return ;
 }
 
+char	*last_op(char **o)
+{
+	char *coma;
+	char	*h;
+
+	h = *o;
+	while (*h)
+	{
+		if (*h == ',')
+			coma = h;
+		h++;
+	}
+	return (++coma);
+}
+
+int		op_undo(char **o)
+{
+	char	*last;
+
+	last = last_op(o);
+	*(last - 1) = 0;
+	last = last_op(o);
+	*(last - 1) = 0;
+	return (0);
+}
+
+char	*penult_op(char **o)
+{
+	char *coma;
+	char	*stop;
+	char	*h;
+	char	*out;
+
+	h = *o;
+	coma = h;
+	while (*h)
+	{
+		if (*h == ',')
+			coma = h;
+		h++;
+	}
+	stop = coma;
+	coma--;
+	while (coma > *o && *coma != ',')
+		coma--;
+	if (coma == *o)
+		return (ft_str(""));
+	out = ft_calloc(sizeof(char) * (stop - coma), 1);
+	h = out;
+	coma++;
+	while (*coma != ',')
+	{
+		*h = *coma;
+		coma++;
+		h++;
+	}
+	return (out);
+}
+
+int		op_redundant(char **o, char *op)
+{
+	char	*last;
+
+	last = penult_op(o);
+	deb_("Redundant? last: ");
+	deb_(last);
+	deb_(", op: ");
+	deb_(op);
+	if (ft_stridentical(op, "ra")) // more cases?
+	{
+		if (ft_stridentical(last, "rra"))
+		{
+			deb_(". Yes.\n");
+			return (1);
+		}
+	}
+	deb_(". No.\n");
+	return (0);
+}
+
 int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 {
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);
 	op_run_str(op, a, b);
+	if (op_redundant(o, op))
+		return (op_undo(o));
 	if (DEBUG)
 	{
 		ft_print_stdout(op);

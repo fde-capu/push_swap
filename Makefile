@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/18 12:53:00 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/18 13:09:48 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ ARGS_A_PRE	=	echo "sa\nsa\n" |
 ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
-ARGS_D		=	$(shell ./args.sh 6)
-ARGS_X		=	4 3 5 2 1
+ARGS_D		=	$(shell ./args.sh 10)
+ARGS_X		=	5 1 4 10 7 3 8 9 6 2
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
