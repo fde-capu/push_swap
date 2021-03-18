@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 12:16:59 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:42:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			may_bubble(t_stk *a, int dir)
 	int	bot;
 	int	med;
 
-	if (!a || !a->nx || !a->nx->nx)
+	if (!a || !a->nx)
 		return (0);
 	if (dir == ASCE)
 	{
@@ -292,6 +292,7 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 	{
 		shortest_rotation_rewind(a, b, o);
 		ouch(a, b, o, "pa");
+		ps_try_bubble(a, b, o);
 	}
 	shortest_rotation_finish(a, o);
 	return (1);
@@ -388,7 +389,8 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 		}
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
-		deb_(".");
+		ps_combo_rewind(a, b, o);
+//		deb_(".");
 	}
 	return (1);
 }

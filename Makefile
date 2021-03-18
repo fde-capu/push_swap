@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/18 11:59:02 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/18 12:39:28 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 6)
-ARGS_X		=	2 1 3 5 4
+ARGS_X		=	4 5 2 1 3
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
