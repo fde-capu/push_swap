@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 18:09:47 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:15:04 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,10 +107,15 @@ size_t		ft_strlen2d(char **s);
 t_stk		*stack_clone(t_stk *s);
 void		strategy_destroy(t_ttg *k);
 void		op_run_str(char *o, t_stk **a, t_stk **b);
-int			is_in_order(t_stk *s);
 int			estas_finita(t_stk *a, t_stk *b);
 int		count_le(t_stk *h, int about);
 int		count_gt(t_stk *h, int about);
 void	ft_print_int(int i);
+t_stk		*min_cell(t_stk *ss);
+t_stk		*max_cell(t_stk *ss);
+int			min_val(t_stk *ss);
+int			max_val(t_stk *ss);
+int			in_order(t_stk *s);
+int			in_reverse(t_stk *s);
 
 #endif

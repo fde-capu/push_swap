@@ -6,48 +6,90 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 18:12:33 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:52:51 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int				ps_try_bubble(t_stk **a, t_stk **b, char **o, t_stk **h)
+int			may_bubble(t_stk *a, int dir)
+{
+	int	higher;
+	int	lower;
+	int	top;
+	int	bot;
+	int	med;
+
+	if (!a || !a->nx)
+		return (0);
+	if (dir == ASCE)
+	{
+		higher = a->nx->val;
+		lower = a->val;
+	}
+	if (dir == DESC)
+	{
+		higher = a->val;
+		lower = a->nx->val;
+	}
+	top = max_val(a);
+	bot = min_val(a);
+	med = stack_median(a)->val;
+	if ((higher > med && lower <= med) || (higher > med && lower <= med))
+		return (0);
+	if (lower > higher)
+		return (1);
+	return (0);
+}
+
+void	deb_bol_(int i)
+{
+	if (!DEBUG)
+		return ;
+	if (i)
+		ft_print_stdout("Yes.\n");
+	else
+		ft_print_stdout("No.\n");
+	return ;
+}
+
+void	deb_(char *s)
 {
 	if (DEBUG)
-		ft_print_stdout("try bubble\n");
-	if ((*a) && ((*a)->nx) \
-		&& ((*a)->val > (*a)->nx->val) && (*b) \
-		&& ((*b)->nx) && ((*b)->val < (*b)->nx->val))
-	{
-		if (in_reverse_out_of_rot(*b))
-		{
-			if (*a != max_cell(*a))
-			{
-				ouch(a, b, o, "sa");
-				*h = (*h)->pv;
-			}
-		}
-		else
-		{
-			ouch(a, b, o, "ss");
-			*h = (*h)->pv;
-		}
-		return (ps_flush_ready(a, b, o));
-	}
-	if ((*a) && ((*a)->nx) \
-		&& ((*a)->val > (*a)->nx->val))
-	{
-		if (*a != max_cell(*a))
-		{
-			ouch(a, b, o, "sa");
-			*h = (*h)->pv;
-		}
-	}
-	if ((*b) && ((*b)->nx) \
-		&& ((*b)->val < (*b)->nx->val))
-			ouch(a, b, o, "sb");
-	return (ps_flush_ready(a, b, o));
+		ft_print_stdout(s);
+	return ;
+}
+
+void	deb_int_(int i)
+{
+	char	*num;
+
+	if (!DEBUG)
+		return ;
+	num = ft_itoa(i);
+	num = ft_strcatxr(" ", num);
+	num = ft_strcatxl(num, " ");
+	deb_(num);
+	free (num);
+	return ;
+}
+
+int				ps_try_bubble(t_stk **a, t_stk **b, char **o)
+{
+	int		oa;
+	int		ob;
+
+	deb_("Try bubble. ");
+	oa = may_bubble(*a, ASCE);
+	ob = may_bubble(*b, DESC);
+	if (oa && ob)
+		return (ouch(a, b, o, "ss"));
+	if (oa)
+		return (ouch(a, b, o, "sa"));
+	if (ob)
+		return (ouch(a, b, o, "sb"));
+	deb_("No.\n");
+	return (0);
 }
 
 int				comb_rr(t_stk **a, t_stk **b, char **comb)
@@ -189,7 +231,7 @@ t_stk			*this_is_before(t_stk *a, t_stk *b)
 	{
 		ft_print_stdout("What should preceed ");
 		ft_print_int(b->val);
-		ft_print_stdout("? > ");
+		ft_print_stdout("? < ");
 	}
 	once = 1;
 	h = a;
@@ -277,36 +319,7 @@ void			shortest_rotation_rewind(t_stk **a, t_stk **b, char **o)
 
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
-//	char	*combo_str[4];
-//	int		combo_stp[4];
-//	t_stk	*combo_stk_a[4];
-//	t_stk	*combo_stk_b[4];
-//	int		best;
-
-	if (DEBUG)
-		ft_print_stdout("Combo Rewind!\n");
-//	combo_stk_a[0] = stack_clone(*a);
-//	combo_stk_a[1] = stack_clone(*a);
-//	combo_stk_a[2] = stack_clone(*a);
-//	combo_stk_a[3] = stack_clone(*a);
-//	combo_stk_b[0] = stack_clone(*b);
-//	combo_stk_b[1] = stack_clone(*b);
-//	combo_stk_b[2] = stack_clone(*b);
-//	combo_stk_b[3] = stack_clone(*b);
-//	combo_str[0] = ft_str("");
-//	combo_str[1] = ft_str("");
-//	combo_str[2] = ft_str("");
-//	combo_str[3] = ft_str("");
-//	combo_stp[0] = comb_rr(&combo_stk_a[0], &combo_stk_b[0], &combo_str[0]);
-//	combo_stp[1] = comb_rrr(&combo_stk_a[1], &combo_stk_b[1], &combo_str[1]);
-//	combo_stp[2] = comb_ra_rrb(&combo_stk_a[2], &combo_stk_b[2], &combo_str[2]);
-//	combo_stp[3] = comb_rra_rb(&combo_stk_a[3], &combo_stk_b[3], &combo_str[3]);
-//	best = min_int_idx_arr4(combo_stp);
-//	re_ouch(a, b, o, combo_str[best]);
-//	free(combo_str[0]);
-//	free(combo_str[1]);
-//	free(combo_str[2]);
-//	free(combo_str[3]);
+	deb_("Combo Rewind!\n");
 	while (stack_size(*b) > 0)
 	{
 		shortest_rotation_rewind(a, b, o);
@@ -318,12 +331,10 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 
 int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 {
-	if (DEBUG)
-		ft_print_stdout("Flush_ready? ");
+	deb_("Flush_ready? ");
 	if (in_order_out_of_rot(*a) && in_reverse_out_of_rot(*b))
 		return (ps_combo_rewind(a, b, o));
-	if (DEBUG)
-		ft_print_stdout("No.\n");
+	deb_("No.\n");
 	return (0);
 }
 
@@ -334,74 +345,80 @@ void			deb_stack_double_log(t_stk *a, t_stk *b)
 	return ;
 }
 
-void			deb_pivot(t_stk *p)
+void			deb_pivot(int val)
 {
-	char	*str;
-
 	if (!DEBUG)
 		return ;
 	ft_print_stdout("New pivot: ");
-	str = ft_itoa(p->val);
-	ft_print_stdout(str);
-	free(str);
+	ft_print_int(val);
 	ft_print_stdout(".\n");
+	return ;
+}
+
+int	bubble_and_flush(t_stk **a, t_stk **b, char **o)
+{
+	ps_try_bubble(a, b, o);
+	return (ps_flush_ready(a, b, o));
+}
+
+int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
+{
+	t_stk	*h;
+	int		did;
+
+	deb_("Do pb? ...");
+	did = 0;
+	h = *a;
+	while (h->nx)
+	{
+		deb_("for ");
+		deb_int_(h->val);
+		if (h->val <= pivot)
+		{
+			did = ouch(a, b, o, "pb");
+		}
+		else
+		{
+			deb_(". No pb, then ");
+			did = ouch(a, b, o, "ra");
+		}
+		if (bubble_and_flush(a, b, o))
+			break ;
+		h = *a;
+	}
+	deb_("...finished pb: ");
+	deb_bol_(did);
+	return (did);
+}
+
+void		gen_pivot(t_stk **a, int *pivot)
+{
+	int	tmp;
+
+	tmp = stack_median(*a)->val;
+	if (tmp == *pivot)
+		return ;
+	*pivot = tmp;
+	deb_pivot(*pivot);
 	return ;
 }
 
 int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 {
-//int deb = 1;
-	t_stk	*pivot;
-	t_stk	*h;
+	int		pivot;
+	int		new_pivot;
 
-	while (!estas_finita(*a, *b))
+	new_pivot = 1;
+	pivot = 0;
+	while (!(estas_finita(*a, *b)))
 	{
-		while (stack_size(*a) > 1)
+		if (new_pivot)
 		{
-			pivot = stack_median(*a);
-			deb_pivot(pivot);
-			h = *a;
-//			while (1)
-//			{
-				if (ps_try_bubble(a, b, o, &h))
-					return (1) ;
-				//if (deb++ > 15) { printf("DEBY!\n"); exit (0); }
-				while (h->val <= pivot->val)
-				{
-					ouch(a, b, o, "pb");
-					h = *a;
-//					if (h == pivot)
-//						break ;
-					if (ps_try_bubble(a, b, o, &h))
-						return (1);
-				}
-				if (count_le(*a, pivot->val) > 1)
-				{
-					ouch(a, b, o, "ra");
-					if (ps_try_bubble(a, b, o, &h))
-						return (1);
-				}
-				else
-				{
-					if (stack_size(*a) > 1)
-					{
-						ouch(a, b, o, "rra");
-						if (ps_try_bubble(a, b, o, &h))
-							return (1);
-						break ;
-					}
-				}
-				h = *a;
-//				if (h == pivot)
-//					break ;
-//			}
+			gen_pivot(a, &pivot);
+			new_pivot = 0;
 		}
-//		while (stack_size(*b) > 0)
-//		{
-//			shortest_rotation_rewind(a, b, o);
-//			ouch(a, b, o, "pa");
-//		}
-//		shortest_rotation_finish(a, o);
+		if (ps_pb_le_pivot(a, b, o, pivot))
+			continue ;
 	}
 	return (1);
 }
@@ -439,4 +456,3 @@ t_stk	*stack_median(t_stk *s)
 	}
 	return (median);
 }
-

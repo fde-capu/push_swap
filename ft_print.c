@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 18:10:20 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 09:58:09 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,5 +28,19 @@ void	ft_print_x(char *str)
 void	ft_print_int(int i)
 {
 	ft_print_x(ft_itoa(i));
+	return ;
+}
+
+void		str_replace_chr_chr(char **str, char this, char to_this)
+{
+	char	*h;
+
+	h = *str;
+	while (*h)
+	{
+		if (*h == this)
+			*h = to_this;
+		h++;
+	}
 	return ;
 }

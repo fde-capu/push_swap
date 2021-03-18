@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/16 14:42:07 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/18 10:24:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,107 +73,6 @@ int			main(int argc, char **argv)
 	exit(0);
 }
 
-t_stk		*cell_by_val(t_stk *s, int control)
-{
-	while (s)
-	{
-		if (s->val == control)
-			return (s);
-		s = s->nx;
-	}
-	return (0);
-}
-
-int			min_val(t_stk *ss)
-{
-	int		control;
-	t_stk	*s;
-
-	s = ss;
-	control = s->val;
-	while (s)
-	{
-		if (s->val < control)
-			control = s->val;
-		s = s->nx;
-	}
-	return (control);
-}
-
-int			max_val(t_stk *ss)
-{
-	int		control;
-	t_stk	*s;
-
-	s = ss;
-	if (!ss)
-		return (INT_MIN);
-	control = s->val;
-	while (s)
-	{
-		if (s->val > control)
-			control = s->val;
-		s = s->nx;
-	}
-	return (control);
-}
-
-t_stk		*min_cell(t_stk *ss)
-{
-	int		control;
-
-	control = min_val(ss);
-	return (cell_by_val(ss, control));
-}
-
-t_stk		*max_cell(t_stk *ss)
-{
-	int		control;
-
-	control = max_val(ss);
-	return (cell_by_val(ss, control));
-}
-
-int				in_order_out_of_rot(t_stk *a)
-{
-	int		loop;
-	t_stk	*h;
-	int		prev;
-
-	loop = stack_size(a);
-	h = min_cell(a);
-	while (loop--)
-	{
-		prev = h->val;
-		h = h->nx;
-		if (!h)
-			h = a;
-		if ((h->val < prev) && (h != min_cell(a)))
-			return (0);
-	}
-	return (1);
-}
-
-int				in_reverse_out_of_rot(t_stk *a)
-{
-	int		loop;
-	t_stk	*h;
-	int		prev;
-
-	loop = stack_size(a);
-	h = max_cell(a);
-	while (loop--)
-	{
-		prev = h->val;
-		h = h->nx;
-		if (!h)
-			h = a;
-		if ((h->val > prev) && (h != max_cell(a)))
-			return (0);
-	}
-	return (1);
-}
-
 void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
 {
 	char	**spl;
@@ -192,7 +91,7 @@ void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
 	return ;
 }
 
-void	ouch(t_stk **a, t_stk **b, char **o, char *op)
+int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 {
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);
@@ -203,5 +102,5 @@ void	ouch(t_stk **a, t_stk **b, char **o, char *op)
 		ft_print_stdout(":\n");
 		stack_double_log(*a, *b);
 	}
-	return ;
+	return (1);
 }
