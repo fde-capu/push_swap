@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 17:18:55 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 07:40:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,8 +365,8 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 			deb_(". No pb, then ");
 			did = ouch(a, b, o, "ra");
 		}
-		if (bubble_and_flush(a, b, o))
-			break ;
+//		if (bubble_and_flush(a, b, o))
+//			break ;
 		h = *a;
 	}
 	return (did);
@@ -393,33 +393,28 @@ void		gen_pivot_median(t_stk **a, int *pivot)
 int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 {
 	int		pivot;
-	int		new_pivot;
 
-	new_pivot = -1;
+//		gen_pivot_median(a, &pivot);
+//		gen_pivot_last(a, &pivot);
 	pivot = 0;
-	while (!(estas_finita(*a, *b)))
+	while (1)
 	{
-		if (new_pivot)
-		{
-			if (stack_size(*b) || new_pivot == -1)
-				gen_pivot_median(a, &pivot);
-			else
-				gen_pivot_last(a, &pivot);
-			new_pivot = 0;
-		}
+		gen_pivot_median(a, &pivot);
+		if (bubble_and_flush(a, b, o))
+			break ;
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
 		if ((stack_size(*a) <= 2) && (ps_combo_rewind(a, b, o)))
 			continue ;
-//		if (stack_size(*b) > 2)
-//			ouch(a, b, o, "ra");
+		//		if (stack_size(*b) > 2)
+		//			ouch(a, b, o, "ra");
 		break ;
-//		new_pivot = 1;
 	}
+	//		new_pivot = 1;
 	if (estas_finita(*a, *b))
 		return (1);
 	ps_quick_sort(a, b, o);
-	return (1);
+	return (0);
 }
 
 void			chain_push_swap(t_stk **a, t_stk **b, char **o)

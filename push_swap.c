@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 17:57:06 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 07:58:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,6 @@ t_ttg	**init_ps_strategy(t_ttg **k)
 	return (k);
 }
 
-void	solve_push_swap(t_ttg *k, t_stk *a)
-{
-	k->a = stack_clone(a);
-	k->b = init_stack_empty();
-	k->formula = (k->function)(&k->a, &k->b);
-	k->result = count_instructions_in_str(k->formula);
-	return ;
-}
-
 char	*gen_push_swap(t_stk **a, t_stk **b)
 {
 	char	*o;
@@ -36,6 +27,62 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	chain_push_swap(a, b, &o);
 	o = ft_x(o, ft_strtrim(o, ","));
 	return (o);
+}
+
+# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb"
+
+char	*find_on_ops(char **ops, char *find)
+{
+	char	*h;
+
+	h = ft_strstr(find, *ops);
+	if (!h)
+		return (0);
+	if (h == *ops)
+		return (h);
+	if (*(h - 1) != ',')
+		return (0);
+	return (h);
+}
+
+void	remove_str(char **str, char *rem)
+{
+	char	*h;
+
+	while ((h = find_on_ops(str, rem)))
+	{
+		*h = 0;
+		h += ft_strlen(rem) + 1;
+		*str = ft_strcatxl(*str, h);
+	}
+	return ;
+}
+
+void	delete_redundancies(t_ttg *strat)
+{
+	char	**red;
+	int		i;
+
+	red = ft_split(REDUNDANCIES, '|');
+	i = ft_strlen2d(red);
+	while (i--)
+	{
+		//printf("%d (%s) ", i, red[i]);
+		remove_str(&strat->formula, red[i]);
+	}
+	//printf(">>> '%s'\n", strat->formula);
+	ft_strfree2d(red);
+	return ;
+}
+
+void	solve_push_swap(t_ttg *k, t_stk *a)
+{
+	k->a = stack_clone(a);
+	k->b = init_stack_empty();
+	k->formula = (k->function)(&k->a, &k->b);
+	delete_redundancies(k);
+	k->result = count_instructions_in_str(k->formula);
+	return ;
 }
 
 int			main(int argc, char **argv)
@@ -151,8 +198,6 @@ char	*penult_op(char **o)
 	return (out);
 }
 
-# define REDUNDANCIES	",ra>rra,rra>ra,rb>rrb,rrb>rb,pb>pa,pa>pb,"
-
 int		is_redundant(char *op_before, char *op_after)
 {
 	char	*red_str;
@@ -166,9 +211,6 @@ int		is_redundant(char *op_before, char *op_after)
 	red_str = ft_strcatxl(red_str, ">");
 	red_str = ft_strcatxl(red_str, op_after);
 	red_str = ft_strcatxl(red_str, ",");
-	deb_("check '");
-	deb_(red_str);
-	deb_("' ");
 	out_check = ft_strstr(red_str, REDUNDANCIES);
 	if (out_check)
 		out = 1;
@@ -204,8 +246,6 @@ int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);
 	op_run_str(op, a, b);
-	if (op_redundant(o, op))
-		return (op_undo(o));
 	if (DEBUG)
 	{
 		ft_print_stdout(op);

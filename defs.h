@@ -6,14 +6,14 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/17 20:08:28 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 07:39:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFS_H
 # define DEFS_H
 
-# define DEBUG		1
+# define DEBUG		0
 # define OP_NAMES	"sa sb ss pa pb ra rb rr rra rrb rrr"
 
 # define ER	-1
