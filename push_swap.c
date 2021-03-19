@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 13:11:28 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:56:52 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,18 @@ int	substitute_redundancy(char **str, char *sub_code)
 
 	out = 0;
 	sub = ft_split(sub_code, '>');
-	while ((h = ft_strstr(sub[0], *str)))
+	while ((h = find_on_ops(str, sub[0])))
 	{
+		deb_("o before: ");
+		deb_(*str);
+		deb_("\n");
 		cue = h + ft_strlen(sub[0]);
 		final_part = ft_strcat(sub[1], cue);
 		*h = 0;
 		*str = ft_strcatxx(*str, final_part);
+		deb_("o after: ");
+		deb_(*str);
+		deb_("\n");
 		out++;
 	}
 	ft_strfree2d(sub);
