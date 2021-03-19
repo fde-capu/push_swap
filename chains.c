@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 11:23:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:50:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,20 @@ int			may_bubble(t_stk *a, int dir)
 	if (lower > higher)
 		return (1);
 	deb_("case 3. ");
+	return (0);
+}
+
+int				bubble_if_ss(t_stk **a, t_stk **b, char **o)
+{
+	int		oa;
+	int		ob;
+
+	deb_("Bubble ss. ");
+	oa = may_bubble(*a, ASCE);
+	ob = may_bubble(*b, DESC);
+	if (oa && ob)
+		return (ouch(a, b, o, "ss"));
+	deb_("No.\n");
 	return (0);
 }
 
@@ -198,19 +212,53 @@ int				min_int_idx_arr4(int combo_stp[])
 	return (best);
 }
 
+t_stk			*this_is_after(t_stk *a, t_stk *b)
+{
+	t_stk	*h;
+	t_stk	*after;
+	int		once;
+
+	deb_("What should succed");
+	deb_int_(a->val);
+	deb_("? >");
+	if (stack_size(b) <= 1)
+		return (b);
+	after = 0;
+	once = 1;
+	h = b;
+	while (h)
+	{
+		if (h->val < a->val)
+		{
+			if (once)
+			{
+				after = h;
+				once = 0;
+			}
+			if (h->val > after->val)
+			{
+				after = h;
+			}
+		}
+		h = h->nx;
+	}
+	if (!after)
+		after = max_cell(b);
+	deb_int_(after->val);
+	deb_("\n");
+	return (after);
+}
+
 t_stk			*this_is_before(t_stk *a, t_stk *b)
 {
 	t_stk	*h;
 	t_stk	*before;
 	int		once;
 
-	if (DEBUG)
-	{
-		ft_print_stdout("What should preceed ");
-		ft_print_int(b->val);
-		ft_print_stdout("? < ");
-	}
-	if (stack_size(a) == 1)
+	deb_("What should preceed");
+	deb_int_(b->val);
+	deb_("? <");
+	if (stack_size(a) <= 1)
 		return (a);
 	once = 1;
 	h = a;
@@ -230,11 +278,8 @@ t_stk			*this_is_before(t_stk *a, t_stk *b)
 		}
 		h = h->nx;
 	}
-	if (DEBUG)
-	{
-		ft_print_int(before->val);
-		ft_print_stdout("\n");
-	}
+	deb_int_(before->val);
+	deb_("\n");
 	return (before);
 }
 
@@ -252,17 +297,37 @@ int				position_bot(t_stk *a, t_stk *h)
 	return (position_bot(a, h->nx) + 1);
 }
 
-void			shortest_rotation_prepare(t_stk **a, t_stk **b, char **o)
+void	put_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell)
 {
-	t_stk	*before;
 	int		dist_top;
 	int		dist_bot;
 
-	before = max_cell(*b);
-	if (!before)
+	if (!cell)
 		return ;
-	dist_top = position_top(*b, before);
-	dist_bot = position_bot(*b, before);
+	dist_top = position_top(*a, cell);
+	dist_bot = position_bot(*a, cell);
+	if (dist_top < dist_bot)
+	{
+		while (dist_top--)
+			ouch(a, b, o, "ra");
+	}
+	else
+	{
+		while (dist_bot--)
+			ouch(a, b, o, "rra");
+	}
+	return ;
+}
+
+void	put_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell)
+{
+	int		dist_top;
+	int		dist_bot;
+
+	if (!cell)
+		return ;
+	dist_top = position_top(*b, cell);
+	dist_bot = position_bot(*b, cell);
 	if (dist_top < dist_bot)
 	{
 		while (dist_top--)
@@ -276,47 +341,27 @@ void			shortest_rotation_prepare(t_stk **a, t_stk **b, char **o)
 	return ;
 }
 
+void			shortest_rotation_prepare(t_stk **a, t_stk **b, char **o)
+{
+	put_cell_on_top_b(a, b, o, max_cell(*b));
+	return ;
+}
+
 void			shortest_rotation_finish(t_stk **a, t_stk **b, char **o)
 {
-	t_stk	*before;
-	int		dist_top;
-	int		dist_bot;
-
-	before = min_cell(*a);
-	dist_top = position_top(*a, before);
-	dist_bot = position_bot(*a, before);
-	if (dist_top < dist_bot)
-	{
-		while (dist_top--)
-			ouch(a, b, o, "ra");
-	}
-	else
-	{
-		while (dist_bot--)
-			ouch(a, b, o, "rra");
-	}
+	put_cell_on_top_a(a, b, o, min_cell(*a));
 	return ;
 }
 
 void			shortest_rotation_rewind(t_stk **a, t_stk **b, char **o)
 {
-	t_stk	*before;
-	int		dist_top;
-	int		dist_bot;
+	put_cell_on_top_a(a, b, o, this_is_before(*a, *b));
+	return ;
+}
 
-	before = this_is_before(*a, *b);
-	dist_top = position_top(*a, before);
-	dist_bot = position_bot(*a, before);
-	if (dist_top < dist_bot)
-	{
-		while (dist_top--)
-			ouch(a, b, o, "ra");
-	}
-	else
-	{
-		while (dist_bot--)
-			ouch(a, b, o, "rra");
-	}
+void			shortest_rotation_receive(t_stk **a, t_stk **b, char **o)
+{
+	put_cell_on_top_b(a, b, o, this_is_after(*a, *b));
 	return ;
 }
 
@@ -330,13 +375,12 @@ int			shortest_rotation_forward(t_stk **a, t_stk **b, char **o, int pivot)
 		return (0);
 	dist_dn = 0;
 	h = *a;
-	while (h && dist_dn++ && h->val > pivot)
+	while (h && h->val > pivot && dist_dn++)
 		h = h->nx;
 	dist_up = 1;
 	h = stack_tail(*a);
-	while (h && dist_up++ && h->val > pivot)
+	while (h && h->val > pivot && dist_up++)
 		h = h->pv;
-	printf(" dist_down: %d, dist up %d \n", dist_dn, dist_up);
 	if (dist_dn < dist_up)
 	{
 		while (dist_dn--)
@@ -390,6 +434,12 @@ void			deb_pivot(int val)
 	return ;
 }
 
+int	ss_bubble_and_flush(t_stk **a, t_stk **b, char **o)
+{
+	bubble_if_ss(a, b, o);
+	return (ps_flush_ready(a, b, o));
+}
+
 int	bubble_and_flush(t_stk **a, t_stk **b, char **o)
 {
 	ps_try_bubble(a, b, o);
@@ -412,11 +462,16 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 		deb_("pivot");
 		deb_int_(pivot);
 		if (h->val <= pivot)
+		{
+			shortest_rotation_receive(a, b, o);
 			did = ouch(a, b, o, "pb");
+		}
 		else
+		{
 			did = shortest_rotation_forward(a, b, o, pivot);
-//		if (bubble_and_flush(a, b, o))
-//			break ;
+		}
+		if (bubble_and_flush(a, b, o))
+			return (did);
 		h = *a;
 	}
 	deb_bol_(did);
@@ -462,7 +517,6 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 	//		new_pivot = 1;
 	if (estas_finita(*a, *b))
 		return (1);
-	ps_quick_sort(a, b, o);
 	return (0);
 }
 

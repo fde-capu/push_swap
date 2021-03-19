@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 09:53:22 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 12:56:05 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
-# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa"
+# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rra,rrb>rrr|rrb,rra>rrr|ra,rb>rr|rb,ra>rr|ra,rr,rb>rr,rr|rb,rr,ra>rr,rr|rra,rrr,rrb>rrr,rrr|rrb,rrr,rra>rrr,rrr"
 
 char	*find_on_ops(char **ops, char *find)
 {
@@ -45,13 +45,15 @@ char	*find_on_ops(char **ops, char *find)
 	return (h);
 }
 
-void	substitute_redundancy(char **str, char *sub_code)
+int	substitute_redundancy(char **str, char *sub_code)
 {
 	char	*h;
 	char	*cue;
 	char	**sub;
 	char	*final_part;
+	int		out;
 
+	out = 0;
 	sub = ft_split(sub_code, '>');
 	while ((h = ft_strstr(sub[0], *str)))
 	{
@@ -59,42 +61,48 @@ void	substitute_redundancy(char **str, char *sub_code)
 		final_part = ft_strcat(sub[1], cue);
 		*h = 0;
 		*str = ft_strcatxx(*str, final_part);
+		out++;
 	}
 	ft_strfree2d(sub);
-	return ;
+	return (out);
 }
 
-void	remove_str(char **str, char *rem)
+int	remove_str(char **str, char *rem)
 {
 	char	*h;
+	int		out;
 
+	out = 0;
 	while ((h = find_on_ops(str, rem)))
 	{
 		*h = 0;
 		h += ft_strlen(rem) + 1;
 		*str = ft_strcatxl(*str, h);
+		out++;
 	}
-	return ;
+	return (out);
 }
 
-void	delete_redundancies(t_ttg *strat)
+int		treat_redundancies(t_ttg *strat)
 {
 	char	**red;
 	int		i;
+	int		count;
 
+	count = 0;
 	red = ft_split(REDUNDANCIES, '|');
 	i = ft_strlen2d(red);
 	while (i--)
 	{
-		//printf("%d (%s) ", i, red[i]);
 		if (ft_strstr(">", red[i]))
-			substitute_redundancy(&strat->formula, red[i]);
+			count += substitute_redundancy(&strat->formula, red[i]);
 		else
-			remove_str(&strat->formula, red[i]);
+			count += remove_str(&strat->formula, red[i]);
 	}
-	//printf(">>> '%s'\n", strat->formula);
 	ft_strfree2d(red);
-	return ;
+	if (count)
+		treat_redundancies(strat);
+	return (count);
 }
 
 void	solve_push_swap(t_ttg *k, t_stk *a)
@@ -102,7 +110,7 @@ void	solve_push_swap(t_ttg *k, t_stk *a)
 	k->a = stack_clone(a);
 	k->b = init_stack_empty();
 	k->formula = (k->function)(&k->a, &k->b);
-	delete_redundancies(k);
+	treat_redundancies(k);
 	k->result = count_instructions_in_str(k->formula);
 	return ;
 }
