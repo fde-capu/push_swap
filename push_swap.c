@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 12:56:05 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:11:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
-# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rra,rrb>rrr|rrb,rra>rrr|ra,rb>rr|rb,ra>rr|ra,rr,rb>rr,rr|rb,rr,ra>rr,rr|rra,rrr,rrb>rrr,rrr|rrb,rrr,rra>rrr,rrr"
+# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rra,rrb>rrr|rrb,rra>rrr|ra,rb>rr|rb,ra>rr|ra,rr,rb>rr,rr|rb,rr,ra>rr,rr|rra,rrr,rrb>rrr,rrr|rrb,rrr,rra>rrr,rrr|rrr,rb>ra|rrr,ra>rb|ra,sa,rb>rr,sa|rb,sb,ra>rr,sb"
 
 char	*find_on_ops(char **ops, char *find)
 {

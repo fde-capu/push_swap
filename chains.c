@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 12:50:31 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:19:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -400,7 +400,7 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 	shortest_rotation_prepare(a, b, o);
 	while (stack_size(*b) > 0)
 	{
-		ps_try_bubble(a, b, o);
+		//ps_try_bubble(a, b, o);
 		shortest_rotation_rewind(a, b, o);
 		ouch(a, b, o, "pa");
 	}
@@ -470,7 +470,8 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 		{
 			did = shortest_rotation_forward(a, b, o, pivot);
 		}
-		if (bubble_and_flush(a, b, o))
+//		if (bubble_and_flush(a, b, o))
+		if (ps_flush_ready(a, b, o))
 			return (did);
 		h = *a;
 	}
@@ -506,7 +507,9 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 	while (1)
 	{
 		gen_pivot_median(a, &pivot);
-		if (bubble_and_flush(a, b, o))
+//		if (bubble_and_flush(a, b, o))
+//			break ;
+		if (ps_flush_ready(a, b, o))
 			break ;
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
