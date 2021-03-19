@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/19 13:14:19 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/19 13:43:03 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -108,6 +108,8 @@ tv:			all
 
 tba:	$(NAME_B)
 	ARGS="$(ARGS_A)" && ./$(NAME_B) $$ARGS
+vba:	$(NAME_B)
+	ARGS="$(ARGS_A)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 tbb:	$(NAME_B)
 	ARGS="$(ARGS_B)" && ./$(NAME_B) $$ARGS
 tbc:	$(NAME_B)

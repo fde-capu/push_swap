@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 12:00:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:40:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int				in_reverse_out_of_rot(t_stk *a);
 void			deb_stack_double_log(t_stk *a, t_stk *b);
 int				ps_flush_ready(t_stk **a, t_stk **b, char **o);
 t_stk		*stack_median(t_stk *s);
+t_stk	*stack_short(t_stk *s);
 
 
 #endif

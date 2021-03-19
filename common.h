@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 11:56:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:42:06 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ void		rr(t_stk **a, t_stk **b);
 void		rra(t_stk **a, t_stk **b);
 void		rrb(t_stk **a, t_stk **b);
 void		rrr(t_stk **a, t_stk **b);
+t_stk		*cell_by_val(t_stk *s, int control);
 void		switch_top(t_stk **s);
 void		ft_print_x(char *str);
 size_t		ft_strlen2d(char **s);

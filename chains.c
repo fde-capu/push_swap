@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 13:24:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:44:20 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -497,6 +497,18 @@ void		gen_pivot_median(t_stk **a, int *pivot)
 	return ;
 }
 
+void		gen_pivot_short(t_stk **a, int *pivot)
+{
+	int	tmp;
+
+	tmp = stack_short(*a)->val;
+	if (tmp == *pivot)
+		return (gen_pivot_last(a, pivot));
+	*pivot = tmp;
+	deb_pivot(*pivot);
+	return ;
+}
+
 int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 {
 	int		pivot;
@@ -506,7 +518,7 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 	pivot = 0;
 	while (1)
 	{
-		gen_pivot_median(a, &pivot);
+		gen_pivot_short(a, &pivot);
 		if (stack_size(*a) < 5 && bubble_and_flush(a, b, o))
 			break ;
 		if (ps_flush_ready(a, b, o))
@@ -555,4 +567,33 @@ t_stk	*stack_median(t_stk *s)
 		h = h->nx;
 	}
 	return (median);
+}
+
+t_stk	*filter_le(t_stk *s, int control)
+{
+	t_stk	*xa;
+	t_stk	*xb;
+
+	xa = stack_clone(s);
+	xb = init_stack_empty();
+	while (count_gt(xa, control))
+	{
+		if (xa->val > control)
+			op_run_str("pb", &xa, &xb);
+		else
+			op_run_str("ra", &xa, &xb);
+	}
+	destroy_stack(xb);
+	return (xa);
+}
+
+t_stk	*stack_short(t_stk *s)
+{
+	t_stk	*tmp;
+	int		tiny;
+
+	tmp = filter_le(s, stack_median(s)->val);
+	tiny = stack_median(tmp)->val;
+	destroy_stack(tmp);
+	return (cell_by_val(s, tiny));
 }
