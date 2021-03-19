@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 08:26:12 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 09:53:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
-# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>test|pa,rra,pa>foo|pb,sb,pa>middle"
+# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa"
 
 char	*find_on_ops(char **ops, char *find)
 {
@@ -53,12 +53,13 @@ void	substitute_redundancy(char **str, char *sub_code)
 	char	*final_part;
 
 	sub = ft_split(sub_code, '>');
-	h = ft_strstr(sub[0], *str);
-	cue = h + ft_strlen(sub[0]);
-	printf("[ str %s | sub_code %s | h %s | cue %s | sub0 %s | sub1 %s ]\n", *str, sub_code, h, cue, sub[0], sub[1]);
-	final_part = ft_strcat(sub[1], cue);
-	*h = 0;
-	*str = ft_strcatxx(*str, final_part);
+	while ((h = ft_strstr(sub[0], *str)))
+	{
+		cue = h + ft_strlen(sub[0]);
+		final_part = ft_strcat(sub[1], cue);
+		*h = 0;
+		*str = ft_strcatxx(*str, final_part);
+	}
 	ft_strfree2d(sub);
 	return ;
 }

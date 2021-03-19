@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 07:40:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 11:23:45 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			may_bubble(t_stk *a, int dir)
 		deb_("case 1. ");
 		return (0);
 	}
-	if (dir == ASCE && (higher == bot && lower == top))
+	if (dir == ASCE && higher == bot && lower == top)
 	{
 		deb_("case 2. ");
 		return (0);
@@ -252,7 +252,31 @@ int				position_bot(t_stk *a, t_stk *h)
 	return (position_bot(a, h->nx) + 1);
 }
 
-void			shortest_rotation_finish(t_stk **a, char **o)
+void			shortest_rotation_prepare(t_stk **a, t_stk **b, char **o)
+{
+	t_stk	*before;
+	int		dist_top;
+	int		dist_bot;
+
+	before = max_cell(*b);
+	if (!before)
+		return ;
+	dist_top = position_top(*b, before);
+	dist_bot = position_bot(*b, before);
+	if (dist_top < dist_bot)
+	{
+		while (dist_top--)
+			ouch(a, b, o, "rb");
+	}
+	else
+	{
+		while (dist_bot--)
+			ouch(a, b, o, "rrb");
+	}
+	return ;
+}
+
+void			shortest_rotation_finish(t_stk **a, t_stk **b, char **o)
 {
 	t_stk	*before;
 	int		dist_top;
@@ -264,12 +288,12 @@ void			shortest_rotation_finish(t_stk **a, char **o)
 	if (dist_top < dist_bot)
 	{
 		while (dist_top--)
-			ouch(a, a, o, "ra");
+			ouch(a, b, o, "ra");
 	}
 	else
 	{
 		while (dist_bot--)
-			ouch(a, a, o, "rra");
+			ouch(a, b, o, "rra");
 	}
 	return ;
 }
@@ -296,16 +320,47 @@ void			shortest_rotation_rewind(t_stk **a, t_stk **b, char **o)
 	return ;
 }
 
+int			shortest_rotation_forward(t_stk **a, t_stk **b, char **o, int pivot)
+{
+	int	dist_up;
+	int	dist_dn;
+	t_stk	*h;
+
+	if ((*a)->val <= pivot)
+		return (0);
+	dist_dn = 0;
+	h = *a;
+	while (h && dist_dn++ && h->val > pivot)
+		h = h->nx;
+	dist_up = 1;
+	h = stack_tail(*a);
+	while (h && dist_up++ && h->val > pivot)
+		h = h->pv;
+	printf(" dist_down: %d, dist up %d \n", dist_dn, dist_up);
+	if (dist_dn < dist_up)
+	{
+		while (dist_dn--)
+			ouch(a, b, o, "ra");
+	}
+	else
+	{
+		while (dist_up--)
+			ouch(a, b, o, "rra");
+	}
+	return (1);
+}
+
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
 	deb_("Combo Rewind!\n");
+	shortest_rotation_prepare(a, b, o);
 	while (stack_size(*b) > 0)
 	{
+		ps_try_bubble(a, b, o);
 		shortest_rotation_rewind(a, b, o);
 		ouch(a, b, o, "pa");
-		ps_try_bubble(a, b, o);
 	}
-	shortest_rotation_finish(a, o);
+	shortest_rotation_finish(a, b, o);
 	return (estas_finita(*a, *b));
 }
 
@@ -352,23 +407,19 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 	{
 		if (!(count_le(*a, pivot)))
 			break ;
-		deb_("Try pb ");
+		deb_("Try pb");
 		deb_int_(h->val);
 		deb_("pivot");
 		deb_int_(pivot);
 		if (h->val <= pivot)
-		{
 			did = ouch(a, b, o, "pb");
-		}
 		else
-		{
-			deb_(". No pb, then ");
-			did = ouch(a, b, o, "ra");
-		}
+			did = shortest_rotation_forward(a, b, o, pivot);
 //		if (bubble_and_flush(a, b, o))
 //			break ;
 		h = *a;
 	}
+	deb_bol_(did);
 	return (did);
 }
 
@@ -404,10 +455,8 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 			break ;
 		if (ps_pb_le_pivot(a, b, o, pivot))
 			continue ;
-		if ((stack_size(*a) <= 2) && (ps_combo_rewind(a, b, o)))
-			continue ;
-		//		if (stack_size(*b) > 2)
-		//			ouch(a, b, o, "ra");
+		if (ps_combo_rewind(a, b, o))
+			break ;
 		break ;
 	}
 	//		new_pivot = 1;
