@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 13:19:32 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 13:24:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,8 +507,8 @@ int				ps_quick_sort(t_stk **a, t_stk **b, char **o)
 	while (1)
 	{
 		gen_pivot_median(a, &pivot);
-//		if (bubble_and_flush(a, b, o))
-//			break ;
+		if (stack_size(*a) < 5 && bubble_and_flush(a, b, o))
+			break ;
 		if (ps_flush_ready(a, b, o))
 			break ;
 		if (ps_pb_le_pivot(a, b, o, pivot))
