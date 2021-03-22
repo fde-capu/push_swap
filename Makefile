@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/19 13:49:18 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/22 14:28:39 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,8 +17,8 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	2 4 1 5 3
-ARGS_Z		=	$(shell ./args.sh 20)
+ARGS_X		=	4 5 13 16 15 12 6 17 10 3 2 8 1 7 9 11 20 19 18 14
+ARGS_Z		=	$(shell ./args.sh 500)
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
@@ -110,6 +110,8 @@ tba:	$(NAME_B)
 	ARGS="$(ARGS_A)" && ./$(NAME_B) $$ARGS
 vba:	$(NAME_B)
 	ARGS="$(ARGS_A)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+vfba:	$(NAME_B)
+	ARGS="$(ARGS_A)" && $(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $$ARGS
 tbb:	$(NAME_B)
 	ARGS="$(ARGS_B)" && ./$(NAME_B) $$ARGS
 tbc:	$(NAME_B)
@@ -120,12 +122,16 @@ vbd:	$(NAME_B)
 	ARGS="$(ARGS_D)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 tbe:	$(NAME_B)
 	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS
+vbe:	$(NAME_B)
+	ARGS="$(ARGS_E)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 tbx:	$(NAME_B)
 	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS
-tbz:	$(NAME_B)
-	ARGS="$(ARGS_Z)" && ./$(NAME_B) $$ARGS
 vbx:	$(NAME_B)
 	ARGS="$(ARGS_X)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+tbz:	$(NAME_B)
+	ARGS="$(ARGS_Z)" && ./$(NAME_B) $$ARGS
+vbz:	$(NAME_B)
+	ARGS="$(ARGS_Z)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 vfbx:	$(NAME_B)
 	ARGS="$(ARGS_X)" && $(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $$ARGS
 
@@ -141,3 +147,5 @@ xe:			all
 	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xx:			all
 	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
+xz:			all
+	ARGS="$(ARGS_Z)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS

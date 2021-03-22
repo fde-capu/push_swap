@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 11:34:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:23:35 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:22:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,13 @@ char		*ft_strstr(const char *a, const char *b)
 int			ft_strbegins(const char *str, const char *beg)
 {
 	return (ft_strstr(beg, str) == str ? 1 : 0);
+}
+
+int			ft_strbeginsxl(char *str, char *beg)
+{
+	int	o;
+
+	o = ft_strbegins(str, beg);
+	free(str);
+	return (o);
 }

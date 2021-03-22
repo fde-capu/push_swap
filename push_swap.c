@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 13:56:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:25:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,130 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
-# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rra,rrb>rrr|rrb,rra>rrr|ra,rb>rr|rb,ra>rr|ra,rr,rb>rr,rr|rb,rr,ra>rr,rr|rra,rrr,rrb>rrr,rrr|rrb,rrr,rra>rrr,rrr|rrr,rb>ra|rrr,ra>rb|ra,sa,rb>rr,sa|rb,sb,ra>rr,sb"
+void	next_command(char **h)
+{
+	if ((!**h) || !*h || !h)
+		return ;
+	while (**h)
+	{
+		if (**h == ',')
+		{
+			(*h)++;
+			break ;
+		}
+		(*h)++;
+	}
+	return ;
+}
 
-char	*find_on_ops(char **ops, char *find)
+char	*find_on_ops(char *ops, char *find)
 {
 	char	*h;
 
-	h = ft_strstr(find, *ops);
-	if (!h)
-		return (0);
-	if (h == *ops)
-		return (h);
-	if (*(h - 1) != ',')
+	h = ops;
+	while (*h && (!(ft_strbegins(h, find))))
+	{
+		next_command(&h);
+	}
+	if (!*h)
 		return (0);
 	return (h);
+}
+
+char	**strip_sub_code(char *sub_code)
+{
+	char	**code;
+
+	code = ft_split(sub_code, ',');
+	*(code[1] + (ft_strlen(code[1]) - 1)) = 0;
+	return (code);
+}
+
+char	*gen_repetition(char *sub_code, int rep_count)
+{
+	char	*out;
+	char	*op;
+	char	**code;
+
+	code = strip_sub_code(sub_code);
+	op = ft_str(code[1]);
+	ft_strfree2d(code);
+	out = ft_str("");
+	while (rep_count--)
+	{
+		out = ft_strcatxl(out, op);
+		out = ft_strcatxl(out, ",");
+	}
+	free(op);
+	return (out);
+}
+
+int	check_nested(char *h, char *sub_code, char **end)
+{
+	char	**code;
+	int		c_up;
+	int		c_mid;
+	int		c_dn;
+
+	code = strip_sub_code(sub_code);
+	c_up = 0;
+	c_mid = 0;
+	c_dn = 0;
+	while (ft_strbegins(h, code[0]))
+	{
+		next_command(&h);
+		c_up++;
+	}
+	if (!c_up)
+	{
+		ft_strfree2d(code);
+		return (0);
+	}
+	while (ft_strbegins(h, code[1]))
+	{
+		next_command(&h);
+		c_mid++;
+	}
+	while (ft_strbegins(h, code[2]) && c_up > c_dn)
+	{
+		next_command(&h);
+		c_dn++;
+	}
+	if (!c_dn || c_up > c_dn)
+	{
+		ft_strfree2d(code);
+		return (0);
+	}
+	*end = h;
+	ft_strfree2d(code);
+	return (c_mid + c_up);
+}
+
+int	recursive_redundancy(char **str, char *sub_code)
+{
+	int		rep_count;
+	char	*out;
+	char	*end;
+	char	*rep_str;
+	char	*h;
+
+	h = *str;
+	while (*h)
+	{
+		rep_count = check_nested(h, sub_code, &end);
+		if (rep_count)
+		{
+			rep_str = gen_repetition(sub_code, rep_count);
+			out = ft_str(end);
+			out = ft_strcatxx(rep_str, out);
+			*h = 0;
+			*str = ft_strcatxx(*str, out);
+			h = *str;
+		}
+		else
+			next_command(&h);
+	}
+	return (0);
 }
 
 int	substitute_redundancy(char **str, char *sub_code)
@@ -55,19 +165,21 @@ int	substitute_redundancy(char **str, char *sub_code)
 
 	out = 0;
 	sub = ft_split(sub_code, '>');
-	while ((h = find_on_ops(str, sub[0])))
+	h = *str;
+	while (1)
 	{
-		deb_("o before: ");
-		deb_(*str);
-		deb_("\n");
-		cue = h + ft_strlen(sub[0]);
-		final_part = ft_strcat(sub[1], cue);
-		*h = 0;
-		*str = ft_strcatxx(*str, final_part);
-		deb_("o after: ");
-		deb_(*str);
-		deb_("\n");
-		out++;
+		if (!*h)
+			break ;
+		if (ft_strbegins(h, sub[0]))
+		{
+			cue = h + ft_strlen(sub[0]);
+			final_part = ft_strcat(sub[1], cue);
+			*h = 0;
+			*str = ft_strcatxx(*str, final_part);
+			h = *str;
+			out++;
+		}
+		next_command(&h);
 	}
 	ft_strfree2d(sub);
 	return (out);
@@ -79,12 +191,18 @@ int	remove_str(char **str, char *rem)
 	int		out;
 
 	out = 0;
-	while ((h = find_on_ops(str, rem)))
+	h = *str;
+	while (*h)
 	{
-		*h = 0;
-		h += ft_strlen(rem) + 1;
-		*str = ft_strcatxl(*str, h);
-		out++;
+		if (ft_strbegins(h, rem))
+		{
+			*h = 0;
+			h += ft_strlen(rem) + 1;
+			*str = ft_strcatxl(*str, h);
+			h = *str;
+			out++;
+		}
+		next_command(&h);
 	}
 	return (out);
 }
@@ -101,13 +219,20 @@ int		treat_redundancies(t_ttg *strat)
 	while (i--)
 	{
 		if (ft_strstr(">", red[i]))
+		{
 			count += substitute_redundancy(&strat->formula, red[i]);
-		else
-			count += remove_str(&strat->formula, red[i]);
+			continue ;
+		}
+		if (ft_strstr("*", red[i]))
+		{
+			count += recursive_redundancy(&strat->formula, red[i]);
+			continue ;
+		}
+		count += remove_str(&strat->formula, red[i]);
 	}
 	ft_strfree2d(red);
-	if (count)
-		treat_redundancies(strat);
+//	if (count)
+//		treat_redundancies(strat);
 	return (count);
 }
 

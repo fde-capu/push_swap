@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/19 13:42:06 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:44:09 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 
 #include <stdio.h>
 
+int	identxl(char *a, char *b);
+int	ident(char *a, char *b);
 long long	ft_atoi(const char *str);
 long long	ft_atol(const char *str);
 int			ft_isdigit(int c);
@@ -48,6 +50,7 @@ int			ft_insp_count(char *h, char x);
 int			rgx_function_n(char *rh);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			ft_strbegins(const char *str, const char *beg);
+int			ft_strbeginsxl(char *str, char *beg);
 char		*ft_inside(char *h);
 void		rgx_set_rep(int *mm, char *mod);
 char		*ft_inskip(char *h);
