@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 09:03:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 10:31:20 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,33 @@ int			may_bubble(t_stk *a, int dir)
 	if (lower > higher)
 		return (1);
 	deb_("case 3.\n");
+	return (0);
+}
+
+int				try_bubble_abo(t_abo abo, int dir)
+{
+	int		oa;
+	int		ob;
+
+	deb_("Try bubble abo. ");
+	oa = may_bubble_abo(abo, dir);
+	ob = may_bubble_abo(abo, dir);
+	if (oa && ob)
+	{
+		ouch_abo(abo, dir, "ss");
+		return (1);
+	}
+	if (oa)
+	{
+		ouch_abo(abo, dir, "s_");
+		return (1);
+	}
+	if (ob)
+	{
+		ouch_abo(abo, pointer(dir), "s_");
+		return (1);
+	}
+	deb_("No.\n");
 	return (0);
 }
 

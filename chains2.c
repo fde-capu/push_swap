@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 08:57:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 09:20:58 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:16:58 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,47 @@ int			may_bubble_abo(t_abo abo, int dir)
 	return (0);
 }
 
+void	shortest_rotation_dir_pivot(t_abo abo, int dir, int pivot)
+{
+	int	dist_up;
+	int	dist_dn;
+	t_stk	*h;
+	t_stk	**a;
+	t_stk	**b;
+
+	if (dir == ATOB)
+	{
+		a = abo.a;
+		b = abo.b;
+	}
+	if (dir == BTOA) // may fail for inverse positioning b
+	{
+		a = abo.b;
+		b = abo.a;
+	}
+	if ((*a)->val <= pivot)
+		return ;
+	dist_dn = 0;
+	h = *a;
+	while (h && h->val > pivot && dist_dn++)
+		h = h->nx;
+	dist_up = 1;
+	h = stack_tail(*a);
+	while (h && h->val > pivot && dist_up++)
+		h = h->pv;
+	if (dist_dn < dist_up)
+	{
+		while (dist_dn--)
+			ouch_abo(abo, dir, "r_");
+	}
+	else
+	{
+		while (dist_up--)
+			ouch_abo(abo, dir, "rr_");
+	}
+	return ;
+}
+
 void	shortest_rotation_dir_receive(t_abo abo, int dir)
 {
 	if (dir == ATOB)
@@ -62,7 +103,7 @@ void			ps_combo_nrewind(t_abo abo, int dir, int n)
 
 int				qs_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
-	deb_("Combo Rewind!\n");
+	deb_("QS Combo Rewind!\n");
 	while (stack_size(*b) > 0)
 	{
 		ps_try_bubble(a, b, o);
@@ -72,6 +113,20 @@ int				qs_combo_rewind(t_stk **a, t_stk **b, char **o)
 	}
 	shortest_rotation_a_flush(a, b, o);
 	return (estas_finita(*a, *b));
+}
+
+void	gen_pivot_dir_short(t_abo abo, int dir, int len, int *pivot)
+{
+	t_stk	*s;
+
+	deb_("gen_pivot_dir_short ");
+	if (dir == ATOB)
+		s = stack_nclone(*abo.a, len);
+	else
+		s = stack_nclone(*abo.b, len);
+	gen_pivot_short(&s, pivot);
+	destroy_stack(s);
+	return ;
 }
 
 void	gen_pivot_qs(t_abo abo, int dir, int len, int *pivot)

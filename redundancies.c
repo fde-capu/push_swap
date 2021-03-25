@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 09:30:22 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 10:20:42 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,14 +139,14 @@ int	recursive_redundancy(char **str, char *sub_code)
 		rep_count = check_nested(h, sub_code, &end);
 		if (rep_count)
 		{
+			deb_(sub_code);
+			deb_("|");
 			rep_str = gen_repetition(sub_code, rep_count);
 			out = ft_str(end);
 			out = ft_strcatxx(rep_str, out);
 			*h = 0;
 			*str = ft_strcatxx(*str, out);
 			h = *str;
-			deb_(sub_code);
-			deb_(" ");
 		}
 		else
 			next_command(&h);
@@ -171,14 +171,14 @@ int	substitute_redundancy(char **str, char *sub_code)
 			break ;
 		if (ft_strbegins(h, sub[0]))
 		{
+			deb_(sub_code);
+			deb_("|");
 			cue = h + ft_strlen(sub[0]);
 			final_part = ft_strcat(sub[1], cue);
 			*h = 0;
 			*str = ft_strcatxx(*str, final_part);
 			h = *str;
 			out++;
-			deb_(sub_code);
-			deb_(" ");
 		}
 		next_command(&h);
 	}
@@ -192,9 +192,9 @@ int		treat_redundancies(t_ttg *strat)
 	int		i;
 	int		count;
 
-	deb_("treat_redundancies (");
+	deb_("treat_redundancies:\n\n");
 	deb_(strat->formula);
-	deb_(") ");
+	deb_("\n\n");
 	count = 0;
 	red = ft_split(REDUNDANCIES, '|');
 	i = ft_strlen2d(red);
@@ -213,6 +213,9 @@ int		treat_redundancies(t_ttg *strat)
 		count += remove_str(&strat->formula, red[i]);
 	}
 	ft_strfree2d(red);
+	deb_("\n\n");
+	deb_(strat->formula);
+	deb_("\n\n");
 	return (count);
 }
 

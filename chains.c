@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 09:21:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:25:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 	return (estas_finita(*a, *b));
 }
 
+int				flush_abo(t_abo abo)
+{
+	deb_("Flush_ready? ");
+	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
 int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 {
 	(void)o;
@@ -38,6 +50,40 @@ int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 	}
 	deb_("No.\n");
 	return (0);
+}
+
+int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
+{
+	int		did;
+	t_stk	*h;
+
+	did = 0;
+	h = ab_origin(abo, dir);
+	while (h->nx && len--)
+	{
+//		if (!(count_le_len(ab_origin(abo, dir), pivot, len)))
+		if (!(count_le(ab_origin(abo, dir), pivot)))
+			break ;
+		deb_("Try pass pivot for");
+		deb_int_(h->val);
+		deb_(", pivot");
+		deb_int_(pivot);
+		if (h->val <= pivot)
+		{
+			shortest_rotation_dir_receive(abo, dir);
+			did++;
+			ouch_abo(abo, pointer(dir), "p_");
+		}
+		else
+		{
+			shortest_rotation_dir_pivot(abo, dir, pivot);
+		}
+		if (flush_abo(abo))
+			return (did);
+		h = ab_origin(abo, dir);
+	}
+	deb_("End pass pivot.\n");
+	return (did);
 }
 
 int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
@@ -72,20 +118,36 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 	return (did);
 }
 
+t_abo			make_abo(t_stk **a, t_stk **b, char **o)
+{
+	t_abo	abo;
+
+	abo.a = a;
+	abo.b = b;
+	abo.o = o;
+	return (abo);
+}
+
 int				push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	int		pivot;
+	t_abo	abo;
+	int		dir;
+	int		len;
 
 //		gen_pivot_median(a, &pivot);
 //		gen_pivot_last(a, &pivot);
 	pivot = 0;
+	abo = make_abo(a, b, o);
+	dir = ATOB;
+	len = stack_size(ab_origin(abo, dir));
 	while (1)
 	{
-		gen_pivot_short(a, &pivot);
-		ps_try_bubble(a, b, o);
+		gen_pivot_dir_short(abo, dir, len, &pivot);
+		try_bubble_abo(abo, dir);
 		if (ps_flush_ready(a, b, o))
 			break ;
-		if (ps_pb_le_pivot(a, b, o, pivot))
+		if (pass_pivot_abo(abo, dir, len, pivot))
 			continue ;
 		if (ps_combo_rewind(a, b, o))
 			break ;

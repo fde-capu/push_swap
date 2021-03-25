@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/24 14:38:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 11:16:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,13 @@ void	ouch_abo(t_abo abo, int dir, char *mask);
 int		pointer(int dir);
 int			may_bubble_abo(t_abo abo, int dir);
 int			may_bubble_abo_nx(t_abo abo, int dir);
+void	gen_pivot_qs(t_abo abo, int dir, int len, int *pivot);
+int				ps_combo_rewind(t_stk **a, t_stk **b, char **o);
+void	gen_pivot_dir_short(t_abo abo, int dir, int len, int *pivot);
+int				try_bubble_abo(t_abo abo, int dir);
+int		pass_pivot(t_abo abo, int dir, int len, int pivot);
+int		count_le_len(t_stk *h, int about, int len);
+void	shortest_rotation_dir_receive(t_abo abo, int dir);
+void	shortest_rotation_dir_pivot(t_abo abo, int dir, int pivot);
 
 #endif
