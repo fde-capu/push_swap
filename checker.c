@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 09:29:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/23 19:42:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 			ft_strfree2d(ops);
 		}
 		else
-			ft_print_stdout("None.");
+			ft_print_stdout("none.");
 		ft_print_stdout("\n");
 	}
 	return (0);

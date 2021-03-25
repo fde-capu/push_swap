@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/22 14:25:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 09:27:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,20 +43,6 @@ void	next_command(char **h)
 		(*h)++;
 	}
 	return ;
-}
-
-char	*find_on_ops(char *ops, char *find)
-{
-	char	*h;
-
-	h = ops;
-	while (*h && (!(ft_strbegins(h, find))))
-	{
-		next_command(&h);
-	}
-	if (!*h)
-		return (0);
-	return (h);
 }
 
 char	**strip_sub_code(char *sub_code)
@@ -128,63 +114,6 @@ int	check_nested(char *h, char *sub_code, char **end)
 	return (c_mid + c_up);
 }
 
-int	recursive_redundancy(char **str, char *sub_code)
-{
-	int		rep_count;
-	char	*out;
-	char	*end;
-	char	*rep_str;
-	char	*h;
-
-	h = *str;
-	while (*h)
-	{
-		rep_count = check_nested(h, sub_code, &end);
-		if (rep_count)
-		{
-			rep_str = gen_repetition(sub_code, rep_count);
-			out = ft_str(end);
-			out = ft_strcatxx(rep_str, out);
-			*h = 0;
-			*str = ft_strcatxx(*str, out);
-			h = *str;
-		}
-		else
-			next_command(&h);
-	}
-	return (0);
-}
-
-int	substitute_redundancy(char **str, char *sub_code)
-{
-	char	*h;
-	char	*cue;
-	char	**sub;
-	char	*final_part;
-	int		out;
-
-	out = 0;
-	sub = ft_split(sub_code, '>');
-	h = *str;
-	while (1)
-	{
-		if (!*h)
-			break ;
-		if (ft_strbegins(h, sub[0]))
-		{
-			cue = h + ft_strlen(sub[0]);
-			final_part = ft_strcat(sub[1], cue);
-			*h = 0;
-			*str = ft_strcatxx(*str, final_part);
-			h = *str;
-			out++;
-		}
-		next_command(&h);
-	}
-	ft_strfree2d(sub);
-	return (out);
-}
-
 int	remove_str(char **str, char *rem)
 {
 	char	*h;
@@ -197,53 +126,20 @@ int	remove_str(char **str, char *rem)
 		if (ft_strbegins(h, rem))
 		{
 			*h = 0;
-			h += ft_strlen(rem) + 1;
-			*str = ft_strcatxl(*str, h);
+			if (*(h + ft_strlen(rem)))
+			{
+				h += ft_strlen(rem) + 1;
+				*str = ft_strcatxl(*str, h);
+			}
 			h = *str;
 			out++;
+			deb_("x(");
+			deb_(rem);
+			deb_(") ");
 		}
 		next_command(&h);
 	}
 	return (out);
-}
-
-int		treat_redundancies(t_ttg *strat)
-{
-	char	**red;
-	int		i;
-	int		count;
-
-	count = 0;
-	red = ft_split(REDUNDANCIES, '|');
-	i = ft_strlen2d(red);
-	while (i--)
-	{
-		if (ft_strstr(">", red[i]))
-		{
-			count += substitute_redundancy(&strat->formula, red[i]);
-			continue ;
-		}
-		if (ft_strstr("*", red[i]))
-		{
-			count += recursive_redundancy(&strat->formula, red[i]);
-			continue ;
-		}
-		count += remove_str(&strat->formula, red[i]);
-	}
-	ft_strfree2d(red);
-//	if (count)
-//		treat_redundancies(strat);
-	return (count);
-}
-
-void	solve_push_swap(t_ttg *k, t_stk *a)
-{
-	k->a = stack_clone(a);
-	k->b = init_stack_empty();
-	k->formula = (k->function)(&k->a, &k->b);
-	treat_redundancies(k);
-	k->result = count_instructions_in_str(k->formula);
-	return ;
 }
 
 int			main(int argc, char **argv)
@@ -282,126 +178,6 @@ int			main(int argc, char **argv)
 	exit(0);
 }
 
-void	re_ouch(t_stk **a, t_stk **b, char **o, char *ops)
-{
-	char	**spl;
-	int		spl_len;
-	int		i;
-
-	spl = ft_split(ops, ',');
-	spl_len = ft_strlen2d(spl);
-	i = 0;
-	while (i < spl_len)
-	{
-		ouch(a, b, o, spl[i]); 
-		i++;
-	}
-	ft_strfree2d(spl);
-	return ;
-}
-
-char	*last_op(char **o)
-{
-	char *coma;
-	char	*h;
-
-	h = *o;
-	while (*h)
-	{
-		if (*h == ',')
-			coma = h;
-		h++;
-	}
-	return (++coma);
-}
-
-int		op_undo(char **o)
-{
-	char	*last;
-
-	last = last_op(o);
-	*(last - 1) = 0;
-	last = last_op(o);
-	*(last - 1) = 0;
-	return (0);
-}
-
-char	*penult_op(char **o)
-{
-	char *coma;
-	char	*stop;
-	char	*h;
-	char	*out;
-
-	h = *o;
-	coma = h;
-	while (*h)
-	{
-		if (*h == ',')
-			coma = h;
-		h++;
-	}
-	stop = coma;
-	coma--;
-	while (coma > *o && *coma != ',')
-		coma--;
-	if (coma == *o)
-		return (ft_str(""));
-	out = ft_calloc(sizeof(char) * (stop - coma), 1);
-	h = out;
-	coma++;
-	while (*coma != ',')
-	{
-		*h = *coma;
-		coma++;
-		h++;
-	}
-	return (out);
-}
-
-int		is_redundant(char *op_before, char *op_after)
-{
-	char	*red_str;
-	char	*out_check;
-	int		out;
-
-	if (!*op_before || !*op_after)
-		return (0);
-	red_str = ft_str(",");
-	red_str = ft_strcatxl(red_str, op_before);
-	red_str = ft_strcatxl(red_str, ">");
-	red_str = ft_strcatxl(red_str, op_after);
-	red_str = ft_strcatxl(red_str, ",");
-	out_check = ft_strstr(red_str, REDUNDANCIES);
-	if (out_check)
-		out = 1;
-	else
-		out = 0;
-	free(red_str);
-	return (out);
-}
-
-int		op_redundant(char **o, char *op)
-{
-	char	*last;
-
-	last = penult_op(o);
-	deb_("Redundant? (");
-	deb_(last);
-	deb_("->");
-	deb_(op);
-	deb_("). ");
-	if (is_redundant(last, op))
-	{
-		free(last);
-		deb_("Yes.\n");
-		return (1);
-	}
-	free(last);
-	deb_("No.\n");
-	return (0);
-}
-
 int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 {
 	*o = ft_strcatxl(*o, ",");
@@ -414,4 +190,22 @@ int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 		stack_double_log(*a, *b);
 	}
 	return (1);
+}
+
+t_stk	*filter_le(t_stk *s, int control)
+{
+	t_stk	*xa;
+	t_stk	*xb;
+
+	xa = stack_clone(s);
+	xb = init_stack_empty();
+	while (count_gt(xa, control))
+	{
+		if (xa->val > control)
+			op_run_str("pb", &xa, &xb);
+		else
+			op_run_str("ra", &xa, &xb);
+	}
+	destroy_stack(xb);
+	return (xa);
 }

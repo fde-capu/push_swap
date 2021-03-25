@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/22 14:28:39 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/25 09:26:11 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,14 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	4 5 13 16 15 12 6 17 10 3 2 8 1 7 9 11 20 19 18 14
-ARGS_Z		=	$(shell ./args.sh 500)
+ARGS_X		=	5 4 3 2 1
+ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
 SRCS_B		=	push_swap.c ps_strategy.c \
-	generic_stack_ops.c chains.c
+	generic_stack_ops.c chains.c bubble.c pivot.c \
+	shortest_rotation.c position.c
 HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
 SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
@@ -36,7 +37,7 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
 	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
 	get_next_line_utils_bonus.c stack_init_2.c \
-	order_check.c get_cell.c deb.c
+	order_check.c get_cell.c deb.c neighbor.c redundancies.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g
@@ -114,8 +115,12 @@ vfba:	$(NAME_B)
 	ARGS="$(ARGS_A)" && $(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $$ARGS
 tbb:	$(NAME_B)
 	ARGS="$(ARGS_B)" && ./$(NAME_B) $$ARGS
+vbb:	$(NAME_B)
+	ARGS="$(ARGS_B)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 tbc:	$(NAME_B)
 	ARGS="$(ARGS_C)" && ./$(NAME_B) $$ARGS
+vbc:	$(NAME_B)
+	ARGS="$(ARGS_C)" && $(VALGRIND) ./$(NAME_B) $$ARGS
 tbd:	$(NAME_B)
 	ARGS="$(ARGS_D)" && ./$(NAME_B) $$ARGS
 vbd:	$(NAME_B)
