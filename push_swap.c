@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 09:27:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 09:30:34 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,119 +27,6 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	chain_push_swap(a, b, &o);
 	o = ft_x(o, ft_strtrim(o, ","));
 	return (o);
-}
-
-void	next_command(char **h)
-{
-	if ((!**h) || !*h || !h)
-		return ;
-	while (**h)
-	{
-		if (**h == ',')
-		{
-			(*h)++;
-			break ;
-		}
-		(*h)++;
-	}
-	return ;
-}
-
-char	**strip_sub_code(char *sub_code)
-{
-	char	**code;
-
-	code = ft_split(sub_code, ',');
-	*(code[1] + (ft_strlen(code[1]) - 1)) = 0;
-	return (code);
-}
-
-char	*gen_repetition(char *sub_code, int rep_count)
-{
-	char	*out;
-	char	*op;
-	char	**code;
-
-	code = strip_sub_code(sub_code);
-	op = ft_str(code[1]);
-	ft_strfree2d(code);
-	out = ft_str("");
-	while (rep_count--)
-	{
-		out = ft_strcatxl(out, op);
-		out = ft_strcatxl(out, ",");
-	}
-	free(op);
-	return (out);
-}
-
-int	check_nested(char *h, char *sub_code, char **end)
-{
-	char	**code;
-	int		c_up;
-	int		c_mid;
-	int		c_dn;
-
-	code = strip_sub_code(sub_code);
-	c_up = 0;
-	c_mid = 0;
-	c_dn = 0;
-	while (ft_strbegins(h, code[0]))
-	{
-		next_command(&h);
-		c_up++;
-	}
-	if (!c_up)
-	{
-		ft_strfree2d(code);
-		return (0);
-	}
-	while (ft_strbegins(h, code[1]))
-	{
-		next_command(&h);
-		c_mid++;
-	}
-	while (ft_strbegins(h, code[2]) && c_up > c_dn)
-	{
-		next_command(&h);
-		c_dn++;
-	}
-	if (!c_dn || c_up > c_dn)
-	{
-		ft_strfree2d(code);
-		return (0);
-	}
-	*end = h;
-	ft_strfree2d(code);
-	return (c_mid + c_up);
-}
-
-int	remove_str(char **str, char *rem)
-{
-	char	*h;
-	int		out;
-
-	out = 0;
-	h = *str;
-	while (*h)
-	{
-		if (ft_strbegins(h, rem))
-		{
-			*h = 0;
-			if (*(h + ft_strlen(rem)))
-			{
-				h += ft_strlen(rem) + 1;
-				*str = ft_strcatxl(*str, h);
-			}
-			h = *str;
-			out++;
-			deb_("x(");
-			deb_(rem);
-			deb_(") ");
-		}
-		next_command(&h);
-	}
-	return (out);
 }
 
 int			main(int argc, char **argv)
