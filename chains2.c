@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 08:57:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 11:16:58 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 14:56:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,6 @@ int			may_bubble_abo_nx(t_abo abo, int dir)
 	if (dir == ATOB && (*abo.a)->nx->val > (*abo.a)->nx->nx->val)
 			return (1);
 	if (dir == BTOA && (*abo.b)->nx->val < (*abo.b)->nx->nx->val)
-			return (1);
-	return (0);
-}
-
-int			may_bubble_abo(t_abo abo, int dir)
-{
-	if (dir == ATOB && (!(*abo.a)->nx || !(*abo.a)->nx->nx))
-		return (0);
-	if (dir == BTOA && (!(*abo.b)->nx || !(*abo.b)->nx->nx))
-		return (0);
-	if (dir == ATOB && (*abo.a)->val > (*abo.a)->nx->val)
-			return (1);
-	if (dir == BTOA && (*abo.b)->val < (*abo.b)->nx->val)
 			return (1);
 	return (0);
 }
@@ -113,6 +100,85 @@ int				qs_combo_rewind(t_stk **a, t_stk **b, char **o)
 	}
 	shortest_rotation_a_flush(a, b, o);
 	return (estas_finita(*a, *b));
+}
+
+t_stk	*stack_x(t_stk *old, t_stk *new)
+{
+	destroy_stack(old);
+	return (new);
+}
+
+int		gen_chunk_size(t_abo abo, int dir)
+{
+	t_stk	*tmp;
+	int		size;
+
+	deb_("gen_chunk_size");
+	if (dir == ATOB)
+		tmp = stack_clone(*abo.a);
+	if (dir == BTOA)
+		tmp = stack_clone(*abo.b);
+	size = stack_size(tmp);
+	if (size <= 4)
+		size = 5;
+	else if (size <= 5)
+		size = 5;
+	else if (size <= 10)
+		size = 6;
+	else if (size <= 20)
+		size = 13;
+	else if (size <= 100)
+		size = 52;
+	else if (size <= 500)
+		size = 127;
+	else
+		size = 50;
+	destroy_stack(tmp);
+	deb_int_(size);
+	deb_(": ");
+	return (size);
+}
+
+void	gen_pivot_dir_chunk(t_abo abo, int dir, int chunk, int *pivot)
+{
+	t_stk	*tmp;
+
+	deb_("gen_pivot_dir_chunk (gross) size:");
+	if (dir == ATOB)
+		tmp = stack_nclone(*abo.a, chunk);
+	if (dir == BTOA)
+		tmp = stack_nclone(*abo.b, chunk);
+	*pivot = stack_median(tmp)->val;
+	destroy_stack(tmp);
+	deb_int_(stack_size(tmp));
+	deb_(".\n");
+	deb_pivot(*pivot);
+}
+
+void	gen_pivot_dir_chunk_by_median(t_abo abo, int dir, int chunk, int *pivot)
+{
+	t_stk	*tmp;
+	int		size;
+
+	deb_("gen_pivot_dir_chunk (median) ");
+	if (dir == ATOB)
+		tmp = stack_clone(*abo.a);
+	if (dir == BTOA)
+		tmp = stack_clone(*abo.b);
+	size = stack_size(tmp);
+	while (size > chunk && size > 2)
+	{
+		deb_int_(size);
+		deb_("|");
+		tmp = stack_x(tmp, filter_le(tmp, stack_median(tmp)->val));
+		size = stack_size(tmp);
+	}
+	*pivot = stack_median(tmp)->val;
+	destroy_stack(tmp);
+	deb_int_(size);
+	deb_("\n");
+	deb_pivot(*pivot);
+	return ;
 }
 
 void	gen_pivot_dir_short(t_abo abo, int dir, int len, int *pivot)

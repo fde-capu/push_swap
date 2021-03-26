@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:55:36 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/22 16:29:00 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/25 14:55:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void			deb_pivot(int val)
 	ft_print_stdout("New pivot: ");
 	ft_print_int(val);
 	ft_print_stdout(".\n");
+//	sleep(1);
 	return ;
 }
 

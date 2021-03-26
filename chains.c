@@ -6,11 +6,42 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 11:25:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 07:20:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int				lower_val(int a, int b)
+{
+	if (a <= b)
+		return (a);
+	if (b < a)
+		return (b);
+	return (0);
+}
+
+int				abo_combo_rewind(t_abo abo)
+{
+	int	t_a;
+	int	t_b;
+
+	deb_("abo Combo Rewind!\n");
+	while (stack_size(*abo.b) > 0)
+	{
+		try_bubble_abo(abo, ATOB);
+		t_a = calc_cell_on_top_a(abo.a, abo.b, abo.o, this_is_before(*abo.a, *abo.b));
+		t_b = calc_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
+		if (lower_val(t_a, t_b) == t_a)
+			shortest_rotation_a_receive(abo.a, abo.b, abo.o);
+		else
+			shortest_rotation_b_flush(abo.a, abo.b, abo.o);
+		ouch(abo.a, abo.b, abo.o, "pa");
+	}
+	//		shortest_rotation_a_flush(abo.a, abo.b, o);
+	return (estas_finita(*abo.a, *abo.b));
+	return (-1);
+}
 
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
@@ -143,17 +174,17 @@ int				push_swap_sort(t_stk **a, t_stk **b, char **o)
 	len = stack_size(ab_origin(abo, dir));
 	while (1)
 	{
-		gen_pivot_dir_short(abo, dir, len, &pivot);
+//		gen_pivot_short(abo.a, &pivot);
+		gen_pivot_dir_chunk_by_median(abo, dir, gen_chunk_size(abo, dir), &pivot);
 		try_bubble_abo(abo, dir);
 		if (ps_flush_ready(a, b, o))
 			break ;
 		if (pass_pivot_abo(abo, dir, len, pivot))
 			continue ;
-		if (ps_combo_rewind(a, b, o))
+		if (abo_combo_rewind(abo))
 			break ;
 		break ;
 	}
-	//		new_pivot = 1;
 	if (ps_combo_rewind(a, b, o))
 		return (1);
 	return (0);
