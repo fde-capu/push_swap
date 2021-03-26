@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 07:20:32 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 07:37:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 		deb_int_(pivot);
 		if (h->val <= pivot)
 		{
-			shortest_rotation_dir_receive(abo, dir);
+//			shortest_rotation_dir_receive(abo, dir);
 			did++;
 			ouch_abo(abo, pointer(dir), "p_");
 		}
