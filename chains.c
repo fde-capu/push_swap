@@ -6,20 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 09:03:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 14:31:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int				lower_val(int a, int b)
-{
-	if (a <= b)
-		return (a);
-	if (b < a)
-		return (b);
-	return (0);
-}
 
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 {
@@ -35,15 +26,12 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
 	return (estas_finita(*a, *b));
 }
 
-int				flush_abo(t_abo abo)
+int				lower_val(int a, int b)
 {
-	deb_("Flush_ready? ");
-	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
-	{
-		deb_("Yes.\n");
-		return (1);
-	}
-	deb_("No.\n");
+	if (a <= b)
+		return (a);
+	if (b < a)
+		return (b);
 	return (0);
 }
 
@@ -54,7 +42,6 @@ int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 	if (in_order_out_of_rot(*a) && in_reverse_out_of_rot(*b))
 	{
 		deb_("Yes.\n");
-//		return (ps_combo_rewind(a, b, o));
 		return (1);
 	}
 	deb_("No.\n");
@@ -95,31 +82,29 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 
 int				abo_combo_rewind(t_abo abo)
 {
-	int	t_a;
-	int	t_b;
-
 	deb_("abo Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		t_a = calc_cell_on_top_a(abo.a, abo.b, abo.o, 0);
-		t_b = calc_cell_on_top_b(abo.a, abo.b, abo.o, 0);
-		deb_int_(t_a);
-		deb_int_(t_b);
-		if (lower_val(t_a, t_b) == t_a)
-		{
-			deb_("t_a ");
-//			put_cell_on_top_a(abo.a, abo.b, abo.o, this_is_after(*abo.b, *abo.a));
-		}
-		else
-		{
-			deb_("t_b ");
-//			put_cell_on_top_a(abo.a, abo.b, abo.o, this_is_after(*abo.b, *abo.a));
-		}
+		try_bubble_abo(abo, BTOA);
+		put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
+		put_cell_on_top_a(abo.a, abo.b, abo.o, a_after_b(abo));
 		ouch(abo.a, abo.b, abo.o, "pa");
 	}
 	shortest_rotation_a_flush(abo.a, abo.b, abo.o);
 	return (estas_finita(*abo.a, *abo.b));
 	return (-1);
+}
+
+int				flush_abo(t_abo abo)
+{
+	deb_("abo_Flush_ready? ");
+	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
+	{
+		deb_("Yes.\n");
+		return (abo_combo_rewind(abo));
+	}
+	deb_("No.\n");
+	return (0);
 }
 
 int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
@@ -140,7 +125,7 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 		deb_int_(pivot);
 		if (h->val <= pivot)
 		{
-//			shortest_rotation_dir_receive(abo, dir);
+			shortest_rotation_dir_receive(abo, dir);
 			did++;
 			ouch_abo(abo, pointer(dir), "p_");
 		}
@@ -148,8 +133,10 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 		{
 			shortest_rotation_dir_pivot(abo, dir, pivot);
 		}
-		if (flush_abo(abo))
-			return (did);
+//		if (flush_abo(abo))
+//			return (did);
+//		if (try_bubble_abo(abo, ATOB) && flush_abo(abo))
+//			return (did);
 		h = ab_origin(abo, dir);
 	}
 	deb_("End pass pivot.\n");
@@ -166,39 +153,39 @@ t_abo			make_abo(t_stk **a, t_stk **b, char **o)
 	return (abo);
 }
 
-int				push_swap_sort(t_stk **a, t_stk **b, char **o)
+int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir)
 {
 	int		pivot;
 	t_abo	abo;
-	int		dir;
 	int		len;
 
 //		gen_pivot_median(a, &pivot);
 //		gen_pivot_last(a, &pivot);
 	pivot = 0;
 	abo = make_abo(a, b, o);
-	dir = ATOB;
 	len = stack_size(ab_origin(abo, dir));
 	while (1)
 	{
-//		gen_pivot_short(abo.a, &pivot);
-		gen_pivot_dir_chunk_by_median(abo, dir, gen_chunk_size(abo, dir), &pivot);
-		try_bubble_abo(abo, dir);
-		if (ps_flush_ready(a, b, o))
+		if (flush_abo(abo))
 			break ;
-		if (pass_pivot_abo(abo, dir, len, pivot))
-			continue ;
-		if (estas_finita(*abo.a, *abo.b) && abo_combo_rewind(abo))
+		if (try_bubble_abo(abo, dir) && flush_abo(abo))
 			break ;
+		gen_pivot_short(abo.a, &pivot);
+		pass_pivot_abo(abo, dir, len, pivot);
+		if (stack_size(ab_origin(abo, dir)) > 2)
+			return (push_swap_sort(a, b, o, dir));
+		else
+		{
+			try_bubble_abo(abo, dir);
+			return (flush_abo(abo));
+		}
 	}
-	if (abo_combo_rewind(abo))
-		return (1);
-	return (0);
+	return (1);
 }
 
 void			chain_push_swap(t_stk **a, t_stk **b, char **o)
 {
 //	quick_sort(a, b, o);
-	push_swap_sort(a, b, o);
+	push_swap_sort(a, b, o, ATOB);
 	return ;
 }

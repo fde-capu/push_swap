@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 09:05:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 14:23:00 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	put_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
 t_stk			*this_is_before_atob(t_stk *a, t_stk *b);
 t_stk			*this_is_after_btoa(t_stk *a, t_stk *b);
 void	shortest_rotation_a_receive(t_stk **a, t_stk **b, char **o);
-int				push_swap_sort(t_stk **a, t_stk **b, char **o);
+int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir);
 t_stk	*stack_nclone(t_stk *s, int n);
 t_stk	*ab_destiny(t_abo abo, int dir);
 t_stk	*ab_origin(t_abo abo, int dir);
@@ -86,5 +86,7 @@ void	shortest_rotation_dir_pivot(t_abo abo, int dir, int pivot);
 void	gen_pivot_dir_chunk(t_abo abo, int dir, int len, int *pivot);
 void	gen_pivot_dir_chunk_by_median(t_abo abo, int dir, int chunk, int *pivot);
 int		gen_chunk_size(t_abo abo, int dir);
+t_stk		*a_after_b(t_abo abo);
+t_stk		*b_before_a(t_abo abo);
 
 #endif

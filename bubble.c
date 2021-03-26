@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 14:33:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 14:15:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,19 @@ int			may_bubble(t_stk *a, int dir)
 	top = max_val(a);
 	bot = min_val(a);
 	med = stack_median(a)->val;
-	if ((higher > med && lower <= med) || (higher > med && lower <= med))
+	if ((dir == ASCE && higher == bot && lower == top)
+	|| (dir == DESC && higher == bot && lower == top))
 	{
-		deb_("case 1.\n");
+		deb_("Case vertex. ");
 		return (0);
 	}
-	if (dir == ASCE && higher == bot && lower == top)
+	if (higher > med && lower <= med)
 	{
-		deb_("case 2.\n");
+		deb_("No. ");
 		return (0);
 	}
 	if (lower > higher)
 		return (1);
-	deb_("case 3.\n");
 	return (0);
 }
 

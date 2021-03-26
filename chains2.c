@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 08:57:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 14:56:28 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 12:42:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ int		gen_chunk_size(t_abo abo, int dir)
 	else if (size <= 500)
 		size = 127;
 	else
-		size = 50;
+		size = 200;
 	destroy_stack(tmp);
 	deb_int_(size);
 	deb_(": ");

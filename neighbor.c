@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 09:02:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:56:53 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,4 +81,64 @@ t_stk			*this_is_before_atob(t_stk *a, t_stk *b)
 	deb_int_(before->val);
 	deb_("\n");
 	return (before);
+}
+
+t_stk		*a_after_b(t_abo abo)
+{
+	int		b;
+	long	c;
+	t_stk	*h;
+	t_stk	*cell;
+
+	b = (*abo.b)->val;
+	h = (*abo.a);
+	c = (long)INT_MAX * (long)2;
+	cell = 0;
+	while (h)
+	{
+		if (h->val > b && h->val - b < c)
+		{
+			cell = h;
+			c = h->val - b;
+		}
+		h = h->nx;
+	}
+	if (c == (long)INT_MAX * (long)2)
+		cell = min_cell(*abo.a);
+	deb_("rot 'a' until");
+	deb_int_(cell->val);
+	deb_("to receive");
+	deb_int_(b);
+	deb_("\n");
+	return (cell);
+}
+
+t_stk		*b_before_a(t_abo abo)
+{
+	int		a;
+	long	c;
+	t_stk	*h;
+	t_stk	*cell;
+
+	a = (*abo.a)->val;
+	h = (*abo.b);
+	c = (long)INT_MAX * (long)2;
+	cell = 0;
+	while (h)
+	{
+		if (h->val < a && a - h->val < c)
+		{
+			cell = h;
+			c = a - h->val;
+		}
+		h = h->nx;
+	}
+	if (c == (long)INT_MAX * (long)2)
+		cell = min_cell(*abo.b);
+	deb_("rot 'b' until");
+	deb_int_(cell->val);
+	deb_("to put over");
+	deb_int_(a);
+	deb_("\n");
+	return (cell);
 }
