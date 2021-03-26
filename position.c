@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:58:08 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 08:17:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:13:13 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		calc_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell)
 	if (dist_top < dist_bot)
 		return (dist_top);
 	else
-		return (dist_bot);
+		return (dist_bot * -1);
 	(void)a;
 	(void)o;
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 14:31:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:33:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,32 @@ int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
 	return (did);
 }
 
+int				abo_perfect_spot(t_abo abo)
+{
+	t_stk	*c;
+
+	deb_("abo_perfect_spot? ");
+	c = a_after_b(abo);
+	if (c == *abo.a)
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
 int				abo_combo_rewind(t_abo abo)
 {
 	deb_("abo Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
 		try_bubble_abo(abo, BTOA);
-		put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
-		put_cell_on_top_a(abo.a, abo.b, abo.o, a_after_b(abo));
+		if (!(abo_perfect_spot(abo)))
+		{
+			put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
+			put_cell_on_top_a(abo.a, abo.b, abo.o, a_after_b(abo));
+		}
 		ouch(abo.a, abo.b, abo.o, "pa");
 	}
 	shortest_rotation_a_flush(abo.a, abo.b, abo.o);
@@ -107,6 +125,47 @@ int				flush_abo(t_abo abo)
 	return (0);
 }
 
+char	*prev_command(char **h)
+{
+	char	*c;
+
+	c = *h;
+	if (*(c - 1) == ',')
+		c -= 2;
+	while (*c != ',')
+		c--;
+	c++;
+	*h = c;
+	deb_("last: ");
+	deb_(*h);
+	deb_("\n");
+	return (*h);
+}
+
+void	moderate_shortest_rotation_b_receive(t_abo abo)
+{
+	int	c;
+	char	*h;
+
+	deb_("moderate_shortest_rotation_b_receive\n");
+	c = calc_cell_on_top_b(abo.a, abo.b, abo.o, this_is_after_btoa(*abo.a, *abo.b));
+	deb_("mod:");
+	deb_int_(c);
+	deb_("\n");
+	h = *abo.o + ft_strlen(*abo.o);
+	if (c > 0)
+	{
+		while (c-- && ft_strbegins(prev_command(&h), "ra"))
+			ouch_abo(abo, BTOA, "r_");
+	}
+	if (c < 0)
+	{
+		while (c++ && ft_strbegins(prev_command(&h), "rra"))
+			ouch_abo(abo, BTOA, "rr_");
+	}
+	return ;
+}
+
 int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 {
 	int		did;
@@ -114,7 +173,7 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 
 	did = 0;
 	h = ab_origin(abo, dir);
-	while (h->nx && len--)
+	while (h && h->nx && len--)
 	{
 //		if (!(count_le_len(ab_origin(abo, dir), pivot, len)))
 		if (!(count_le(ab_origin(abo, dir), pivot)))
@@ -125,9 +184,9 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 		deb_int_(pivot);
 		if (h->val <= pivot)
 		{
-			shortest_rotation_dir_receive(abo, dir);
-			did++;
+			moderate_shortest_rotation_b_receive(abo);
 			ouch_abo(abo, pointer(dir), "p_");
+			did++;
 		}
 		else
 		{
@@ -136,7 +195,7 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 //		if (flush_abo(abo))
 //			return (did);
 //		if (try_bubble_abo(abo, ATOB) && flush_abo(abo))
-//			return (did);
+///			return (did);
 		h = ab_origin(abo, dir);
 	}
 	deb_("End pass pivot.\n");
@@ -151,6 +210,13 @@ t_abo			make_abo(t_stk **a, t_stk **b, char **o)
 	abo.b = b;
 	abo.o = o;
 	return (abo);
+}
+
+int				reverse(int dir)
+{
+	if (dir == ATOB)
+		return (BTOA);
+	return (ATOB);
 }
 
 int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir)
@@ -173,11 +239,14 @@ int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir)
 		gen_pivot_short(abo.a, &pivot);
 		pass_pivot_abo(abo, dir, len, pivot);
 		if (stack_size(ab_origin(abo, dir)) > 2)
+		{
+			put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
 			return (push_swap_sort(a, b, o, dir));
+		}
 		else
 		{
 			try_bubble_abo(abo, dir);
-			return (flush_abo(abo));
+			return (abo_combo_rewind(abo));
 		}
 	}
 	return (1);
