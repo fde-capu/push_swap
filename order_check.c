@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:57:06 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 10:08:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 08:04:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,13 @@
 
 int			estas_finita(t_stk *a, t_stk *b)
 {
+	deb_("Estas finita? ");
 	if (in_order(a) && !(stack_size(b)))
+	{
+		deb_("Yes.\n");
 		return (1);
+	}
+	deb_("No.\n");
 	return (0);
 }
 

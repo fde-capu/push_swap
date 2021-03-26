@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 16:44:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:05:19 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ int				position_top(t_stk *a, t_stk *h);
 int				position_bot(t_stk *a, t_stk *h);
 void	put_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell);
 void	put_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
-t_stk			*this_is_before(t_stk *a, t_stk *b);
-t_stk			*this_is_after(t_stk *a, t_stk *b);
+t_stk			*this_is_before_atob(t_stk *a, t_stk *b);
+t_stk			*this_is_after_btoa(t_stk *a, t_stk *b);
 void	shortest_rotation_a_receive(t_stk **a, t_stk **b, char **o);
 int				push_swap_sort(t_stk **a, t_stk **b, char **o);
 t_stk	*stack_nclone(t_stk *s, int n);

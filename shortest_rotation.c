@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/24 15:25:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:04:39 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	shortest_rotation_a_receive(t_stk **a, t_stk **b, char **o)
 {
 	if (!b || !*b)
 		return ;
-	put_cell_on_top_a(a, b, o, this_is_before(*a, *b));
+	put_cell_on_top_a(a, b, o, this_is_before_atob(*a, *b));
 	return ;
 }
 
 void	shortest_rotation_b_receive(t_stk **a, t_stk **b, char **o)
 {
-	put_cell_on_top_b(a, b, o, this_is_after(*a, *b));
+	put_cell_on_top_b(a, b, o, this_is_after_btoa(*a, *b));
 	return ;
 }
 

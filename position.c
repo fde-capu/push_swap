@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:58:08 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 07:22:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 08:17:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		calc_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell)
 	int		dist_bot;
 
 	if (!cell)
-		return (0);
+		return (INT_MAX);
 	dist_top = position_top(*b, cell);
 	dist_bot = position_bot(*b, cell);
 	if (dist_top < dist_bot)
@@ -49,7 +49,7 @@ int		calc_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell)
 	int		dist_bot;
 
 	if (!cell)
-		return (0);
+		return (INT_MAX);
 	dist_top = position_top(*a, cell);
 	dist_bot = position_bot(*a, cell);
 	if (dist_top < dist_bot)

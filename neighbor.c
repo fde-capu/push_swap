@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/22 17:59:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:02:45 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stk			*this_is_after(t_stk *a, t_stk *b)
+t_stk			*this_is_after_btoa(t_stk *a, t_stk *b)
 {
 	t_stk	*h;
 	t_stk	*after;
@@ -49,7 +49,7 @@ t_stk			*this_is_after(t_stk *a, t_stk *b)
 	return (after);
 }
 
-t_stk			*this_is_before(t_stk *a, t_stk *b)
+t_stk			*this_is_before_atob(t_stk *a, t_stk *b)
 {
 	t_stk	*h;
 	t_stk	*before;

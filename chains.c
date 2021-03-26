@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 07:37:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/26 09:03:19 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,28 +19,6 @@ int				lower_val(int a, int b)
 	if (b < a)
 		return (b);
 	return (0);
-}
-
-int				abo_combo_rewind(t_abo abo)
-{
-	int	t_a;
-	int	t_b;
-
-	deb_("abo Combo Rewind!\n");
-	while (stack_size(*abo.b) > 0)
-	{
-		try_bubble_abo(abo, ATOB);
-		t_a = calc_cell_on_top_a(abo.a, abo.b, abo.o, this_is_before(*abo.a, *abo.b));
-		t_b = calc_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
-		if (lower_val(t_a, t_b) == t_a)
-			shortest_rotation_a_receive(abo.a, abo.b, abo.o);
-		else
-			shortest_rotation_b_flush(abo.a, abo.b, abo.o);
-		ouch(abo.a, abo.b, abo.o, "pa");
-	}
-	//		shortest_rotation_a_flush(abo.a, abo.b, o);
-	return (estas_finita(*abo.a, *abo.b));
-	return (-1);
 }
 
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
@@ -83,6 +61,67 @@ int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
 	return (0);
 }
 
+int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
+{
+	t_stk	*h;
+	int		did;
+
+	did = 0;
+	h = *a;
+	while (h->nx)
+	{
+		if (!(count_le(*a, pivot)))
+			break ;
+		deb_("Try pb");
+		deb_int_(h->val);
+		deb_("pivot");
+		deb_int_(pivot);
+		if (h->val <= pivot)
+		{
+			shortest_rotation_b_receive(a, b, o);
+			did = ouch(a, b, o, "pb");
+		}
+		else
+		{
+			did = shortest_rotation_a_pivot(a, b, o, pivot);
+		}
+		if (ps_flush_ready(a, b, o))
+			return (did);
+		h = *a;
+	}
+	deb_("Partitioning finished.");
+	return (did);
+}
+
+int				abo_combo_rewind(t_abo abo)
+{
+	int	t_a;
+	int	t_b;
+
+	deb_("abo Combo Rewind!\n");
+	while (stack_size(*abo.b) > 0)
+	{
+		t_a = calc_cell_on_top_a(abo.a, abo.b, abo.o, 0);
+		t_b = calc_cell_on_top_b(abo.a, abo.b, abo.o, 0);
+		deb_int_(t_a);
+		deb_int_(t_b);
+		if (lower_val(t_a, t_b) == t_a)
+		{
+			deb_("t_a ");
+//			put_cell_on_top_a(abo.a, abo.b, abo.o, this_is_after(*abo.b, *abo.a));
+		}
+		else
+		{
+			deb_("t_b ");
+//			put_cell_on_top_a(abo.a, abo.b, abo.o, this_is_after(*abo.b, *abo.a));
+		}
+		ouch(abo.a, abo.b, abo.o, "pa");
+	}
+	shortest_rotation_a_flush(abo.a, abo.b, abo.o);
+	return (estas_finita(*abo.a, *abo.b));
+	return (-1);
+}
+
 int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 {
 	int		did;
@@ -114,38 +153,6 @@ int	pass_pivot_abo(t_abo abo, int dir, int len, int pivot)
 		h = ab_origin(abo, dir);
 	}
 	deb_("End pass pivot.\n");
-	return (did);
-}
-
-int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
-{
-	t_stk	*h;
-	int		did;
-
-	did = 0;
-	h = *a;
-	while (h->nx)
-	{
-		if (!(count_le(*a, pivot)))
-			break ;
-		deb_("Try pb");
-		deb_int_(h->val);
-		deb_("pivot");
-		deb_int_(pivot);
-		if (h->val <= pivot)
-		{
-			shortest_rotation_b_receive(a, b, o);
-			did = ouch(a, b, o, "pb");
-		}
-		else
-		{
-			did = shortest_rotation_a_pivot(a, b, o, pivot);
-		}
-		if (ps_flush_ready(a, b, o))
-			return (did);
-		h = *a;
-	}
-	deb_("Partitioning finished.");
 	return (did);
 }
 
@@ -181,11 +188,10 @@ int				push_swap_sort(t_stk **a, t_stk **b, char **o)
 			break ;
 		if (pass_pivot_abo(abo, dir, len, pivot))
 			continue ;
-		if (abo_combo_rewind(abo))
+		if (estas_finita(*abo.a, *abo.b) && abo_combo_rewind(abo))
 			break ;
-		break ;
 	}
-	if (ps_combo_rewind(a, b, o))
+	if (abo_combo_rewind(abo))
 		return (1);
 	return (0);
 }
