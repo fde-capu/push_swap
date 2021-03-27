@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/27 13:38:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/27 19:44:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,84 @@ int				abo_perfect_spot(t_abo abo)
 	return (0);
 }
 
+void	re_ouch(t_abo abo, char *ops)
+{
+	char	**lst;
+	char	**h;
+	
+	if (!ops || !*ops)
+		return ;
+	lst = ft_split(ops, ',');
+	h = lst;
+	while (*h)
+	{
+		ouch(abo.a, abo.b, abo.o, *h);
+		h++;
+	}
+	ft_strfree2d(lst);
+	return ;
+}
+
+int	abox(t_abo abo)
+{
+	destroy_stack(*abo.a);
+	destroy_stack(*abo.b);
+	free(*abo.o);
+	return (1);
+}
+
+t_abo	abodup(t_abo abo)
+{
+	t_stk	*s[2];
+	t_abo	cp;
+	char	*cpo;
+
+	s[0] = stack_clone(*abo.a);
+	s[1] = stack_clone(*abo.b);
+	cpo = ft_str(*abo.o);
+	cp.a = &s[0];
+	cp.b = &s[1];
+	cp.o = &cpo;
+	*cp.o = ft_str("test");
+	return (cp);
+}
+
+char	*best_rewind(t_abo abo)
+{
+	t_abo	loc;
+
+	deb_("best_rewind.\n");
+	loc = abodup(abo);
+//	loc.o = ft_x(loc.o, ft_str(""));
+//	if (abo_perfect_spot(abo) && abox(abo))
+//		return (0);
+//	abox(loc);
+	return (0);
+}
+
 int				abo_combo_rewind(t_abo abo)
 {
+//	static int	strategy = 2;
+
 	deb_("abo Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
 		try_bubble_abo(abo, BTOA);
 		if (!(abo_perfect_spot(abo)))
 		{
-			put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
-			put_cell_on_top_a(abo.a, abo.b, abo.o, a_after_b(abo));
+			re_ouch(abo, best_rewind(abo));
+//			if (strategy == 1)
+//			{
+//				put_cell_on_top_b(abo.a, abo.b, abo.o, \
+//					max_cell(*abo.b));
+//				put_cell_on_top_a(abo.a, abo.b, abo.o, \
+//					a_after_b(abo));
+//			}
+//			if (strategy == 2)
+//			{
+//				put_cell_on_top_a(abo.a, abo.b, abo.o, \
+//					a_after_b(abo));
+//			}
 		}
 		ouch(abo.a, abo.b, abo.o, "pa");
 	}
