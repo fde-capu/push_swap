@@ -6,79 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 16:33:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/27 13:38:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int				ps_combo_rewind(t_stk **a, t_stk **b, char **o)
-{
-	deb_("Combo Rewind!\n");
-	while (stack_size(*b) > 0)
-	{
-		ps_try_bubble(a, b, o);
-		shortest_rotation_b_flush(a, b, o);
-		shortest_rotation_a_receive(a, b, o);
-		ouch(a, b, o, "pa");
-	}
-	shortest_rotation_a_flush(a, b, o);
-	return (estas_finita(*a, *b));
-}
-
-int				lower_val(int a, int b)
-{
-	if (a <= b)
-		return (a);
-	if (b < a)
-		return (b);
-	return (0);
-}
-
-int				ps_flush_ready(t_stk **a, t_stk **b, char **o)
-{
-	(void)o;
-	deb_("Flush_ready? ");
-	if (in_order_out_of_rot(*a) && in_reverse_out_of_rot(*b))
-	{
-		deb_("Yes.\n");
-		return (1);
-	}
-	deb_("No.\n");
-	return (0);
-}
-
-int	ps_pb_le_pivot(t_stk **a, t_stk **b, char **o, int pivot)
-{
-	t_stk	*h;
-	int		did;
-
-	did = 0;
-	h = *a;
-	while (h->nx)
-	{
-		if (!(count_le(*a, pivot)))
-			break ;
-		deb_("Try pb");
-		deb_int_(h->val);
-		deb_("pivot");
-		deb_int_(pivot);
-		if (h->val <= pivot)
-		{
-			shortest_rotation_b_receive(a, b, o);
-			did = ouch(a, b, o, "pb");
-		}
-		else
-		{
-			did = shortest_rotation_a_pivot(a, b, o, pivot);
-		}
-		if (ps_flush_ready(a, b, o))
-			return (did);
-		h = *a;
-	}
-	deb_("Partitioning finished.");
-	return (did);
-}
 
 int				abo_perfect_spot(t_abo abo)
 {
@@ -214,9 +146,7 @@ t_abo			make_abo(t_stk **a, t_stk **b, char **o)
 
 int				reverse(int dir)
 {
-	if (dir == ATOB)
-		return (BTOA);
-	return (ATOB);
+	return (pointer(dir));
 }
 
 int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir)
