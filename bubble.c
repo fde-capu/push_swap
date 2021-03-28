@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 12:12:44 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:29:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,11 @@ int			may_bubble(t_stk *a, int dir)
 	if ((dir == ASCE && higher == bot && lower == top)
 	|| (dir == DESC && higher == bot && lower == top))
 	{
+		if (stack_size(a) == 2)
+		{
+			deb_("Ok (2). ");
+			return (1);
+		}
 		deb_("Case vertex. ");
 		return (0);
 	}
@@ -47,7 +52,10 @@ int			may_bubble(t_stk *a, int dir)
 		return (0);
 	}
 	if (lower > higher)
+	{
+		deb_("Yes. ");
 		return (1);
+	}
 	return (0);
 }
 
@@ -56,7 +64,7 @@ int				bubble(t_abo abo)
 	int		oa;
 	int		ob;
 
-	deb_("Try bubble abo. ");
+	deb_("Bubble: ");
 	oa = may_bubble(*abo.a, ASCE);
 	ob = may_bubble(*abo.b, DESC);
 	if (oa && ob)
@@ -74,6 +82,5 @@ int				bubble(t_abo abo)
 		exec(abo, "sb");
 		return (1);
 	}
-	deb_("No.\n");
 	return (0);
 }

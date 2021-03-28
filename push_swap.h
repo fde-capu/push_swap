@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 13:04:47 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:21:41 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ int				push_swap_sort(t_stk **a, t_stk **b, char **o);
 t_stk	*stack_nclone(t_stk *s, int n);
 void	exec(t_abo abo, char *mask);
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o);
-int		calc_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
-int		calc_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell);
 int				bubble(t_abo abo);
+int		calc_top_a(t_abo abo, t_stk *cell);
+int		calc_top_b(t_abo abo, t_stk *cell);
 t_stk		*a_after_b(t_abo abo);
 t_stk		*b_before_a(t_abo abo);
 void	flush_b(t_abo abo);

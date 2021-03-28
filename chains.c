@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 13:05:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:25:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	re_ouch(t_abo abo, char *ops)
 	h = lst;
 	while (*h)
 	{
-		ouch(abo.a, abo.b, abo.o, *h);
+		exec(abo, *h);
 		h++;
 	}
 	ft_strfree2d(lst);
@@ -55,12 +55,10 @@ char	*best_rewind(t_abo abo)
 int				combo_rewind(t_abo abo)
 {
 	char	*o;
-//	static int	strategy = 2;
 
 	deb_("abo Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		bubble(abo);
 		if (!(perfect_spot(abo)))
 		{
 			o = best_rewind(abo);
@@ -82,12 +80,11 @@ int				combo_rewind(t_abo abo)
 	}
 	flush_a(abo);
 	return (estas_finita(*abo.a, *abo.b));
-	return (-1);
 }
 
-int				flush(t_abo abo)
+int				flush_final(t_abo abo)
 {
-	deb_("Flush_ready? ");
+	deb_("flush_final? ");
 	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
 	{
 		deb_("Yes.\n");
@@ -108,9 +105,6 @@ char	*prev_command(char **h)
 		c--;
 	c++;
 	*h = c;
-	deb_("last: ");
-	deb_(*h);
-	deb_("\n");
 	return (*h);
 }
 
@@ -119,8 +113,10 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	int	c;
 	char	*h;
 
+	if (stack_size(*abo.b) <= 1)
+		return ;
 	deb_("moderate_shortest_rotation_b_receive\n");
-	c = calc_cell_on_top_b(abo.a, abo.b, abo.o, this_is_after_btoa(abo));
+	c = calc_top_b(abo, this_is_after_btoa(abo));
 	deb_("mod:");
 	deb_int_(c);
 	deb_("\n");
@@ -138,14 +134,14 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	return ;
 }
 
-int	partition(t_abo abo, int len, int pivot)
+int	partition(t_abo abo, int pivot)
 {
 	int		did;
 	t_stk	*h;
 
 	did = 0;
 	h = *abo.a;
-	while (h && h->nx && len--)
+	while (h && h->nx)
 	{
 		if (!(count_le(h, pivot)))
 			break ;
@@ -163,9 +159,9 @@ int	partition(t_abo abo, int len, int pivot)
 		{
 			shortest_rotation_a_pivot(abo, pivot);
 		}
-//		if (flush(abo))
+//		if (flush_final(abo))
 //			return (did);
-//		if (bubble(abo) && flush(abo))
+//		if (bubble(abo) && flush_final(abo))
 ///			return (did);
 		h = *abo.a;
 	}
@@ -187,29 +183,24 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	int		pivot;
 	t_abo	abo;
-	int		len;
 
 //		gen_pivot_median(a, &pivot);
 //		gen_pivot_last(a, &pivot);
 	pivot = 0;
 	abo = make_abo(a, b, o);
-	len = stack_size(*abo.a);
 	while (1)
 	{
-		if (flush(abo))
-			break ;
-		if (bubble(abo) && flush(abo))
+		if (bubble(abo) && flush_final(abo))
 			break ;
 		gen_pivot_short(abo.a, &pivot);
-		partition(abo, len, pivot);
+		partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 		{
-			top_b(abo, max_cell(*abo.b));
+			static int d = 0; if (d++ == 3) exit (0);
 			return (push_swap_sort(a, b, o));
 		}
 		else
 		{
-			bubble(abo);
 			return (combo_rewind(abo));
 		}
 	}
