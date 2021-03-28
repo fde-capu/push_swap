@@ -6,29 +6,29 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 09:56:53 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:10:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stk			*this_is_after_btoa(t_stk *a, t_stk *b)
+t_stk			*this_is_after_btoa(t_abo abo)
 {
 	t_stk	*h;
 	t_stk	*after;
 	int		once;
 
 	deb_("What should succed");
-	deb_int_(a->val);
+	deb_int_((*abo.a)->val);
 	deb_("? >");
-	if (stack_size(b) <= 1)
-		return (b);
+	if (stack_size(*abo.b) <= 1)
+		return (*abo.b);
 	after = 0;
 	once = 1;
-	h = b;
+	h = *abo.b;
 	while (h)
 	{
-		if (h->val < a->val)
+		if (h->val < (*abo.a)->val)
 		{
 			if (once)
 			{
@@ -43,28 +43,28 @@ t_stk			*this_is_after_btoa(t_stk *a, t_stk *b)
 		h = h->nx;
 	}
 	if (!after)
-		after = max_cell(b);
+		after = max_cell(*abo.b);
 	deb_int_(after->val);
 	deb_("\n");
 	return (after);
 }
 
-t_stk			*this_is_before_atob(t_stk *a, t_stk *b)
+t_stk			*this_is_before_atob(t_abo abo)
 {
 	t_stk	*h;
 	t_stk	*before;
 	int		once;
 
 	deb_("What should preceed");
-	deb_int_(b->val);
+	deb_int_((*abo.b)->val);
 	deb_("? <");
-	if (stack_size(a) <= 1)
-		return (a);
+	if (stack_size(*abo.a) <= 1)
+		return (*abo.a);
 	once = 1;
-	h = a;
+	h = *abo.a;
 	while (h)
 	{
-		if (h->val > b->val)
+		if (h->val > (*abo.b)->val)
 		{
 			if (once)
 			{

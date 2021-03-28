@@ -6,36 +6,37 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 12:23:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 13:01:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	shortest_rotation_b_flush(t_stk **a, t_stk **b, char **o)
+void	flush_b(t_abo abo)
 {
-	put_cell_on_top_b(a, b, o, max_cell(*b));
+	deb_("flush_b.\n");
+	top_b(abo, max_cell(*abo.b));
 	return ;
 }
 
-void	shortest_rotation_a_flush(t_stk **a, t_stk **b, char **o)
+void	flush_a(t_abo abo)
 {
-	deb_("shortest_rotation_a_flush.\n");
-	put_cell_on_top_a(a, b, o, min_cell(*a));
+	deb_("flush_a.\n");
+	top_a(abo, min_cell(*abo.a));
 	return ;
 }
 
-void	shortest_rotation_a_receive(t_stk **a, t_stk **b, char **o)
+void	shortest_rotation_a_receive(t_abo abo)
 {
-	if (!b || !*b)
+	if (!abo.b || !*abo.b)
 		return ;
-	put_cell_on_top_a(a, b, o, this_is_before_atob(*a, *b));
+	top_a(abo, this_is_before_atob(abo));
 	return ;
 }
 
-void	shortest_rotation_b_receive(t_stk **a, t_stk **b, char **o)
+void	shortest_rotation_b_receive(t_abo abo)
 {
-	put_cell_on_top_b(a, b, o, this_is_after_btoa(*a, *b));
+	top_b(abo, this_is_after_btoa(abo));
 	return ;
 }
 
