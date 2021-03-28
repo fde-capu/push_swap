@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 12:06:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:23:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,33 +70,4 @@ void	shortest_rotation_a_pivot(t_abo abo, int pivot)
 			exec(abo, "rra");
 	}
 	return ;
-}
-
-int		shortest_rotation_a_pivot(t_abo abo, int pivot)
-{
-	int	dist_up;
-	int	dist_dn;
-	t_stk	*h;
-
-	if ((*a)->val <= pivot)
-		return (0);
-	dist_dn = 0;
-	h = *a;
-	while (h && h->val > pivot && dist_dn++)
-		h = h->nx;
-	dist_up = 1;
-	h = stack_tail(*a);
-	while (h && h->val > pivot && dist_up++)
-		h = h->pv;
-	if (dist_dn < dist_up)
-	{
-		while (dist_dn--)
-			ouch(a, b, o, "ra");
-	}
-	else
-	{
-		while (dist_up--)
-			ouch(a, b, o, "rra");
-	}
-	return (1);
 }

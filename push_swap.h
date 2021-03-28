@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 11:59:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:23:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void			shortest_rotation_b_flush(t_stk **a, t_stk **b, char **o);
 void			shortest_rotation_a_flush(t_stk **a, t_stk **b, char **o);
 void			shortest_rotation_a_flush(t_stk **a, t_stk **b, char **o);
 void			shortest_rotation_b_receive(t_stk **a, t_stk **b, char **o);
-int			shortest_rotation_a_pivot(t_stk **a, t_stk **b, char **o, int pivot);
+void	shortest_rotation_a_pivot(t_abo abo, int pivot);
 int				position_top(t_stk *a, t_stk *h);
 int				position_bot(t_stk *a, t_stk *h);
 void	put_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell);
@@ -65,26 +65,13 @@ void	put_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
 t_stk			*this_is_before_atob(t_stk *a, t_stk *b);
 t_stk			*this_is_after_btoa(t_stk *a, t_stk *b);
 void	shortest_rotation_a_receive(t_stk **a, t_stk **b, char **o);
-int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir);
+int				push_swap_sort(t_stk **a, t_stk **b, char **o);
 t_stk	*stack_nclone(t_stk *s, int n);
-t_stk	*ab_destiny(t_abo abo, int dir);
-t_stk	*ab_origin(t_abo abo, int dir);
-void	exec(t_abo abo, int dir, char *mask);
-int		pointer(int dir);
-int			may_bubble_abo(t_abo abo, int dir);
-int			may_bubble_abo_nx(t_abo abo, int dir);
-void	gen_pivot_qs(t_abo abo, int dir, int len, int *pivot);
+void	exec(t_abo abo, char *mask);
 int				ps_combo_rewind(t_stk **a, t_stk **b, char **o);
 int		calc_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
 int		calc_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell);
-void	gen_pivot_dir_short(t_abo abo, int dir, int len, int *pivot);
 int				bubble(t_abo abo);
-int		pass_pivot(t_abo abo, int dir, int len, int pivot);
-void	shortest_rotation_dir_receive(t_abo abo, int dir);
-void	shortest_rotation_dir_pivot(t_abo abo, int dir, int pivot);
-void	gen_pivot_dir_chunk(t_abo abo, int dir, int len, int *pivot);
-void	gen_pivot_dir_chunk_by_median(t_abo abo, int dir, int chunk, int *pivot);
-int		gen_chunk_size(t_abo abo, int dir);
 t_stk		*a_after_b(t_abo abo);
 t_stk		*b_before_a(t_abo abo);
 

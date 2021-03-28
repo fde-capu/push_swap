@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 12:09:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:24:04 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,12 +170,12 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	if (c > 0)
 	{
 		while (c-- && ft_strbegins(prev_command(&h), "ra"))
-			exec(abo, BTOA, "r_");
+			exec(abo, "rb");
 	}
 	if (c < 0)
 	{
 		while (c++ && ft_strbegins(prev_command(&h), "rra"))
-			exec(abo, BTOA, "rr_");
+			exec(abo, "rrb");
 	}
 	return ;
 }
@@ -244,7 +244,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 			break ;
 		gen_pivot_short(abo.a, &pivot);
 		partition(abo, len, pivot);
-		if (stack_size(abo.a) > 2)
+		if (stack_size(*abo.a) > 2)
 		{
 			put_cell_on_top_b(abo.a, abo.b, abo.o, max_cell(*abo.b));
 			return (push_swap_sort(a, b, o));
