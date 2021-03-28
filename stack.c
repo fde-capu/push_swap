@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/23 21:57:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:37:46 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,16 @@ int		stack_size(t_stk *stk)
 	if (stk->nx)
 		return (1 + stack_size(stk->nx));
 	return (1);
+}
+
+t_stk	**stack_ppclone(t_stk **s)
+{
+	t_stk	**o;
+	t_stk	*po;
+
+	po = stack_clone(*s);
+	o = &po;
+	return (o);
 }
 
 t_stk	*stack_clone(t_stk *s)

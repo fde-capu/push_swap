@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 13:21:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:38:40 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,5 +70,6 @@ void	flush_b(t_abo abo);
 void	flush_a(t_abo abo);
 t_stk			*this_is_after_btoa(t_abo abo);
 t_stk			*this_is_before_atob(t_abo abo);
+t_stk	**stack_ppclone(t_stk **s);
 
 #endif

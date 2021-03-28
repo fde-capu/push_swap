@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 14:25:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:39:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,27 @@ void	re_ouch(t_abo abo, char *ops)
 	return ;
 }
 
+t_abo	abodup(t_abo abo)
+{
+	t_abo	o;
+
+	o.a = stack_ppclone(abo.a);
+	o.b = stack_ppclone(abo.b);
+	return (o);
+}
+
 char	*best_rewind(t_abo abo)
 {
 	if (perfect_spot(abo))
 		return (0);
+	t_abo	loc;
+	loc = abodup(abo);
+	*loc.a = 0;
+	*loc.b = 0;
+	stack_double_log(*loc.a, *loc.b);
+//	deb_("\n\n___\n\n");
+	stack_double_log(*abo.a, *abo.b);
+	exit(0);
 	return (0);
 }
 
@@ -196,7 +213,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 		partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 		{
-			static int d = 0; if (d++ == 3) exit (0);
+//			static int d = 0; if (d++ == 3) exit (0);
 			return (push_swap_sort(a, b, o));
 		}
 		else
