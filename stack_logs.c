@@ -6,17 +6,19 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/11 00:18:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/27 21:07:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	stack_log(t_stk *stk)
+void	stack_log(t_stk *ref_stk)
 {
 	char	*str;
 	int		something;
+	t_stk	*stk;
 
+	stk = ref_stk;
 	something = 0;
 	while (stk)
 	{
