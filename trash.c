@@ -412,3 +412,121 @@ int	bubble_and_flush(t_stk **a, t_stk **b, char **o)
 	ps_try_bubble(a, b, o);
 	return (ps_flush_ready(a, b, o));
 }
+
+int		count_le_len(t_stk *h, int about, int len)
+{
+	if (!h || !len)
+		return (0);
+	if (h->val <= about)
+		return (count_le_len(h->nx, about + 1, --len));
+	else
+		return (count_le_len(h->nx, about, --len));
+}
+
+
+int		shortest_rotation_a_pivot(t_abo abo, int pivot)
+{
+	int	dist_up;
+	int	dist_dn;
+	t_stk	*h;
+
+	if ((*a)->val <= pivot)
+		return (0);
+	dist_dn = 0;
+	h = *a;
+	while (h && h->val > pivot && dist_dn++)
+		h = h->nx;
+	dist_up = 1;
+	h = stack_tail(*a);
+	while (h && h->val > pivot && dist_up++)
+		h = h->pv;
+	if (dist_dn < dist_up)
+	{
+		while (dist_dn--)
+			ouch(a, b, o, "ra");
+	}
+	else
+	{
+		while (dist_up--)
+			ouch(a, b, o, "rra");
+	}
+	return (1);
+}
+
+int			may_bubble_abo_nx(t_abo abo, int dir)
+{
+	if (dir == ATOB && (!abo.a || !(*abo.a)->nx))
+		return (0);
+	if (dir == BTOA && (!abo.b || !(*abo.b)->nx))
+		return (0);
+	if (dir == ATOB && (*abo.a)->nx->val > (*abo.a)->nx->nx->val)
+			return (1);
+	if (dir == BTOA && (*abo.b)->nx->val < (*abo.b)->nx->nx->val)
+			return (1);
+	return (0);
+}
+
+int				reverse(int dir)
+{
+	return (pointer(dir));
+}
+
+int			may_bubble_abo(t_abo abo, int dir)
+{
+	if (dir == ATOB)
+		return (may_bubble(*abo.a, ASCE));
+	if (dir == BTOA)
+		return (may_bubble(*abo.b, DESC));
+	return (0);
+}
+
+char	*op_(char *mask, int dir)
+{
+	char	*o;
+	char	*h;
+
+	o = ft_str(mask);
+	h = o;
+	while (*h)
+	{
+		if (*h == '_')
+		{
+			if (dir == ATOB)
+				*h = 'a';
+			if (dir == BTOA)
+				*h = 'b';
+		}
+		h++;
+	}
+	return (o);
+}
+
+
+t_stk	*ab_destiny(t_abo abo, int dir)
+{
+	if (dir == ATOB)
+		return (*abo.b);
+	if (dir == BTOA)
+		return (*abo.a);
+	return (0);
+}
+
+t_stk	*ab_origin(t_abo abo, int dir)
+{
+	if (dir == ATOB)
+		return (*abo.a);
+	if (dir == BTOA)
+		return (*abo.b);
+	return (0);
+}
+
+
+int		pointer(int dir)
+{
+	if (dir == ATOB)
+		return (BTOA);
+	if (dir == BTOA)
+		return (ATOB);
+	return (-1);
+}
+

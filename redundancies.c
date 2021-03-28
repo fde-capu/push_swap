@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 16:11:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 11:24:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,14 +216,4 @@ int		treat_redundancies(t_ttg *strat)
 	deb_(strat->formula);
 	deb_("\n\n");
 	return (count);
-}
-
-void	solve_push_swap(t_ttg *k, t_stk *a)
-{
-	k->a = stack_clone(a);
-	k->b = init_stack_empty();
-	k->formula = (k->function)(&k->a, &k->b);
-	treat_redundancies(k);
-	k->result = count_instructions_in_str(k->formula);
-	return ;
 }

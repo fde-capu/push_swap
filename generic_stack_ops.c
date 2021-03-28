@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 12:29:16 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 10:57:55 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 11:59:43 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,6 @@ int		count_gt(t_stk *h, int about)
 		return (count_gt(h->nx, about) + 1);
 	else
 		return (count_gt(h->nx, about));
-}
-
-int		count_le_len(t_stk *h, int about, int len)
-{
-	if (!h || !len)
-		return (0);
-	if (h->val <= about)
-		return (count_le_len(h->nx, about + 1, --len));
-	else
-		return (count_le_len(h->nx, about, --len));
 }
 
 int		count_le(t_stk *h, int about)

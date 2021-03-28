@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 10:19:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 12:09:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,53 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
+void	give_it_to_stdout(t_ttg *s)
+{
+	char	*h;
+
+	if (DEBUG)
+	{
+		deb_int_(s->result);
+		return ;
+	}
+	if (!(s->formula))
+		return ;
+	h = s->formula;
+	while (*h)
+	{
+		if (*h == ',')
+			write(1, "\n", 1);
+		else
+			write(1, h, 1);
+		h++;
+	}
+	if (h != s->formula)
+		write(1, "\n", 1);
+	return ;
+}
+
+
+/*
+** k->function leads here:
+** push_swap_sort resides in chains.c.
+*/
+
+void			chain_push_swap(t_stk **a, t_stk **b, char **o)
+{
+	push_swap_sort(a, b, o);
+	return ;
+}
+
+void	solve_push_swap(t_ttg *k, t_stk *a)
+{
+	k->a = stack_clone(a);
+	k->b = init_stack_empty();
+	k->formula = (k->function)(&k->a, &k->b);
+	treat_redundancies(k);
+	k->result = count_instructions_in_str(k->formula);
+	return ;
+}
+
 int			main(int argc, char **argv)
 {
 	t_stk	*stack_a;
@@ -41,21 +88,15 @@ int			main(int argc, char **argv)
 	{
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
-		//ft_print_stdout("\nInitial:\n\n");
+		if (DEBUG)
+			ft_print_stdout("\nInitial:\n\n");
 		deb_stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
-		if (!DEBUG)
-			give_it_to_stdout(ps_strat);
-		deb_int_(ps_strat->result);
-		//op_exec(ops, &stack_a, &stack_b);
-		//ft_print_stdout("Final:\n\n");
-		//if (is_in_order(stack_a) && !(stack_size(stack_b)))
-		//	exit(end_routine(stack_a, stack_b, ops, OK));
-		//exit(end_routine(stack_a, stack_b, ops, KO));
+		give_it_to_stdout(ps_strat);
 		strategy_destroy(ps_strat);
-		destroy_stack(stack_a);
-		destroy_stack(stack_b);
+//		destroy_stack(stack_a);
+//		destroy_stack(stack_b);
 		exit(0);
 	}
 	else

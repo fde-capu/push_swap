@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:49:38 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 09:18:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 11:23:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,4 @@ int		count_instructions_in_str(char *str)
 	if (*str)
 		return (count_instructions_in_str(++str));
 	return (0);
-}
-
-void	give_it_to_stdout(t_ttg *s)
-{
-	char	*h;
-
-	if (!(s->formula))
-		return ;
-	h = s->formula;
-	while (*h)
-	{
-		if (*h == ',')
-			write(1, "\n", 1);
-		else
-			write(1, h, 1);
-		h++;
-	}
-	if (h != s->formula)
-		write(1, "\n", 1);
-	return ;
 }

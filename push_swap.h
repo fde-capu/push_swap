@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 14:23:00 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/28 11:59:52 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int				push_swap_sort(t_stk **a, t_stk **b, char **o, int dir);
 t_stk	*stack_nclone(t_stk *s, int n);
 t_stk	*ab_destiny(t_abo abo, int dir);
 t_stk	*ab_origin(t_abo abo, int dir);
-void	ouch_abo(t_abo abo, int dir, char *mask);
+void	exec(t_abo abo, int dir, char *mask);
 int		pointer(int dir);
 int			may_bubble_abo(t_abo abo, int dir);
 int			may_bubble_abo_nx(t_abo abo, int dir);
@@ -78,9 +78,8 @@ int				ps_combo_rewind(t_stk **a, t_stk **b, char **o);
 int		calc_cell_on_top_b(t_stk **a, t_stk **b, char **o, t_stk *cell);
 int		calc_cell_on_top_a(t_stk **a, t_stk **b, char **o, t_stk *cell);
 void	gen_pivot_dir_short(t_abo abo, int dir, int len, int *pivot);
-int				try_bubble_abo(t_abo abo, int dir);
+int				bubble(t_abo abo);
 int		pass_pivot(t_abo abo, int dir, int len, int pivot);
-int		count_le_len(t_stk *h, int about, int len);
 void	shortest_rotation_dir_receive(t_abo abo, int dir);
 void	shortest_rotation_dir_pivot(t_abo abo, int dir, int pivot);
 void	gen_pivot_dir_chunk(t_abo abo, int dir, int len, int *pivot);
