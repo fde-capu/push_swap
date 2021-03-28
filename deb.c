@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:55:36 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/25 14:55:35 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/27 21:00:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	deb_bol_(int i)
 void	deb_(char *s)
 {
 	if (DEBUG)
-		ft_print_stdout(s);
+		ft_print_stdout((const char *)s);
 	return ;
 }
 
