@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 19:17:07 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:23:45 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,24 +79,25 @@ void	stack_double_log(t_stk *a, t_stk *b)
 {
 	char	*line;
 	char	*pile;
-	t_stk	*stk[2];
+	t_stk	*ha;
+	t_stk	*hb;
 
-	stk[0] = a;
-	stk[1] = b;
+	ha = a;
+	hb = b;
 	pile = ft_strnew();
 	line = ft_strnew();
-	while (a || b)
+	while (ha || hb)
 	{
 		pile = ft_strcatxx(pile, line);
-		line = stack_double_log_level(a, b);
-		if (a)
-			a = a->nx;
-		if (b)
-			b = b->nx;
+		line = stack_double_log_level(ha, hb);
+		if (ha)
+			ha = ha->nx;
+		if (hb)
+			hb = hb->nx;
 	}
 	pile = ft_strcatxx(pile, line);
 	ft_print_stdout(pile);
-	stack_double_log_bottom(stack_size(stk[0]), stack_size(stk[1]));
+	stack_double_log_bottom(stack_size(a), stack_size(b));
 	free(pile);
 	return ;
 }

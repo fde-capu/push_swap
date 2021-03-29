@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 12:09:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:48:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ int			main(int argc, char **argv)
 		solve_push_swap(ps_strat, stack_a);
 		give_it_to_stdout(ps_strat);
 		strategy_destroy(ps_strat);
-//		destroy_stack(stack_a);
-//		destroy_stack(stack_b);
+		destroy_stack(stack_a);
+		destroy_stack(stack_b);
 		exit(0);
 	}
 	else

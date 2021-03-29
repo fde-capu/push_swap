@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:55:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 17:09:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:24:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,16 @@ t_stk	*stack_chain_init(int argc, char **argv)
 
 	i_from_a = malloc(sizeof(int));
 	if (!(strict_atoi(i_from_a, argv[argc - 1])))
+	{
+		deb_("Can't init ");
+		deb_(argv[argc - 1]);
+		deb_(".\n");
 		return (0);
+	}
 	stk = ft_calloc(sizeof(t_stk), 1);
 	stk->val = *i_from_a;
 	free(i_from_a);
-	if (argc > 1)
+	if (argc - 1 > 1)
 		stk->pv = stack_chain_init(--argc, argv);
 	return (stk);
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 14:29:16 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:05:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			may_bubble(t_stk *a, int dir)
 	{
 		if (stack_size(a) == 2)
 		{
-			deb_("Ok (2). ");
+			deb_("Must. ");
 			return (1);
 		}
 		deb_("Case vertex. ");

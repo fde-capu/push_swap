@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/28 12:36:35 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/29 13:02:16 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,8 @@ OBJS_A		=	$(SRCS_A:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 OBJS_COMMON	=	$(SRCS_COMMON:.c=.o)
 VALGRIND	=	valgrind
-VALGFLAGS	=	--leak-check=full \
+VALGFLAGS	=	--tool=memcheck \
+				--leak-check=full \
 				--show-leak-kinds=all \
 				--track-origins=yes \
 				--show-reachable=yes

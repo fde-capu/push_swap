@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 21:13:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:52:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,45 @@ void	re_ouch(t_abo abo, char *ops)
 	return ;
 }
 
-t_abo	abodup(t_abo abo)
-{
-	t_abo	o;
-
-	o.a = stack_ppclone(abo.a);
-	o.b = stack_ppclone(abo.b);
-	return (o);
-}
-
 char	*best_rewind(t_abo abo)
 {
+	t_abo	loc;
+	t_stk	*ta;
+	t_stk	*tb;
+	char	*to;
+
 	if (perfect_spot(abo))
 		return (0);
-	t_abo	loc;
-	loc = abodup(abo);
-	deb_("\n\nstart\n\n");
-//	stack_double_log(*abo.a, *abo.b);
-//	deb_("\n\n___\n\n");
+	loc = abo;
+	ta = stack_clone(*abo.a);
+	loc.a = &ta;
+	tb = stack_clone(*abo.b);
+	loc.b = &tb;
+	to = ft_str(*abo.o);
+	loc.o = &to;
+
+
+
+	deb_("before:\n");
 	stack_double_log(*loc.a, *loc.b);
-	deb_("\n\nend\n");
-	exit(0);
+	deb_(*loc.o);
+	deb_("\n");
+	stack_double_log(*abo.a, *abo.b);
+	deb_(*abo.o);
+	deb_("\n");
+
+	exec(loc, "pa");
+
+	deb_("after:\n");
+	stack_double_log(*loc.a, *loc.b);
+	deb_(*loc.o);
+	deb_("\n");
+	stack_double_log(*abo.a, *abo.b);
+	deb_(*abo.o);
+	deb_("\n");
+	destroy_stack(ta);
+	destroy_stack(tb);
+	free(*loc.o);
 	return (0);
 }
 
@@ -73,7 +91,7 @@ int				combo_rewind(t_abo abo)
 {
 	char	*o;
 
-	deb_("abo Combo Rewind!\n");
+	deb_("Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
 		if (!(perfect_spot(abo)))
@@ -92,6 +110,8 @@ int				combo_rewind(t_abo abo)
 //				top_b(abo, \
 //					a_after_b(abo));
 //			}
+			free(o);
+			return (1);
 		}
 		exec(abo, "pa");
 	}
