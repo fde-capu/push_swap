@@ -1,6 +1,6 @@
 #!/bin/bash
 
-shuf &&
+shuf -e 1 > /dev/null &&
 {
 seq $1 | shuf | tr '\n' ' '
 exit ;
