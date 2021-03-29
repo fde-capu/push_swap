@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 15:54:59 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:54:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,13 @@ char		*clear_ret(t_abo abo, char *ret)
 	return (ret);
 }
 
+int		crazyness(t_abo loc)
+{
+	if (perfect_spot(loc))
+		return (0);
+	return (0);
+}
+
 char	*best_rewind(t_abo abo)
 {
 	t_abo	loc;
@@ -62,23 +69,34 @@ char	*best_rewind(t_abo abo)
 	int		c;
 
 	deb_("best_rewind : ");
-	if (perfect_spot(abo))
-		return (0);
 	loc = abo;
 	ta = stack_clone(*abo.a);
 	loc.a = &ta;
 	tb = stack_clone(*abo.b);
 	loc.b = &tb;
-	to = ft_str("pb,pb,ss,pa");
+	to = ft_str("");
 	loc.o = &to;
 	*loc.o = to;
+	flush_a(loc);
+	flush_b(loc);
 
+//		if (strategy == 1)
+//		{
+//			top_b(abo, \
+//				max_cell(*abo.b));
+//			top_b(abo, \
+//				a_after_b(abo));
+//		}
+//		if (strategy == 2)
+//		{
+//			top_b(abo, \
+//				a_after_b(abo));
+//		}
+//	*loc.o = ft_strcatxr("tes,teste", *loc.o);
+	treat_str_redundancies(loc.o);
+	*loc.o = ft_x(*loc.o, ft_strtrim(*loc.o, ","));
 	c = count_instructions_in_str(*loc.o);
-	deb_("\nloco:");
-	deb_(*loc.o);
-	deb_("\nc:");
 	deb_int_(c);
-//	exec(loc, "pa");
 
 	return (clear_ret(loc, ft_str(*loc.o)));
 }
@@ -94,20 +112,10 @@ int				combo_rewind(t_abo abo)
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
-//		if (strategy == 1)
-//		{
-//			top_b(abo, \
-//				max_cell(*abo.b));
-//			top_b(abo, \
-//				a_after_b(abo));
-//		}
-//		if (strategy == 2)
-//		{
-//			top_b(abo, \
-//				a_after_b(abo));
-//		}
-		re_ouch(abo, o);
+
+//		re_ouch(abo, o);
 		free(o);
+		exit(0);
 		exec(abo, "pa");
 	}
 	flush_a(abo);

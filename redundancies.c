@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 11:24:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:52:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,39 @@ int	substitute_redundancy(char **str, char *sub_code)
 	}
 	ft_strfree2d(sub);
 	return (out);
+}
+
+int		treat_str_redundancies(char **str)
+{
+	char	**red;
+	int		i;
+	int		count;
+
+	deb_("treat_str_redundancies:\n");
+	deb_(*str);
+	deb_("\n> ");
+	count = 0;
+	red = ft_split(REDUNDANCIES, '|');
+	i = ft_strlen2d(red);
+	while (i--)
+	{
+		if (ft_strstr(">", red[i]))
+		{
+			count += substitute_redundancy(str, red[i]);
+			continue ;
+		}
+		if (ft_strstr("*", red[i]))
+		{
+			count += recursive_redundancy(str, red[i]);
+			continue ;
+		}
+		count += remove_str(str, red[i]);
+	}
+	ft_strfree2d(red);
+	deb_("\n");
+	deb_(*str);
+	deb_("\n");
+	return (count);
 }
 
 int		treat_redundancies(t_ttg *strat)
