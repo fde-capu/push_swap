@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 14:49:38 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 11:23:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:51:33 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,8 @@ void	strategy_destroy(t_ttg *k)
 
 int		count_instructions_in_str(char *str)
 {
-	static int	c = 0;
-
 	if (!*str)
-		return (c + 1);
-	if (*str == ',')
-		c++;
-	if (*str)
-		return (count_instructions_in_str(++str));
-	return (0);
+		return (0);
+	next_command(&str);
+	return (1 + count_instructions_in_str(str));
 }

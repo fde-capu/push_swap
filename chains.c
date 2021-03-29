@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 14:52:22 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:54:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,23 @@ void	re_ouch(t_abo abo, char *ops)
 	return ;
 }
 
+char		*clear_ret(t_abo abo, char *ret)
+{
+	destroy_stack(*abo.a);
+	destroy_stack(*abo.b);
+	free(*abo.o);
+	return (ret);
+}
+
 char	*best_rewind(t_abo abo)
 {
 	t_abo	loc;
 	t_stk	*ta;
 	t_stk	*tb;
 	char	*to;
+	int		c;
 
+	deb_("best_rewind : ");
 	if (perfect_spot(abo))
 		return (0);
 	loc = abo;
@@ -59,32 +69,18 @@ char	*best_rewind(t_abo abo)
 	loc.a = &ta;
 	tb = stack_clone(*abo.b);
 	loc.b = &tb;
-	to = ft_str(*abo.o);
+	to = ft_str("pb,pb,ss,pa");
 	loc.o = &to;
+	*loc.o = to;
 
-
-
-	deb_("before:\n");
-	stack_double_log(*loc.a, *loc.b);
+	c = count_instructions_in_str(*loc.o);
+	deb_("\nloco:");
 	deb_(*loc.o);
-	deb_("\n");
-	stack_double_log(*abo.a, *abo.b);
-	deb_(*abo.o);
-	deb_("\n");
+	deb_("\nc:");
+	deb_int_(c);
+//	exec(loc, "pa");
 
-	exec(loc, "pa");
-
-	deb_("after:\n");
-	stack_double_log(*loc.a, *loc.b);
-	deb_(*loc.o);
-	deb_("\n");
-	stack_double_log(*abo.a, *abo.b);
-	deb_(*abo.o);
-	deb_("\n");
-	destroy_stack(ta);
-	destroy_stack(tb);
-	free(*loc.o);
-	return (0);
+	return (clear_ret(loc, ft_str(*loc.o)));
 }
 
 int				combo_rewind(t_abo abo)
@@ -94,25 +90,24 @@ int				combo_rewind(t_abo abo)
 	deb_("Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		if (!(perfect_spot(abo)))
-		{
-			o = best_rewind(abo);
-			//re_ouch(abo, o);
-//			if (strategy == 1)
-//			{
-//				top_b(abo, \
-//					max_cell(*abo.b));
-//				top_b(abo, \
-//					a_after_b(abo));
-//			}
-//			if (strategy == 2)
-//			{
-//				top_b(abo, \
-//					a_after_b(abo));
-//			}
-			free(o);
-			return (1);
-		}
+		o = best_rewind(abo);
+		deb_("Best: '");
+		deb_(o);
+		deb_("'\n");
+//		if (strategy == 1)
+//		{
+//			top_b(abo, \
+//				max_cell(*abo.b));
+//			top_b(abo, \
+//				a_after_b(abo));
+//		}
+//		if (strategy == 2)
+//		{
+//			top_b(abo, \
+//				a_after_b(abo));
+//		}
+		re_ouch(abo, o);
+		free(o);
 		exec(abo, "pa");
 	}
 	flush_a(abo);
@@ -225,6 +220,8 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 //		gen_pivot_last(a, &pivot);
 	pivot = 0;
 	abo = make_abo(a, b, o);
+	if (flush_final(abo))
+		return (1);
 	while (1)
 	{
 		if (bubble(abo) && flush_final(abo))
