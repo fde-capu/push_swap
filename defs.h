@@ -6,14 +6,16 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 09:48:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 15:16:46 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFS_H
 # define DEFS_H
 
-# define DEBUG		1
+# ifndef DEBUG
+#  define DEBUG		0
+# endif
 # define OP_NAMES	"sa sb ss pa pb ra rb rr rra rrb rrr"
 # define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rrr,rb>ra|rrr,ra>rb|ra,sa,rb>rr,sa|rb,sb,ra>rr,sb|ra,rr*,rb|rb,rr*,ra|rra,rrr*,rrb|rrb,rrr*,rra|ra,pb,rra,pa>sa|rb,pa,rrb,pb>sb|sa,sb>ss|sb,sa>ss|sa,pb,sa,pb>ra,pb,pb,rra|sb,pa,sb,pa>rb,pa,pa,rrb"
 

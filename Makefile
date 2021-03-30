@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/29 16:47:38 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/30 16:41:46 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
 #ARGS_X		=	4 1 2 3 5
-ARGS_X		=	5 14 8 7 4 13 2 11 15 16 18 9 19 10 17 1 20 6 3 12
+ARGS_X		=	16 15 10 1 17 4 9 18 20 7 19 2 14 13 3 6 5 11 12 8
+ARGS_Y		=	$(shell cat txt)
 ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
 NAME_B		=	push_swap
@@ -42,7 +43,7 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	chains2.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
-CCFLAGS		=	-Wall -Werror -Wextra -g
+CCFLAGS		=	-Wall -Werror -Wextra -g -D DEBUG=2
 OBJS_A		=	$(SRCS_A:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 OBJS_COMMON	=	$(SRCS_COMMON:.c=.o)
@@ -136,6 +137,12 @@ tbx:	$(NAME_B)
 	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS
 vbx:	$(NAME_B)
 	ARGS="$(ARGS_X)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+tby:	$(NAME_B)
+	ARGS="$(ARGS_Y)" && ./$(NAME_B) $$ARGS
+vby:	$(NAME_B)
+	ARGS="$(ARGS_Y)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+vfby:	$(NAME_B)
+	ARGS="$(ARGS_Y)" && $(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $$ARGS
 tbz:	$(NAME_B)
 	ARGS="$(ARGS_Z)" && ./$(NAME_B) $$ARGS
 vbz:	$(NAME_B)

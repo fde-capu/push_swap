@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 09:34:04 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 16:07:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,7 @@ long			max_val(t_stk *ss);
 int			in_order(t_stk *s);
 int			in_reverse(t_stk *s);
 void	deb_bol_(int i);
+void	deb2(char *s);
 void	deb_(char *s);
 void	deb_int_(int i);
 

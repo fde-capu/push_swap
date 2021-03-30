@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 10:12:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:36:17 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,6 @@ char		*clear_ret(t_abo abo[TEST_NUM], char *ret)
 	return (ret);
 }
 
-int		crazyness(t_abo loc)
-{
-	if (perfect_spot(loc))
-		return (0);
-	return (0);
-}
-
 char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 {
 	int	i;
@@ -86,7 +79,37 @@ char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 	return (o);
 }
 
-char	*best_rewind(t_abo abo)
+char	*prev_command(char **h, char *limit)
+{
+	char	*c;
+
+	c = *h;
+	if (*(c - 1) == ',')
+		c -= 2;
+	while (*c != ',' && c > limit)
+		c--;
+	if (c > limit)
+		c++;
+	*h = c;
+	return (*h);
+}
+
+void	undo(t_abo abo)
+{
+	char	*h;
+
+	deb2("(undo) ");
+	h = *abo.o + ft_strlen(*abo.o);
+	prev_command(&h, *abo.o);
+	if (ft_strbegins(h, "pa"))
+	{
+		deb2("!ops! ");
+		exec(abo, "pb");
+	}
+	return ;
+}
+
+char	*best_rewind(t_abo abo, int ite)
 {
 	t_abo	loc[TEST_NUM];
 	t_stk	*ta[TEST_NUM];
@@ -94,8 +117,20 @@ char	*best_rewind(t_abo abo)
 	char	*to[TEST_NUM];
 	int		c[TEST_NUM];
 	int		i;
+	char	*o;
 
-	deb_("best_rewind:\n");
+//	if (ite == 1)
+//	{
+//		stack_double_log(*abo.a, *abo.b);
+//		exit (0);
+//	}
+	if (stack_size(*abo.b) == 0 || !ite)
+		return (ft_str(""));
+	if (perfect_spot(abo))
+		return (ft_str("pa"));
+	deb_("\nBest Rewind");
+	deb_int_(ite);
+	deb_(":\n");
 	i = -1;
 	while (++i < TEST_NUM)
 	{
@@ -107,32 +142,38 @@ char	*best_rewind(t_abo abo)
 		to[i] = ft_str("");
 		loc[i].o = &to[i];
 		*loc[i].o = to[i];
-		deb_("Clone");
-		deb_int_(i);
-		deb_(":\n");
-		stack_double_log(*loc[i].a, *loc[i].b);
 	}
-	deb_("test perfect: ");
-	flush_a(loc[0]);
-	flush_b(loc[0]);
 
-//		if (strategy == 1)
-//		{
-//			top_b(abo, \
-//				max_cell(*abo.b));
-//			top_b(abo, \
-//				a_after_b(abo));
-//		}
-//		if (strategy == 2)
-//		{
-//			top_b(abo, \
-//				a_after_b(abo));
-//		}
-//	*loc[i].o = ft_strcatxr("tes,teste", *loc[i].o);
+	deb_("| test a receive:\n");
+	s_2_(loc[0]);
+
+	deb_("| flush a; set b\n");
+	s_2_(loc[1]);
+
+	deb_("| flush_b; set a:\n");
+	s_2_(loc[2]);
+
 	treat_loc_redundancies(loc);
-//	treat_str_redundancies(loc[i].o)*;
+
+	exec(loc[0], "pa");
+	exec(loc[1], "pa");
+	exec(loc[2], "pa");
+
+	if (ite > 1)
+	{
+		o = best_rewind(loc[0], ite - 1);
+		re_ouch(loc[0], o);
+
+		o = ft_x(o, best_rewind(loc[1], ite - 1));
+		re_ouch(loc[1], o);
+
+		o = ft_x(o, best_rewind(loc[2], ite - 1));
+		re_ouch(loc[2], o);
+
+		free(o);
+	}
+
 	count_loc_instructions(c, loc);
-//	c = count_instructions_in_str(*loc[i].o);
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
 }
 
@@ -140,20 +181,20 @@ int				combo_rewind(t_abo abo)
 {
 	char	*o;
 
-	deb_("Combo Rewind!\n");
+	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo);
+		o = best_rewind(abo, 1);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
-
-//		re_ouch(abo, o);
+		re_ouch(abo, o);
 		free(o);
-		exit(0);
-		exec(abo, "pa");
+//		static int d = 0; if (d++ == 18) exit(0);
 	}
 	flush_a(abo);
+	deb_("\nFinal:\n\n");
+	deb_stack_double_log(*abo.a, *abo.b);
 	return (estas_finita(*abo.a, *abo.b));
 }
 
@@ -167,20 +208,6 @@ int				flush_final(t_abo abo)
 	}
 	deb_("No.\n");
 	return (0);
-}
-
-char	*prev_command(char **h)
-{
-	char	*c;
-
-	c = *h;
-	if (*(c - 1) == ',')
-		c -= 2;
-	while (*c != ',')
-		c--;
-	c++;
-	*h = c;
-	return (*h);
 }
 
 void	moderate_shortest_rotation_b_receive(t_abo abo)
@@ -198,12 +225,12 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	h = *abo.o + ft_strlen(*abo.o);
 	if (c > 0)
 	{
-		while (c-- && ft_strbegins(prev_command(&h), "ra"))
+		while (c-- && ft_strbegins(prev_command(&h, *abo.o), "ra"))
 			exec(abo, "rb");
 	}
 	if (c < 0)
 	{
-		while (c++ && ft_strbegins(prev_command(&h), "rra"))
+		while (c++ && ft_strbegins(prev_command(&h, *abo.o), "rra"))
 			exec(abo, "rrb");
 	}
 	return ;

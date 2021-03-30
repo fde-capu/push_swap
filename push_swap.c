@@ -6,11 +6,24 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 14:48:47 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 17:35:29 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+void	s_2_(t_abo loc)
+{
+	flush_b(loc);
+	shortest_rotation_a_receive(loc);
+	return ;
+}
+
+void	s_1_(t_abo loc)
+{
+	shortest_rotation_a_receive(loc);
+	return ;
+}
 
 t_ttg	**init_ps_strategy(t_ttg **k)
 {
@@ -88,8 +101,7 @@ int			main(int argc, char **argv)
 	{
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
-		if (DEBUG)
-			ft_print_stdout("\nInitial:\n\n");
+		deb_("\nInitial:\n\n");
 		deb_stack_double_log(stack_a, stack_b);
 		init_ps_strategy(&ps_strat);
 		solve_push_swap(ps_strat, stack_a);
@@ -112,7 +124,7 @@ int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);
 	op_run_str(op, a, b);
-	if (DEBUG)
+	if (DEBUG == 1)
 	{
 		ft_print_stdout(op);
 		ft_print_stdout(":\n");
