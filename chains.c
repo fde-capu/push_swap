@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 17:54:01 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:12:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,17 @@ void	re_ouch(t_abo abo, char *ops)
 	return ;
 }
 
-char		*clear_ret(t_abo abo, char *ret)
+char		*clear_ret(t_abo abo[TEST_NUM], char *ret)
 {
-	destroy_stack(*abo.a);
-	destroy_stack(*abo.b);
-	free(*abo.o);
+	int	i;
+
+	i = -1;
+	while (++i < TEST_NUM)
+	{
+		destroy_stack(*abo[i].a);
+		destroy_stack(*abo[i].b);
+		free(*abo[i].o);
+	}
 	return (ret);
 }
 
@@ -60,25 +66,55 @@ int		crazyness(t_abo loc)
 	return (0);
 }
 
+char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
+{
+	int	i;
+	int	control;
+	char	*o;
+
+	o = ft_str("");
+	control = INT_MAX;
+	i = -1;
+	while (++i < TEST_NUM)
+	{
+		if (c[i] < control)
+		{
+			 control = c[i];
+			 o = ft_x(o, ft_str(*loc[i].o));
+		}
+	}
+	return (o);
+}
+
 char	*best_rewind(t_abo abo)
 {
-	t_abo	loc;
-	t_stk	*ta;
-	t_stk	*tb;
-	char	*to;
-	int		c;
+	t_abo	loc[TEST_NUM];
+	t_stk	*ta[TEST_NUM];
+	t_stk	*tb[TEST_NUM];
+	char	*to[TEST_NUM];
+	int		c[TEST_NUM];
+	int		i;
 
-	deb_("best_rewind : ");
-	loc = abo;
-	ta = stack_clone(*abo.a);
-	loc.a = &ta;
-	tb = stack_clone(*abo.b);
-	loc.b = &tb;
-	to = ft_str("");
-	loc.o = &to;
-	*loc.o = to;
-	flush_a(loc);
-	flush_b(loc);
+	deb_("best_rewind:\n");
+	i = -1;
+	while (++i < TEST_NUM)
+	{
+		loc[i] = abo;
+		ta[i] = stack_clone(*abo.a);
+		loc[i].a = &ta[i];
+		tb[i] = stack_clone(*abo.b);
+		loc[i].b = &tb[i];
+		to[i] = ft_str("");
+		loc[i].o = &to[i];
+		*loc[i].o = to[i];
+		deb_("Clone");
+		deb_int_(i);
+		deb_(":\n");
+		stack_double_log(*loc[i].a, *loc[i].b);
+	}
+	deb_("test perfect: ");
+	flush_a(loc[0]);
+	flush_b(loc[0]);
 
 //		if (strategy == 1)
 //		{
@@ -92,13 +128,12 @@ char	*best_rewind(t_abo abo)
 //			top_b(abo, \
 //				a_after_b(abo));
 //		}
-//	*loc.o = ft_strcatxr("tes,teste", *loc.o);
-	treat_str_redundancies(loc.o);
-	*loc.o = ft_x(*loc.o, ft_strtrim(*loc.o, ","));
-	c = count_instructions_in_str(*loc.o);
-	deb_int_(c);
-
-	return (clear_ret(loc, ft_str(*loc.o)));
+//	*loc[i].o = ft_strcatxr("tes,teste", *loc[i].o);
+	treat_loc_redundancies(loc);
+//	treat_str_redundancies(loc[i].o)*;
+	count_loc_instructions(c, loc);
+//	c = count_instructions_in_str(*loc[i].o);
+	return (clear_ret(loc, lower_c_loc_o(c, loc)));
 }
 
 int				combo_rewind(t_abo abo)

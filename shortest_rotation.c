@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/28 13:01:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 08:08:45 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	flush_b(t_abo abo)
 {
-	deb_("flush_b.\n");
+	deb_("flush_b. ");
 	top_b(abo, max_cell(*abo.b));
 	return ;
 }
 
 void	flush_a(t_abo abo)
 {
-	deb_("flush_a.\n");
+	deb_("flush_a. ");
 	top_a(abo, min_cell(*abo.a));
 	return ;
 }

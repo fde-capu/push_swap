@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 17:52:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:06:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,19 @@ int	substitute_redundancy(char **str, char *sub_code)
 	}
 	ft_strfree2d(sub);
 	return (out);
+}
+
+void	treat_loc_redundancies(t_abo loc[TEST_NUM])
+{
+	int	i;
+
+	i = -1;
+	while (++i < TEST_NUM)
+	{
+		treat_str_redundancies(loc[i].o);
+		*loc[i].o = ft_x(*loc[i].o, ft_strtrim(*loc[i].o, ","));
+	}
+	return ;
 }
 
 int		treat_str_redundancies(char **str)

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/22 16:40:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 09:34:04 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			estas_finita(t_stk *a, t_stk *b);
 void	ft_print_int(int i);
 t_stk		*min_cell(t_stk *ss);
 t_stk		*max_cell(t_stk *ss);
-int			max_val(t_stk *ss);
+long			max_val(t_stk *ss);
 int			in_order(t_stk *s);
 int			in_reverse(t_stk *s);
 void	deb_bol_(int i);

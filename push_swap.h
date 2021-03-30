@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 17:46:40 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 09:56:24 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,5 +73,7 @@ t_stk			*this_is_before_atob(t_abo abo);
 t_stk	**stack_ppclone(t_stk **s);
 int		treat_str_redundancies(char **str);
 char			*ft_trim(char *str);
+void	treat_loc_redundancies(t_abo loc[TEST_NUM]);
+void	count_loc_instructions(int c[TEST_NUM], t_abo loc[TEST_NUM]);
 
 #endif

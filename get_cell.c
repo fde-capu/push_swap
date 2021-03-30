@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:06:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 10:06:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/30 09:37:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ int			min_val(t_stk *ss)
 	return (control);
 }
 
-int			max_val(t_stk *ss)
+long			max_val(t_stk *ss)
 {
 	int		control;
 	t_stk	*s;
 
 	s = ss;
 	if (!ss)
-		return (INT_MIN);
+		return ((long)INT_MIN - 1);
 	control = s->val;
 	while (s)
 	{
@@ -67,8 +67,10 @@ t_stk		*min_cell(t_stk *ss)
 
 t_stk		*max_cell(t_stk *ss)
 {
-	int		control;
+	long		control;
 
 	control = max_val(ss);
-	return (cell_by_val(ss, control));
+	if (control == (long)INT_MIN - 1)
+		return (0);
+	return (cell_by_val(ss, (int)control));
 }
