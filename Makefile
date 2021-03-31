@@ -6,11 +6,11 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/31 08:38:20 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/31 09:21:33 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEBUG		=	0
+DEBUG		=	2
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo "sa\nsa\n" |
 ARGS_A		=	2 1 0
@@ -18,10 +18,9 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	2 1 3 6 5 8
-#ARGS_X		=	16 15 10 1 17 4 9 18 20 7 19 2 14 13 3 6 5 11 12 8
+ARGS_X		=	7 18 27 12 4 23 26 11 10 8 16 20 3 23 17 40 9 13 24 14 6 25 1 19 22 15 5 29 21 2
 ARGS_Y		=	$(shell cat txt)
-ARGS_Z		=	$(shell ./args.sh 20)
+ARGS_Z		=	$(shell ./args.sh 90)
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c

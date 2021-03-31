@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:13:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:19:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ char	*best_rewind(t_abo abo, int ite)
 //		stack_double_log(*abo.a, *abo.b);
 //		exit (0);
 //	}
-	if (stack_size(*abo.b) == 0 || !ite)
+	if (stack_size(*abo.b) == 0 || ite <= 0)
 		return (ft_str(""));
 	if (perfect_spot(abo))
 		return (ft_str("pa"));
