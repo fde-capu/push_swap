@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:31:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:49:43 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	s_1_(t_abo loc, int bub)
 {
-//	if (bub)
-//		bubble(loc);
+	if (bub)
+		bubble(loc);
 	(void)bub;
 	shortest_rotation_a_receive(loc);
 	return ;
@@ -24,8 +24,8 @@ void	s_1_(t_abo loc, int bub)
 void	s_2_(t_abo loc, int bub)
 {
 	flush_b(loc);
-//	if (bub)
-//		bubble(loc);
+	if (bub)
+		bubble(loc);
 	(void)bub;
 	shortest_rotation_a_receive(loc);
 	return ;
@@ -33,10 +33,10 @@ void	s_2_(t_abo loc, int bub)
 
 void	s_3_(t_abo loc, int bub)
 {
-	flush_b(loc);
-//	if (bub)
-//		bubble(loc);
+	if (bub)
+		bubble(loc);
 	(void)bub;
+	flush_b(loc);
 	shortest_rotation_a_receive(loc);
 	return ;
 }
