@@ -6,10 +6,11 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/30 16:41:46 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/03/31 08:38:20 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+DEBUG		=	0
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo "sa\nsa\n" |
 ARGS_A		=	2 1 0
@@ -17,8 +18,8 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-#ARGS_X		=	4 1 2 3 5
-ARGS_X		=	16 15 10 1 17 4 9 18 20 7 19 2 14 13 3 6 5 11 12 8
+ARGS_X		=	2 1 3 6 5 8
+#ARGS_X		=	16 15 10 1 17 4 9 18 20 7 19 2 14 13 3 6 5 11 12 8
 ARGS_Y		=	$(shell cat txt)
 ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
@@ -26,7 +27,7 @@ NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
 SRCS_B		=	push_swap.c ps_strategy.c \
 	generic_stack_ops.c chains.c bubble.c pivot.c \
-	shortest_rotation.c position.c
+	shortest_rotation.c position.c chains2.c
 HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
 SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
@@ -39,11 +40,10 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
 	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
 	get_next_line_utils_bonus.c stack_init_2.c \
-	order_check.c get_cell.c deb.c neighbor.c redundancies.c \
-	chains2.c
+	order_check.c get_cell.c deb.c neighbor.c redundancies.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
-CCFLAGS		=	-Wall -Werror -Wextra -g -D DEBUG=2
+CCFLAGS		=	-Wall -Werror -Wextra -g -D DEBUG=$(DEBUG)
 OBJS_A		=	$(SRCS_A:.c=.o)
 OBJS_B		=	$(SRCS_B:.c=.o)
 OBJS_COMMON	=	$(SRCS_COMMON:.c=.o)
@@ -162,5 +162,7 @@ xe:			all
 	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xx:			all
 	ARGS="$(ARGS_X)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
+xy:			all
+	ARGS="$(ARGS_Y)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS
 xz:			all
 	ARGS="$(ARGS_Z)" && ./$(NAME_B) $$ARGS | ./$(NAME_A) $$ARGS

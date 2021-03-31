@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 17:36:17 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 08:39:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,10 +148,10 @@ char	*best_rewind(t_abo abo, int ite)
 	s_2_(loc[0]);
 
 	deb_("| flush a; set b\n");
-	s_2_(loc[1]);
+	s_1_(loc[1]);
 
 	deb_("| flush_b; set a:\n");
-	s_2_(loc[2]);
+	s_1_(loc[2]);
 
 	treat_loc_redundancies(loc);
 
@@ -184,7 +184,7 @@ int				combo_rewind(t_abo abo)
 	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo, 1);
+		o = best_rewind(abo, 6);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
@@ -264,7 +264,7 @@ int	partition(t_abo abo, int pivot)
 //		if (flush_final(abo))
 //			return (did);
 //		if (bubble(abo) && flush_final(abo))
-///			return (did);
+//			return (did);
 		h = *abo.a;
 	}
 	deb_("...end pass pivot.\n");

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 17:34:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 08:37:24 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ char			*gen_push_swap(t_stk **a, t_stk **b);
 void			give_it_to_stdout(t_ttg *s);
 int				ps_try_bubble(t_stk **a, t_stk **b, char **o);
 void			chain_push_swap(t_stk **a, t_stk **b, char **o);
-int			ouch(t_stk **a, t_stk **b, char **o, char *op);
 int			is_(t_stk *s);
 int			min_val(t_stk *ss);
 int		count_gt(t_stk *h, int about);
