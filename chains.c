@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:19:32 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:32:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,7 +180,7 @@ int				combo_rewind(t_abo abo)
 	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo, 6);
+		o = best_rewind(abo, 3);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
