@@ -6,82 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 15:01:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 13:14:46 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-t_stk			*this_is_after_btoa(t_abo abo)
-{
-	t_stk	*h;
-	t_stk	*after;
-	int		once;
-
-	deb_("What should succed");
-	deb_int_((*abo.a)->val);
-	deb_("? >");
-	if (stack_size(*abo.b) <= 1)
-		return (*abo.b);
-	after = 0;
-	once = 1;
-	h = *abo.b;
-	while (h)
-	{
-		if (h->val < (*abo.a)->val)
-		{
-			if (once)
-			{
-				after = h;
-				once = 0;
-			}
-			if (h->val > after->val)
-			{
-				after = h;
-			}
-		}
-		h = h->nx;
-	}
-	if (!after)
-		after = max_cell(*abo.b);
-	deb_int_(after->val);
-	deb_("\n");
-	return (after);
-}
-
-t_stk			*this_is_before_atob(t_abo abo)
-{
-	t_stk	*h;
-	t_stk	*before;
-	int		once;
-
-	deb_("What should preceed");
-	deb_int_((*abo.b)->val);
-	deb_("? <");
-	if (stack_size(*abo.a) <= 1)
-		return (*abo.a);
-	once = 1;
-	h = *abo.a;
-	while (h)
-	{
-		if (h->val > (*abo.b)->val)
-		{
-			if (once)
-			{
-				before = h;
-				once = 0;
-			}
-			if (h->val < before->val)
-			{
-				before = h;
-			}
-		}
-		h = h->nx;
-	}
-	deb_int_(before->val);
-	deb_("\n");
-	return (before);
-}
 
 t_stk		*a_after_b(t_abo abo)
 {

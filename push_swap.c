@@ -6,38 +6,63 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:49:43 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:15:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	s_1_(t_abo loc, int bub)
+void	s_1_(t_abo loc)
 {
-	if (bub)
-		bubble(loc);
-	(void)bub;
+	flush_b(loc);
 	shortest_rotation_a_receive(loc);
 	return ;
 }
 
-void	s_2_(t_abo loc, int bub)
+void	s_2_(t_abo loc)
 {
-	flush_b(loc);
-	if (bub)
-		bubble(loc);
-	(void)bub;
 	shortest_rotation_a_receive(loc);
 	return ;
 }
 
-void	s_3_(t_abo loc, int bub)
+void	s_3_(t_abo loc)
 {
-	if (bub)
-		bubble(loc);
-	(void)bub;
-	flush_b(loc);
+	flush_a(loc);
 	shortest_rotation_a_receive(loc);
+	return ;
+}
+
+void	s_4_(t_abo loc)
+{
+	t_stk	*hold_a;
+	t_stk	*hold_b;
+
+	hold_a = *loc.a;
+	hold_b = *loc.b;
+	while ((*loc.a)->nx != hold_a && (*loc.b)->nx != hold_b)
+	{
+		exec (loc, "rr");
+		if (perfect_spot(loc))
+			return ;
+	}
+	s_1_(loc);
+	return ;
+}
+
+void	s_5_(t_abo loc)
+{
+	t_stk	*hold_a;
+	t_stk	*hold_b;
+
+	hold_a = *loc.a;
+	hold_b = *loc.b;
+	while ((*loc.a)->nx != hold_a && (*loc.b)->nx != hold_b)
+	{
+		exec (loc, "ra");
+		if (perfect_spot(loc))
+			return ;
+	}
+	s_1_(loc);
 	return ;
 }
 

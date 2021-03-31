@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:32:31 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 16:17:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,21 +59,41 @@ char		*clear_ret(t_abo abo[TEST_NUM], char *ret)
 	return (ret);
 }
 
+int		pa_count(t_abo loc)
+{
+	char	*h;
+	int		pac;
+
+	pac = 0;
+	h = *loc.o;
+	while (*h)
+	{
+		if (ft_strbegins(h, "pa"))
+			pac++;
+		next_command(&h);
+	}
+	return (pac);
+}
+
 char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 {
-	int	i;
-	int	control;
+	int		i;
+	double	control;
 	char	*o;
+	int		pac;
 
 	o = ft_str("");
-	control = INT_MAX;
+	control = 0;
 	i = -1;
 	while (++i < TEST_NUM)
 	{
-		if (c[i] < control)
+		pac = pa_count(loc[i]);
+		if ((double)pac / (double)c[i] > control)
 		{
-			 control = c[i];
-			 o = ft_x(o, ft_str(*loc[i].o));
+			control = (double)pac / (double)c[i];
+			o = ft_x(o, ft_str(*loc[i].o));
+//			printf("{{ pac %d, ci %d, control %f, o %s }}\n", pac, c[i], control, *loc[i].o);
+//			static int d = 0; if (++d > 15) exit (1);
 		}
 	}
 	return (o);
@@ -144,12 +164,11 @@ char	*best_rewind(t_abo abo, int ite)
 		*loc[i].o = to[i];
 	}
 
-	s_2_(loc[0], 0);
-	s_3_(loc[1], 0);
-	s_1_(loc[2], 0);
-	s_2_(loc[3], 0);
-	s_3_(loc[4], 0);
-	s_1_(loc[5], 0);
+	s_5_(loc[0]);
+	s_4_(loc[1]);
+	s_3_(loc[2]);
+	s_2_(loc[3]);
+	s_1_(loc[4]);
 
 	treat_loc_redundancies(loc);
 
@@ -157,9 +176,9 @@ char	*best_rewind(t_abo abo, int ite)
 	while (++i < TEST_NUM)
 		exec(loc[i], "pa");
 
-	o = ft_str("");
 	if (ite > 1)
 	{
+		o = ft_str("");
 		i = -1;
 		while (++i < TEST_NUM)
 		{
@@ -180,7 +199,7 @@ int				combo_rewind(t_abo abo)
 	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo, 3);
+		o = best_rewind(abo, 2);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
@@ -214,7 +233,7 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	if (stack_size(*abo.b) <= 1)
 		return ;
 	deb_("moderate_shortest_rotation_b_receive\n");
-	c = calc_top_b(abo, this_is_after_btoa(abo));
+	c = calc_top_b(abo, b_before_a(abo));
 	deb_("mod:");
 	deb_int_(c);
 	deb_("\n");

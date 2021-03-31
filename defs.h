@@ -6,13 +6,14 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 09:09:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 15:39:31 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFS_H
 # define DEFS_H
 
+# define TEST_NUM		5
 # ifndef DEBUG
 #  define DEBUG		0
 # endif
@@ -34,7 +35,6 @@
 # define ENCLOSURES		"()[]{}"
 # define ENCLOSE_OPEN	"([{"
 # define TRIM_SET		" \t\n\r\v\f"
-# define TEST_NUM		6
 
 typedef struct			s_tack
 {
