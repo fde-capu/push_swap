@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 08:39:32 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:13:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,32 +144,28 @@ char	*best_rewind(t_abo abo, int ite)
 		*loc[i].o = to[i];
 	}
 
-	deb_("| test a receive:\n");
-	s_2_(loc[0]);
-
-	deb_("| flush a; set b\n");
-	s_1_(loc[1]);
-
-	deb_("| flush_b; set a:\n");
-	s_1_(loc[2]);
+	s_2_(loc[0], 0);
+	s_3_(loc[1], 0);
+	s_1_(loc[2], 0);
+	s_2_(loc[3], 0);
+	s_3_(loc[4], 0);
+	s_1_(loc[5], 0);
 
 	treat_loc_redundancies(loc);
 
-	exec(loc[0], "pa");
-	exec(loc[1], "pa");
-	exec(loc[2], "pa");
+	i = -1;
+	while (++i < TEST_NUM)
+		exec(loc[i], "pa");
 
+	o = ft_str("");
 	if (ite > 1)
 	{
-		o = best_rewind(loc[0], ite - 1);
-		re_ouch(loc[0], o);
-
-		o = ft_x(o, best_rewind(loc[1], ite - 1));
-		re_ouch(loc[1], o);
-
-		o = ft_x(o, best_rewind(loc[2], ite - 1));
-		re_ouch(loc[2], o);
-
+		i = -1;
+		while (++i < TEST_NUM)
+		{
+			o = ft_x(o, best_rewind(loc[i], ite - i));
+			re_ouch(loc[i], o);
+		}
 		free(o);
 	}
 

@@ -6,21 +6,35 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 17:35:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:11:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	s_2_(t_abo loc)
+void	s_1_(t_abo loc, int bub)
 {
+	if (bub)
+		bubble(loc);
+	shortest_rotation_a_receive(loc);
+	return ;
+}
+
+void	s_2_(t_abo loc, int bub)
+{
+	if (bub)
+		bubble(loc);
 	flush_b(loc);
 	shortest_rotation_a_receive(loc);
 	return ;
 }
 
-void	s_1_(t_abo loc)
+void	s_3_(t_abo loc, int bub)
 {
+	if (bub)
+		bubble(loc);
+	flush_b(loc);
+	flush_a(loc);
 	shortest_rotation_a_receive(loc);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 08:37:24 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 09:13:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ int		treat_str_redundancies(char **str);
 char			*ft_trim(char *str);
 void	treat_loc_redundancies(t_abo loc[TEST_NUM]);
 void	count_loc_instructions(int c[TEST_NUM], t_abo loc[TEST_NUM]);
-void	s_1_(t_abo loc);
-void	s_2_(t_abo loc);
-void	s_3_(t_abo loc);
+void	s_1_(t_abo loc, int bub);
+void	s_2_(t_abo loc, int bub);
+void	s_3_(t_abo loc, int bub);
 
 #endif
