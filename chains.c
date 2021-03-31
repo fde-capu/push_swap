@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 16:17:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/03/31 17:24:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 	i = -1;
 	while (++i < TEST_NUM)
 	{
-		pac = pa_count(loc[i]);
+		pac = pa_count(loc[i]) + 1;
 		if ((double)pac / (double)c[i] > control)
 		{
 			control = (double)pac / (double)c[i];
@@ -164,11 +164,8 @@ char	*best_rewind(t_abo abo, int ite)
 		*loc[i].o = to[i];
 	}
 
-	s_5_(loc[0]);
-	s_4_(loc[1]);
-	s_3_(loc[2]);
-	s_2_(loc[3]);
-	s_1_(loc[4]);
+	s_1_(loc[0]);
+	s_1_(loc[1]);
 
 	treat_loc_redundancies(loc);
 
@@ -199,7 +196,7 @@ int				combo_rewind(t_abo abo)
 	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo, 2);
+		o = best_rewind(abo, 1);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
