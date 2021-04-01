@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 17:02:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:15:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,22 +172,4 @@ int		ouch(t_stk **a, t_stk **b, char **o, char *op)
 		stack_double_log(*a, *b);
 	}
 	return (1);
-}
-
-t_stk	*filter_le(t_stk *s, int control)
-{
-	t_stk	*xa;
-	t_stk	*xb;
-
-	xa = stack_clone(s);
-	xb = init_stack_empty();
-	while (count_gt(xa, control))
-	{
-		if (xa->val > control)
-			op_run_str("pb", &xa, &xb);
-		else
-			op_run_str("ra", &xa, &xb);
-	}
-	destroy_stack(xb);
-	return (xa);
 }

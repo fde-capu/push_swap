@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 15:38:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:49:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int		treat_redundancies(t_ttg *strat);
 void	solve_push_swap(t_ttg *k, t_stk *a);
 int			main(int argc, char **argv);
 int		ouch(t_stk **a, t_stk **b, char **o, char *op);
-void	shortest_rotation_a_pivot(t_abo abo, int pivot);
+int		shortest_rotation_a_pivot(t_abo abo, int pivot);
 void	shortest_rotation_a_receive(t_abo abo);
 void	shortest_rotation_b_receive(t_abo abo);
 int				position_top(t_stk *a, t_stk *h);
@@ -80,5 +80,8 @@ void	s_5_(t_abo loc);
 void	s_6_(t_abo loc);
 void	shortest_rotation_b_give(t_abo abo);
 int				perfect_spot(t_abo abo);
+char	*pivot_path(t_abo abo, int pivot, int c);
+void	re_ouch(t_abo abo, char *ops);
+void	gen_pivot_slice(t_stk *s, int *pivot, int slices);
 
 #endif

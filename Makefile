@@ -6,11 +6,11 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/03/31 15:05:37 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/01 06:57:35 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEBUG		=	0
+DEBUG		=	1
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo "sa\nsa\n" |
 ARGS_A		=	2 1 0

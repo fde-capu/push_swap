@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 17:19:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/01 11:03:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define ENCLOSURES		"()[]{}"
 # define ENCLOSE_OPEN	"([{"
 # define TRIM_SET		" \t\n\r\v\f"
+# define NL				deb_("\n");
 
 typedef struct			s_tack
 {

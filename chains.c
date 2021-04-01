@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 17:24:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:34:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,21 +112,6 @@ char	*prev_command(char **h, char *limit)
 		c++;
 	*h = c;
 	return (*h);
-}
-
-void	undo(t_abo abo)
-{
-	char	*h;
-
-	deb2("(undo) ");
-	h = *abo.o + ft_strlen(*abo.o);
-	prev_command(&h, *abo.o);
-	if (ft_strbegins(h, "pa"))
-	{
-		deb2("!ops! ");
-		exec(abo, "pb");
-	}
-	return ;
 }
 
 char	*best_rewind(t_abo abo, int ite)
@@ -248,6 +233,27 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	return ;
 }
 
+int	path_complexity(t_stk *s)
+{
+	t_stk	*h;
+	int		o;
+	int		t;
+
+	o = 0;
+	h = s;
+	while (h->nx)
+	{
+		t = h->nx->val - h->val;
+		t *= t < 0 ? -1 : 1;
+		o += t;
+		h = h->nx;
+	}
+	t = s->val - h->val;
+	t *= t < 0 ? -1 : 1;
+	o += t;
+	return (o);
+}
+
 int	partition(t_abo abo, int pivot)
 {
 	int		did;
@@ -267,19 +273,23 @@ int	partition(t_abo abo, int pivot)
 		{
 			moderate_shortest_rotation_b_receive(abo);
 			exec(abo, "pb");
+			bubble(abo);
 			did++;
 		}
 		else
 		{
 			shortest_rotation_a_pivot(abo, pivot);
 		}
-//		if (flush_final(abo))
-//			return (did);
-//		if (bubble(abo) && flush_final(abo))
-//			return (did);
 		h = *abo.a;
 	}
+	flush_b(abo);
+//	shortest_rotation_a_pivot(abo, pivot);
+//	exit (0);
 	deb_("...end pass pivot.\n");
+	deb_int_(count_instructions_in_str(*abo.o));
+	deb_int_(path_complexity(*abo.b));
+	NL
+//	static int d = 0; if (++d == 2) exit(0);
 	return (did);
 }
 
@@ -300,15 +310,19 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 
 //		gen_pivot_median(a, &pivot);
 //		gen_pivot_last(a, &pivot);
+
 	pivot = 0;
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);
 	while (1)
 	{
-		if (bubble(abo) && flush_final(abo))
+//		if (bubble(abo) && flush_final(abo))
+//			break ;
+		if (flush_final(abo))
 			break ;
-		gen_pivot_short(abo.a, &pivot);
+//		gen_pivot_short(abo.a, &pivot);
+		gen_pivot_slice(*abo.a, &pivot, 4);
 		partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 		{
