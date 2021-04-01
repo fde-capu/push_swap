@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/01 13:34:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/01 13:40:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -283,13 +283,10 @@ int	partition(t_abo abo, int pivot)
 		h = *abo.a;
 	}
 	flush_b(abo);
-//	shortest_rotation_a_pivot(abo, pivot);
-//	exit (0);
-	deb_("...end pass pivot.\n");
+	deb_("...end pass pivot.\ncount, complexity:");
 	deb_int_(count_instructions_in_str(*abo.o));
 	deb_int_(path_complexity(*abo.b));
 	NL
-//	static int d = 0; if (++d == 2) exit(0);
 	return (did);
 }
 
