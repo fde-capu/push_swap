@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/01 11:49:22 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/02 12:01:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,6 @@ int				perfect_spot(t_abo abo);
 char	*pivot_path(t_abo abo, int pivot, int c);
 void	re_ouch(t_abo abo, char *ops);
 void	gen_pivot_slice(t_stk *s, int *pivot, int slices);
+char	*prev_command(char **h, char *limit);
 
 #endif

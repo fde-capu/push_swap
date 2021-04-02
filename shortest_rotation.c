@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/01 13:56:17 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/02 13:24:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,20 +92,38 @@ int		count_natural_rotation_a_pivot(t_abo abo, int pivot)
 	return (o);
 }
 
+int		count_lasts_rb(t_abo abo)
+{
+	char	*h;
+	int		c;
+
+	c = 0;
+	h = *abo.o + ft_strlen(*abo.o);
+	while (ft_strbegins(prev_command(&h, *abo.o), "rb"))
+		c++;
+	if (c)
+		return (c);
+	h = *abo.o + ft_strlen(*abo.o);
+	while (ft_strbegins(prev_command(&h, *abo.o), "rrb"))
+		c--;
+	return (c);
+}
+
 int		shortest_rotation_a_pivot(t_abo abo, int pivot)
 {
 	int	c;
 	int	r;
+	int	l;
 
 	c = count_natural_rotation_a_pivot(abo, pivot);
 	r = count_reverse_rotation_a_pivot(abo, pivot);
-//	shortest_rotation_a_pivot(abo, pivot);
-//	exit (0);
+	l = count_lasts_rb(abo);
 	deb_("\nshortest_a_pivot\n");
 	deb_(*abo.o);
-	deb_("\nc, r:");
+	deb_("\nnatural, reverse, lasts_rb:");
 	deb_int_(c);
 	deb_int_(r);
+	deb_int_(l);
 	NL
 	if (c < 0)
 	{
@@ -117,6 +135,5 @@ int		shortest_rotation_a_pivot(t_abo abo, int pivot)
 		while (c-- > 0)
 			exec(abo, "ra");
 	}
-//	static int d = 0; if (d++ > 4) exit (0);
 	return (c);
 }
