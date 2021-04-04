@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/02 13:24:01 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 12:26:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	flush_b(t_abo abo)
 {
+	deb_("\nflush_b\n");
 	top_b(abo, max_cell(*abo.b));
 	return ;
 }
@@ -111,29 +112,53 @@ int		count_lasts_rb(t_abo abo)
 
 int		shortest_rotation_a_pivot(t_abo abo, int pivot)
 {
-	int	c;
+	int	n;
 	int	r;
 	int	l;
+	int	op;
 
-	c = count_natural_rotation_a_pivot(abo, pivot);
+	n = count_natural_rotation_a_pivot(abo, pivot);
 	r = count_reverse_rotation_a_pivot(abo, pivot);
 	l = count_lasts_rb(abo);
-	deb_("\nshortest_a_pivot\n");
+	deb_("\nshortest_a_pivot");
+	deb_int_(pivot);
+	NL
 	deb_(*abo.o);
 	deb_("\nnatural, reverse, lasts_rb:");
-	deb_int_(c);
+	deb_int_(n);
 	deb_int_(r);
 	deb_int_(l);
 	NL
-	if (c < 0)
+	if (r > n)
 	{
-		while (c++ < 0)
-			exec(abo, "rra");
+		op = n;
+		n = r;
+		r = op;
+		op = 0;
+	}
+	if (l > 0)
+	{
+		if (n - l < r * -1)
+			op = n;
+		else
+			op = r;
 	}
 	else
 	{
-		while (c-- > 0)
+		if (r - l > n * -1)
+			op = r;
+		else
+			op = n;
+	}
+	if (op > 0)
+	{
+		while (op-- > 0)
 			exec(abo, "ra");
 	}
-	return (c);
+	else
+	{
+		while (op++ < 0)
+			exec(abo, "rra");
+	}
+	return (op);
 }

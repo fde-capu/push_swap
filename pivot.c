@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:24:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/01 13:00:46 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:44:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,20 +104,23 @@ t_stk	*filter_le(t_stk *s, int control)
 
 void	gen_pivot_slice(t_stk *s, int *pivot, int slices)
 {
-	static int	size = -1;
+	int			size;
 	t_stk		*h;
 	t_stk		*xa;
 	t_stk		*xb;
 
-	if (size == -1)
-		size = stack_size(s) / slices;
+	(void)slices;
+//	size = 50;
+	size = stack_size(s) / slices;
+//	if (size == -1)
+//		size = stack_size(s) / slices;
 	if (stack_size(s) <= size || size < 3)
 	{
 		*pivot = stack_median(s)->val;
 		return ;
 	}
-	if (size > 45)
-		size = 45;
+//	if (size > 45)
+//		size = 45;
 	xa = stack_clone(s);
 	xb = init_stack_empty();
 	while (stack_size(xb) < size)
@@ -132,5 +135,6 @@ void	gen_pivot_slice(t_stk *s, int *pivot, int slices)
 	destroy_stack(xb);
 	*pivot = h->val;
 	deb_pivot(*pivot);
+	sleep(2);
 	return ;
 }

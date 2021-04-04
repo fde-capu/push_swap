@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/02 13:21:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 16:23:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,7 +187,6 @@ int				combo_rewind(t_abo abo)
 		deb_("'\n");
 		re_ouch(abo, o);
 		free(o);
-//		static int d = 0; if (d++ == 18) exit(0);
 	}
 	flush_a(abo);
 	deb_("\nFinal:\n\n");
@@ -263,8 +262,6 @@ int	partition(t_abo abo, int pivot)
 	h = *abo.a;
 	while (h && h->nx)
 	{
-		if (!(count_le(h, pivot)))
-			break ;
 		deb_("Try pass pivot for");
 		deb_int_(h->val);
 		deb_(", pivot");
@@ -273,18 +270,21 @@ int	partition(t_abo abo, int pivot)
 		{
 			moderate_shortest_rotation_b_receive(abo);
 			exec(abo, "pb");
-			bubble(abo);
+			if (count_le(h, pivot))
+				bubble(abo);
+			else
+				break ;
 			did++;
 		}
 		else
 		{
+			if (!(count_le(h, pivot)))
+				break ;
 			shortest_rotation_a_pivot(abo, pivot);
 		}
 		h = *abo.a;
 	}
 	flush_b(abo);
-	shortest_rotation_a_pivot(abo, pivot);
-	static int d = 0; if (++d == 3) exit (0);
 	deb_("...end pass pivot.\ncount, complexity:");
 	deb_int_(count_instructions_in_str(*abo.o));
 	deb_int_(path_complexity(*abo.b));
@@ -309,23 +309,22 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 
 //		gen_pivot_median(a, &pivot);
 //		gen_pivot_last(a, &pivot);
+//		gen_pivot_short(abo.a, &pivot);
 
-	pivot = 0;
+	pivot = INT_MAX;
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);
 	while (1)
 	{
-//		if (bubble(abo) && flush_final(abo))
-//			break ;
+		if (bubble(abo) && flush_final(abo))
+			break ;
 		if (flush_final(abo))
 			break ;
-//		gen_pivot_short(abo.a, &pivot);
-		gen_pivot_slice(*abo.a, &pivot, 4);
+		gen_pivot_slice(*abo.a, &pivot, 2);
 		partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 		{
-//			static int d = 0; if (d++ == 3) exit (0);
 			return (push_swap_sort(a, b, o));
 		}
 		else
