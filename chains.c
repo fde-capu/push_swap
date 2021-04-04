@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 16:23:35 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 17:40:05 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,6 @@ char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 		{
 			control = (double)pac / (double)c[i];
 			o = ft_x(o, ft_str(*loc[i].o));
-//			printf("{{ pac %d, ci %d, control %f, o %s }}\n", pac, c[i], control, *loc[i].o);
-//			static int d = 0; if (++d > 15) exit (1);
 		}
 	}
 	return (o);
@@ -114,7 +112,7 @@ char	*prev_command(char **h, char *limit)
 	return (*h);
 }
 
-char	*best_rewind(t_abo abo, int ite)
+char	*best_rewind(t_abo abo)
 {
 	t_abo	loc[TEST_NUM];
 	t_stk	*ta[TEST_NUM];
@@ -122,19 +120,12 @@ char	*best_rewind(t_abo abo, int ite)
 	char	*to[TEST_NUM];
 	int		c[TEST_NUM];
 	int		i;
-	char	*o;
 
-//	if (ite == 1)
-//	{
-//		stack_double_log(*abo.a, *abo.b);
-//		exit (0);
-//	}
-	if (stack_size(*abo.b) == 0 || ite <= 0)
+	if (stack_size(*abo.b) == 0)
 		return (ft_str(""));
 	if (perfect_spot(abo))
 		return (ft_str("pa"));
 	deb_("\nBest Rewind");
-	deb_int_(ite);
 	deb_(":\n");
 	i = -1;
 	while (++i < TEST_NUM)
@@ -148,30 +139,29 @@ char	*best_rewind(t_abo abo, int ite)
 		loc[i].o = &to[i];
 		*loc[i].o = to[i];
 	}
-
 	s_1_(loc[0]);
-	s_1_(loc[1]);
-
+	s_2_(loc[1]);
 	treat_loc_redundancies(loc);
-
-	i = -1;
-	while (++i < TEST_NUM)
-		exec(loc[i], "pa");
-
-	if (ite > 1)
-	{
-		o = ft_str("");
-		i = -1;
-		while (++i < TEST_NUM)
-		{
-			o = ft_x(o, best_rewind(loc[i], ite - i));
-			re_ouch(loc[i], o);
-		}
-		free(o);
-	}
-
 	count_loc_instructions(c, loc);
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
+}
+
+void	easy_put(t_abo abo, int pivot)
+{
+	while (stack_size(*abo.a) > stack_size(*abo.b))
+	{
+		exec(abo, "pb");
+		bubble(abo);
+	}
+	while (stack_size(*abo.a) > 2)
+	{
+		top_a(abo, max_cell(*abo.a));
+		moderate_shortest_rotation_b_receive(abo);
+//		shortest_rotation_a_receive(abo);
+		exec(abo, "pb");
+	}
+	(void)pivot;
+	return ;
 }
 
 int				combo_rewind(t_abo abo)
@@ -181,7 +171,7 @@ int				combo_rewind(t_abo abo)
 	deb_("\nCombo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
 	{
-		o = best_rewind(abo, 1);
+		o = best_rewind(abo);
 		deb_("Best: '");
 		deb_(o);
 		deb_("'\n");
@@ -311,7 +301,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 //		gen_pivot_last(a, &pivot);
 //		gen_pivot_short(abo.a, &pivot);
 
-	pivot = INT_MAX;
+	pivot = 0;
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);
@@ -321,16 +311,11 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 			break ;
 		if (flush_final(abo))
 			break ;
-		gen_pivot_slice(*abo.a, &pivot, 2);
-		partition(abo, pivot);
+		easy_put(abo, pivot);
 		if (stack_size(*abo.a) > 2)
-		{
 			return (push_swap_sort(a, b, o));
-		}
 		else
-		{
 			return (combo_rewind(abo));
-		}
 	}
 	return (1);
 }
