@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/04 15:51:31 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/05 12:27:51 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	3 2 1 4 5
+ARGS_X		=	5 3 4 1 2
 ARGS_Y		=	$(shell cat txt)
 ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
@@ -80,6 +80,27 @@ cleana:
 	-rm -f $(OBJS_COMMON)
 cleanb:
 	-rm -f $(OBJS_B)
+txt5:
+	./argtxt.sh 5
+	make tby
+txt10:
+	./argtxt.sh 10
+	make tby
+txt20:
+	./argtxt.sh 20
+	make tby
+txt30:
+	./argtxt.sh 30
+	make tby
+txt100:
+	./argtxt.sh 100
+	make tby
+txt200:
+	./argtxt.sh 200
+	make tby
+txt500:
+	./argtxt.sh 500
+	make tby
 rea:		fcleana $(NAME_A)
 reb:		fcleanb $(NAME_B)
 re:			fclean all
