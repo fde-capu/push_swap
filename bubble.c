@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 17:24:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 20:19:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,15 +72,15 @@ int				bubble(t_abo abo)
 		exec(abo, "ss");
 		return (1);
 	}
-//	if (oa)
-//	{
-//		exec(abo, "sa");
-//		return (1);
-//	}
-//	if (ob)
-//	{
-//		exec(abo, "sb");
-//		return (1);
-//	}
+	if (oa)
+	{
+		exec(abo, "sa");
+		return (1);
+	}
+	if (ob)
+	{
+		exec(abo, "sb");
+		return (1);
+	}
 	return (0);
 }

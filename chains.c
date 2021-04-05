@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 17:40:05 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/04 22:30:25 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,24 +146,6 @@ char	*best_rewind(t_abo abo)
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
 }
 
-void	easy_put(t_abo abo, int pivot)
-{
-	while (stack_size(*abo.a) > stack_size(*abo.b))
-	{
-		exec(abo, "pb");
-		bubble(abo);
-	}
-	while (stack_size(*abo.a) > 2)
-	{
-		top_a(abo, max_cell(*abo.a));
-		moderate_shortest_rotation_b_receive(abo);
-//		shortest_rotation_a_receive(abo);
-		exec(abo, "pb");
-	}
-	(void)pivot;
-	return ;
-}
-
 int				combo_rewind(t_abo abo)
 {
 	char	*o;
@@ -182,6 +164,34 @@ int				combo_rewind(t_abo abo)
 	deb_("\nFinal:\n\n");
 	deb_stack_double_log(*abo.a, *abo.b);
 	return (estas_finita(*abo.a, *abo.b));
+}
+
+void	easy_put(t_abo abo)
+{
+	int		pivot;
+	t_stk	*h;
+
+	pivot = 0;
+	while (stack_size(*abo.a) > 2)
+	{
+		pivot = (*abo.a)->val;
+//		gen_pivot_slice(*abo.a, &pivot, 4);
+		while (count_le(*abo.a, pivot))
+		{
+			h = *abo.a;
+			if (h->val <= pivot)
+			{
+				moderate_shortest_rotation_b_receive(abo);
+				bubble(abo);
+				exec(abo, "pb");
+			}
+			else
+			{
+				exec(abo, "ra");
+			}
+		}
+	}
+	return ;
 }
 
 int				flush_final(t_abo abo)
@@ -294,28 +304,31 @@ t_abo			make_abo(t_stk **a, t_stk **b, char **o)
 
 int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
-	int		pivot;
 	t_abo	abo;
 
-//		gen_pivot_median(a, &pivot);
-//		gen_pivot_last(a, &pivot);
-//		gen_pivot_short(abo.a, &pivot);
-
-	pivot = 0;
 	abo = make_abo(a, b, o);
-	if (flush_final(abo))
-		return (1);
-	while (1)
-	{
-		if (bubble(abo) && flush_final(abo))
-			break ;
-		if (flush_final(abo))
-			break ;
-		easy_put(abo, pivot);
-		if (stack_size(*abo.a) > 2)
-			return (push_swap_sort(a, b, o));
-		else
-			return (combo_rewind(abo));
-	}
+	easy_put(abo);
+//	easy_get(abo);
+	combo_rewind(abo);
 	return (1);
+}
+
+void		trash(void)
+{
+//	if (flush_final(abo))
+//		return (1);
+//	while (1)
+//	{
+//		if (bubble(abo) && flush_final(abo))
+//			break ;
+//		if (flush_final(abo))
+//			break ;
+//		easy_put(abo, pivot);
+//		if (stack_size(*abo.a) > 2)
+//			return (push_swap_sort(a, b, o));
+//		else
+//			return (combo_rewind(abo));
+//	}
+//	return (1);
+	return ;
 }
