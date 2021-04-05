@@ -6,14 +6,14 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 23:09:37 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/01 11:03:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:32:00 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef DEFS_H
 # define DEFS_H
 
-# define TEST_NUM		2
+# define TEST_NUM		1
 # ifndef DEBUG
 #  define DEBUG		0
 # endif

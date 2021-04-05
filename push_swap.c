@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 17:01:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:31:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,25 +35,24 @@ void	s_2_(t_abo loc)
 
 void	s_3_(t_abo loc)
 {
-	flush_a(loc);
-	shortest_rotation_a_receive(loc);
+	while (stack_size(*loc.b))
+	{
+		flush_b(loc);
+		shortest_rotation_a_receive(loc);
+		exec(loc, "pa");
+		bubble(loc);
+	}
 	return ;
 }
 
 void	s_4_(t_abo loc)
 {
-	t_stk	*hold_a;
-	t_stk	*hold_b;
-
-	hold_a = *loc.a;
-	hold_b = *loc.b;
-	while ((*loc.a)->nx != hold_a && (*loc.b)->nx != hold_b)
+	while (stack_size(*loc.b))
 	{
-		exec (loc, "rr");
-		if (perfect_spot(loc))
-			return ;
+		shortest_rotation_a_receive(loc);
+		exec(loc, "pa");
+		bubble(loc);
 	}
-	s_1_(loc);
 	return ;
 }
 

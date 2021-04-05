@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 22:30:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/05 11:37:18 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,8 +139,10 @@ char	*best_rewind(t_abo abo)
 		loc[i].o = &to[i];
 		*loc[i].o = to[i];
 	}
-	s_1_(loc[0]);
-	s_2_(loc[1]);
+//	s_1_(loc[0]);
+//	s_2_(loc[1]);
+//	s_3_(loc[2]);
+//	s_4_(loc[3]);
 	treat_loc_redundancies(loc);
 	count_loc_instructions(c, loc);
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
@@ -175,7 +177,7 @@ void	easy_put(t_abo abo)
 	while (stack_size(*abo.a) > 2)
 	{
 		pivot = (*abo.a)->val;
-//		gen_pivot_slice(*abo.a, &pivot, 4);
+		gen_pivot_slice(*abo.a, &pivot, 4);
 		while (count_le(*abo.a, pivot))
 		{
 			h = *abo.a;
@@ -255,13 +257,11 @@ int	path_complexity(t_stk *s)
 
 int	partition(t_abo abo, int pivot)
 {
-	int		did;
 	t_stk	*h;
 
-	did = 0;
-	h = *abo.a;
-	while (h && h->nx)
+	while (count_le(*abo.a, pivot))
 	{
+		h = *abo.a;
 		deb_("Try pass pivot for");
 		deb_int_(h->val);
 		deb_(", pivot");
@@ -270,26 +270,19 @@ int	partition(t_abo abo, int pivot)
 		{
 			moderate_shortest_rotation_b_receive(abo);
 			exec(abo, "pb");
-			if (count_le(h, pivot))
-				bubble(abo);
-			else
-				break ;
-			did++;
 		}
 		else
 		{
-			if (!(count_le(h, pivot)))
-				break ;
+			bubble(abo);
 			shortest_rotation_a_pivot(abo, pivot);
 		}
-		h = *abo.a;
 	}
 	flush_b(abo);
 	deb_("...end pass pivot.\ncount, complexity:");
 	deb_int_(count_instructions_in_str(*abo.o));
 	deb_int_(path_complexity(*abo.b));
 	NL
-	return (did);
+	return (1);
 }
 
 t_abo			make_abo(t_stk **a, t_stk **b, char **o)
@@ -302,33 +295,65 @@ t_abo			make_abo(t_stk **a, t_stk **b, char **o)
 	return (abo);
 }
 
-int		push_swap_sort(t_stk **a, t_stk **b, char **o)
+void	bubble_put(t_abo abo)
 {
-	t_abo	abo;
+	while (stack_size(*abo.b) < 2)
+		exec(abo, "pb");
+	while (stack_size(*abo.a) > 2)
+	{
+		bubble(abo);
+		exec(abo, "pb");
+	}
+	return ;
+}
 
-	abo = make_abo(a, b, o);
-	easy_put(abo);
-//	easy_get(abo);
-	combo_rewind(abo);
+void	bubble_cycle(t_abo abo)
+{
+	bubble_put(abo);
+	while (stack_size(*abo.a) < 2)
+		exec(abo, "pa");
+	while (stack_size(*abo.b) > 2)
+	{
+		bubble(abo);
+		exec(abo, "pa");
+	}
+	return ;
+}
+
+//int		push_swap_sort(t_stk **a, t_stk **b, char **o)
+int		trash(void)
+{
+//	t_abo	abo;
+//
+//	abo = make_abo(a, b, o);
+//	bubble_cycle(abo);
+//	partition(abo);
+////	easy_get(abo);
+//	combo_rewind(abo);
 	return (1);
 }
 
-void		trash(void)
+int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
-//	if (flush_final(abo))
-//		return (1);
-//	while (1)
-//	{
-//		if (bubble(abo) && flush_final(abo))
-//			break ;
-//		if (flush_final(abo))
-//			break ;
-//		easy_put(abo, pivot);
-//		if (stack_size(*abo.a) > 2)
-//			return (push_swap_sort(a, b, o));
-//		else
-//			return (combo_rewind(abo));
-//	}
-//	return (1);
-	return ;
+	t_abo	abo;
+	int		pivot;
+
+	pivot = 0;
+	gen_pivot_slice(*a, &pivot, 4);
+	abo = make_abo(a, b, o);
+	if (flush_final(abo))
+		return (1);
+	while (1)
+	{
+		if (bubble(abo) && flush_final(abo))
+			break ;
+		if (flush_final(abo))
+			break ;
+		partition(abo, pivot);
+		if (stack_size(*abo.a) > 2)
+			return (push_swap_sort(a, b, o));
+		else
+			return (combo_rewind(abo));
+	}
+	return (1);
 }
