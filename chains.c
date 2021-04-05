@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/05 12:33:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/05 13:42:10 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,26 @@ char	*best_rewind(t_abo abo)
 		loc[i].o = &to[i];
 		*loc[i].o = to[i];
 	}
-	s_1_(loc[0]);
+	s_2_(loc[0]);
 //	s_2_(loc[1]);
 //	s_3_(loc[2]);
 //	s_4_(loc[3]);
 	treat_loc_redundancies(loc);
 	count_loc_instructions(c, loc);
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
+}
+
+int	master_rewind(t_abo abo)
+{
+	while (stack_size(*abo.b))
+	{
+		shortest_rotation_a_receive(abo);
+		exec(abo, "pa");
+	}
+	flush_a(abo);
+	deb_("\nFinal:\n\n");
+	deb_stack_double_log(*abo.a, *abo.b);
+	return (estas_finita(*abo.a, *abo.b));
 }
 
 int				combo_rewind(t_abo abo)
@@ -176,7 +189,7 @@ int				flush_final(t_abo abo)
 	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
 	{
 		deb_("Yes.\n");
-		return (combo_rewind(abo));
+		return (master_rewind(abo));
 	}
 	deb_("No.\n");
 	return (0);
@@ -242,7 +255,6 @@ int	partition(t_abo abo, int pivot)
 		deb_int_(pivot);
 		if (h->val <= pivot)
 		{
-//			moderate_shortest_rotation_b_receive(abo);
 			exec(abo, "pb");
 		}
 		else
@@ -310,7 +322,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 	int		pivot;
 
 	pivot = 0;
-	gen_pivot_slice(*a, &pivot, 4);
+	gen_pivot_slice(*a, &pivot, 5);
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);
@@ -324,7 +336,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 		if (stack_size(*abo.a) > 2)
 			return (push_swap_sort(a, b, o));
 		else
-			return (combo_rewind(abo));
+			return (master_rewind(abo));
 	}
 	return (1);
 }
