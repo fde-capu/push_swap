@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:24:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 08:42:55 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 15:00:13 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,8 @@ int	size_by_slice(t_stk *s, int slices)
 	if (size != -1)
 		return (size);
 	size = stack_size(s) / slices;
+	if (size < 6)
+		size = 6;
 	return (size);
 }
 

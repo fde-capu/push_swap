@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 09:14:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:19:54 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,19 +218,6 @@ int	partition(t_abo abo, int pivot)
 	return (1);
 }
 
-int	master_rewind(t_abo abo)
-{
-	while (stack_size(*abo.b))
-	{
-		shortest_rotation_a_receive(abo);
-		exec(abo, "pa");
-	}
-	flush_a(abo);
-	deb_("\nFinal:\n\n");
-	deb_stack_double_log(*abo.a, *abo.b);
-	return (estas_finita(*abo.a, *abo.b));
-}
-
 int				combo_rewind(t_abo abo)
 {
 	char	*o;
@@ -257,7 +244,7 @@ int				flush_final(t_abo abo)
 	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
 	{
 		deb_("Yes.\n");
-		return (master_rewind(abo));
+		return (combo_rewind(abo));
 	}
 	deb_("No.\n");
 	return (0);
@@ -355,22 +342,109 @@ int	any_in_quad_pivot(t_abo abo, int pivot[4])
 	return (0);
 }
 
+int		count_natural_a_receive(t_abo abo)
+{
+	return (calc_top_a(abo, a_after_b(abo)));
+}
+
+int		count_reverse_a_receive(t_abo abo)
+{
+	int		dist_top;
+	int		dist_bot;
+	t_stk	*cell;
+
+	cell = a_after_b(abo);
+	if (!cell)
+		return (INT_MAX);
+	dist_top = position_top(*abo.a, cell);
+	dist_bot = position_bot(*abo.a, cell);
+	if (dist_top >= dist_bot)
+		return (dist_top);
+	else
+		return (dist_bot);
+}
+
+void	shortest_btoa(t_abo abo)
+{
+	int	n;
+	int	r;
+	int	l;
+	int	op;
+
+	deb_("shortest_btoa\n");
+	n = count_natural_a_receive(abo);
+	r = count_reverse_a_receive(abo);
+	l = count_lasts_rb(abo);
+
+	deb_(*abo.o);
+	deb_("\nnatural, reverse, lasts_rb:");
+	deb_int_(n);
+	deb_int_(r);
+	deb_int_(l);
+	NL
+
+	op = rot_solve(n, r, l);
+	if (op > 0)
+	{
+		while (op-- > 0)
+			exec(abo, "ra");
+	}
+	else
+	{
+		while (op++ < 0)
+			exec(abo, "rra");
+	}
+	return ;
+}
+
+int	master_rewind(t_abo abo)
+{
+	deb_("Master Rewind\n");
+	while (stack_size(*abo.b))
+	{
+		flush_b(abo); // aqui
+		moderate_shortest_rotation_b_receive(abo); // aqui
+		shortest_btoa(abo);
+		if (!(spot(abo, "pa")))
+			exec(abo, "pa");
+	}
+	flush_a(abo);
+	deb_("\nFinal:\n\n");
+	deb_stack_double_log(*abo.a, *abo.b);
+	return (estas_finita(*abo.a, *abo.b));
+}
+
 int	quad_partition(t_abo abo, int pivot[4])
 {
 	int		c;
 
 	c = 0;
-//	flush_b(abo);
+	flush_b(abo);
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
 		deb_quad_pivot(pivot);
 		shortest_rot_a_quad(abo, pivot);
+		moderate_shortest_rotation_b_receive(abo);
 		deb_("...");
-		short_b_receive_or_flush(abo);
 		exec(abo, "pb");
 		c++;
 	}
 	return (c);
+}
+
+int		slices_by_size(int sz)
+{
+	if (sz <= 5)
+		return (1);
+	if (sz <= 50)
+		return (2);
+	if (sz <= 100)
+		return (3);
+	if (sz <= 250)
+		return (4);
+	if (sz <= 500)
+		return (5);
+	return (sz / 2);
 }
 
 int		push_swap_sort(t_stk **a, t_stk **b, char **o)
@@ -382,7 +456,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 	pivot[1] = 0;
 	pivot[2] = 0;
 	pivot[3] = 0;
-	gen_pivot_quad_sandwich(*a, pivot, 1);
+	gen_pivot_quad_sandwich(*a, pivot, slices_by_size(stack_size(*a)));
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);

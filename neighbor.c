@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 07:28:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 13:34:23 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_stk		*b_before_a(t_abo abo)
 	t_stk	*cell;
 
 	if (!abo.b || !*abo.b || !(*abo.b)->nx)
-		return (*abo.a);
+		return (0);
 	a = (*abo.a)->val;
 	h = (*abo.b);
 	c = (long)INT_MAX * (long)2;

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:58:08 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/06 14:59:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:56:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		calc_top_a(t_abo abo, t_stk *cell)
 	if (dist_top < dist_bot)
 		return (dist_top);
 	else
-		return (dist_bot);
+		return (dist_bot * -1);
 }
 
 void	top_a(t_abo abo, t_stk *cell)

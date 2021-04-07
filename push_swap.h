@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 09:15:15 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 16:44:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,8 @@ t_stk	*cell_val_after(t_stk *s, t_stk *h);
 t_stk	*cell_val_before(t_stk *s, t_stk *h);
 int		val_before(t_stk *s, int med);
 void	short_b_receive_or_flush(t_abo abo);
+int	spot(t_abo abo, char *op);
+int		count_lasts_rb(t_abo abo);
+int		rot_solve(int n, int r, int l);
 
 #endif
