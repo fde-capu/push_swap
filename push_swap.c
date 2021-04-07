@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/05 11:31:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 07:23:53 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,8 @@ void	s_5_(t_abo loc)
 	while ((*loc.a)->nx != hold_a && (*loc.b)->nx != hold_b)
 	{
 		exec (loc, "ra");
-		if (perfect_spot(loc))
-			return ;
+//		if (perfect_spot(loc))
+//			return ;
 	}
 	s_1_(loc);
 	return ;

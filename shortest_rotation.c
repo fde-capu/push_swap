@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/05 13:27:55 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:15:06 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,36 @@ void	flush_a(t_abo abo)
 
 void	shortest_rotation_a_receive(t_abo abo)
 {
-	if (!abo.b || !*abo.b)
+	if (!abo.a || !*abo.a || !abo.b || !*abo.b)
 		return ;
 	top_a(abo, a_after_b(abo));
 	return ;
 }
 
+void	short_b_receive_or_flush(t_abo abo)
+{
+	int	max;
+	int	rec;
+
+	if (!abo.b || !*abo.b)
+		return ;
+	max = calc_top_b(abo, max_cell(*abo.b));
+	rec = calc_top_b(abo, b_before_a(abo));
+	if (max < 0)
+		max *= -1;
+	if (rec < 0)
+		rec *= -1;
+	if (rec < max)
+		top_b(abo, b_before_a(abo));
+	else
+		top_b(abo, max_cell(*abo.b));
+	return ;
+}
+
 void	shortest_rotation_b_receive(t_abo abo)
 {
+	if (!abo.b || !*abo.b)
+		return ;
 	top_b(abo, b_before_a(abo));
 	return ;
 }
@@ -161,4 +183,89 @@ int		shortest_rotation_a_pivot(t_abo abo, int pivot)
 			exec(abo, "rra");
 	}
 	return (op);
+}
+
+int	spot_up(t_abo abo)
+{
+	t_stk	*c;
+
+	deb_("spot_up (a to b)? ");
+	c = b_before_a(abo);
+	if (c == *abo.a || c == *abo.b)
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
+int				spot_dn(t_abo abo)
+{
+	t_stk	*c;
+
+	deb_("spot_dn (b to a)? ");
+	c = a_after_b(abo);
+	if (c == *abo.b)
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
+int	spot(t_abo abo, char *op)
+{
+	int	c;
+
+	c = 0;
+	if (ft_stridentical(op, "pb"))
+	{
+		while (spot_up(abo))
+		{
+			exec(abo, op);
+			c++;
+		}
+	}
+	return (c);
+}
+
+int	shortest_rot_a_quad(t_abo abo, int pivot[4])
+{
+	t_stk	*h;
+	int		ra;
+	int		rra;
+
+	ra = 0;
+	rra = 1;
+	h = *abo.a;
+	while (h && !(is_in_range(h->val, pivot[0], pivot [1])) && !(is_in_range(h->val, pivot[2], pivot[3])))
+	{
+		ra++;
+		h = h->nx;
+	}
+	h = stack_tail(*abo.a);
+	while (h && !(is_in_range(h->val, pivot[0], pivot [1])) && !(is_in_range(h->val, pivot[2], pivot[3])))
+	{
+		rra++;
+		h = h->pv;
+	}
+	if (ra <= rra)
+	{
+		while (ra-- > 0)
+		{
+			ra -= spot(abo, "pb");
+			exec(abo, "ra");
+		}
+	}
+	else
+	{
+		while (rra-- > 0)
+		{
+			ra -= spot(abo, "pb") * 0;
+			exec(abo, "rra");
+		}
+	}
+	return (1);
 }

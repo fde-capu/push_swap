@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/31 13:14:46 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 07:28:26 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ t_stk		*b_before_a(t_abo abo)
 	t_stk	*h;
 	t_stk	*cell;
 
+	if (!abo.b || !*abo.b || !(*abo.b)->nx)
+		return (*abo.a);
 	a = (*abo.a)->val;
 	h = (*abo.b);
 	c = (long)INT_MAX * (long)2;
@@ -65,10 +67,10 @@ t_stk		*b_before_a(t_abo abo)
 		h = h->nx;
 	}
 	if (c == (long)INT_MAX * (long)2)
-		cell = min_cell(*abo.b);
+		cell = max_cell(*abo.b);
 	deb_("rot 'b' until");
 	deb_int_(cell->val);
-	deb_("to put over");
+	deb_("to receive");
 	deb_int_(a);
 	deb_("\n");
 	return (cell);

@@ -6,26 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/05 13:42:10 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:14:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-int				perfect_spot(t_abo abo)
-{
-	t_stk	*c;
-
-	deb_("perfect_spot? ");
-	c = a_after_b(abo);
-	if (c == *abo.a)
-	{
-		deb_("Yes.\n");
-		return (1);
-	}
-	deb_("No.\n");
-	return (0);
-}
 
 void	re_ouch(t_abo abo, char *ops)
 {
@@ -125,7 +110,7 @@ char	*best_rewind(t_abo abo)
 
 	if (stack_size(*abo.b) == 0)
 		return (ft_str(""));
-	if (perfect_spot(abo))
+	if (spot_dn(abo))
 		return (ft_str("pa"));
 	deb_("\nBest Rewind");
 	deb_(":\n");
@@ -148,6 +133,89 @@ char	*best_rewind(t_abo abo)
 	treat_loc_redundancies(loc);
 	count_loc_instructions(c, loc);
 	return (clear_ret(loc, lower_c_loc_o(c, loc)));
+}
+
+int	path_complexity(t_stk *s)
+{
+	t_stk	*h;
+	int		o;
+	int		t;
+
+	o = 0;
+	h = s;
+	while (h->nx)
+	{
+		t = h->nx->val - h->val;
+		t *= t < 0 ? -1 : 1;
+		o += t;
+		h = h->nx;
+	}
+	t = s->val - h->val;
+	t *= t < 0 ? -1 : 1;
+	o += t;
+	return (o);
+}
+
+t_abo			make_abo(t_stk **a, t_stk **b, char **o)
+{
+	t_abo	abo;
+
+	abo.a = a;
+	abo.b = b;
+	abo.o = o;
+	return (abo);
+}
+
+void	bubble_put(t_abo abo)
+{
+	while (stack_size(*abo.b) < 2)
+		exec(abo, "pb");
+	while (stack_size(*abo.a) > 2)
+	{
+		bubble(abo);
+		exec(abo, "pb");
+	}
+	return ;
+}
+
+void	bubble_cycle(t_abo abo)
+{
+	bubble_put(abo);
+	while (stack_size(*abo.a) < 2)
+		exec(abo, "pa");
+	while (stack_size(*abo.b) > 2)
+	{
+		bubble(abo);
+		exec(abo, "pa");
+	}
+	return ;
+}
+
+int	partition(t_abo abo, int pivot)
+{
+	t_stk	*h;
+
+	while (count_le(*abo.a, pivot))
+	{
+		h = *abo.a;
+		deb_("Try pass pivot for");
+		deb_int_(h->val);
+		deb_(", pivot");
+		deb_int_(pivot);
+		if (h->val <= pivot)
+		{
+			exec(abo, "pb");
+		}
+		else
+		{
+			shortest_rotation_a_pivot(abo, pivot);
+		}
+	}
+	deb_("...end pass pivot.\ncount, complexity:");
+	deb_int_(count_instructions_in_str(*abo.o));
+	deb_int_(path_complexity(*abo.b));
+	NL
+	return (1);
 }
 
 int	master_rewind(t_abo abo)
@@ -221,108 +289,100 @@ void	moderate_shortest_rotation_b_receive(t_abo abo)
 	return ;
 }
 
-int	path_complexity(t_stk *s)
+int		any_in_range(t_stk *s, int min, int max)
 {
 	t_stk	*h;
-	int		o;
-	int		t;
 
-	o = 0;
 	h = s;
-	while (h->nx)
+	while (h)
 	{
-		t = h->nx->val - h->val;
-		t *= t < 0 ? -1 : 1;
-		o += t;
+		if (h->val >= min && h->val <= max)
+			return (1);
 		h = h->nx;
 	}
-	t = s->val - h->val;
-	t *= t < 0 ? -1 : 1;
-	o += t;
-	return (o);
+	return (0);
 }
 
-int	partition(t_abo abo, int pivot)
+int		is_in_range(int x, int min, int max)
+{
+	if (min == max && x == min)
+		return (1);
+	if (x >= min && x <= max)
+		return (1);
+	return (0);
+}
+
+int	double_partition(t_abo abo, int pivot[4])
+{
+	while (any_in_range(*abo.a, pivot[0], pivot[3]))
+	{
+		deb_quad_pivot(pivot);
+		if (is_in_range((*abo.a)->val, pivot[0], pivot[3]))
+		{
+			if (is_in_range((*abo.a)->val, pivot[0], pivot[1]))
+			{
+				exec(abo, "pb");
+				if (flush_final(abo))
+					return (1);
+				else
+					exec(abo, "rb");
+				continue ;
+			}
+			if (is_in_range((*abo.a)->val, pivot[2], pivot[3]))
+			{
+				exec(abo, "pb");
+			}
+		}
+		else
+			shortest_rotation_a_pivot(abo, pivot[3]);
+	}
+	return (1);
+}
+
+int	any_in_quad_pivot(t_abo abo, int pivot[4])
 {
 	t_stk	*h;
 
-	while (count_le(*abo.a, pivot))
+	h = *abo.a;
+	while (h)
 	{
-		h = *abo.a;
-		deb_("Try pass pivot for");
-		deb_int_(h->val);
-		deb_(", pivot");
-		deb_int_(pivot);
-		if (h->val <= pivot)
-		{
-			exec(abo, "pb");
-		}
-		else
-		{
-			shortest_rotation_a_pivot(abo, pivot);
-		}
+		if (h->val >= pivot[0] && h->val <= pivot[1])
+			return (1);
+		if (h->val >= pivot[2] && h->val <= pivot[3])
+			return (1);
+		h = h->nx;
 	}
-	deb_("...end pass pivot.\ncount, complexity:");
-	deb_int_(count_instructions_in_str(*abo.o));
-	deb_int_(path_complexity(*abo.b));
-	NL
-	return (1);
+	return (0);
 }
 
-t_abo			make_abo(t_stk **a, t_stk **b, char **o)
+int	quad_partition(t_abo abo, int pivot[4])
 {
-	t_abo	abo;
+	int		c;
 
-	abo.a = a;
-	abo.b = b;
-	abo.o = o;
-	return (abo);
-}
-
-void	bubble_put(t_abo abo)
-{
-	while (stack_size(*abo.b) < 2)
+	c = 0;
+//	flush_b(abo);
+	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
+	{
+		deb_quad_pivot(pivot);
+		shortest_rot_a_quad(abo, pivot);
+		deb_("...");
+		short_b_receive_or_flush(abo);
 		exec(abo, "pb");
-	while (stack_size(*abo.a) > 2)
-	{
-		bubble(abo);
-		exec(abo, "pb");
+		c++;
 	}
-	return ;
-}
-
-void	bubble_cycle(t_abo abo)
-{
-	bubble_put(abo);
-	while (stack_size(*abo.a) < 2)
-		exec(abo, "pa");
-	while (stack_size(*abo.b) > 2)
-	{
-		bubble(abo);
-		exec(abo, "pa");
-	}
-	return ;
-}
-
-//int		push_swap_sort(t_stk **a, t_stk **b, char **o)
-int		trash(void)
-{
-//	t_abo	abo;
-//
-//	abo = make_abo(a, b, o);
-//	bubble_cycle(abo);
-//	partition(abo);
-//	combo_rewind(abo);
-	return (1);
+	return (c);
 }
 
 int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	t_abo	abo;
-	int		pivot;
+	int		pivot[4];
 
-	pivot = 0;
-	gen_pivot_slice(*a, &pivot, 5);
+	pivot[0] = 0;
+	pivot[1] = 0;
+	pivot[2] = 0;
+	pivot[3] = 0;
+	gen_pivot_quad_sandwich(*a, pivot, 1);
 	abo = make_abo(a, b, o);
 	if (flush_final(abo))
 		return (1);
@@ -332,7 +392,7 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 //			break ;
 		if (flush_final(abo))
 			break ;
-		partition(abo, pivot);
+		quad_partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 			return (push_swap_sort(a, b, o));
 		else

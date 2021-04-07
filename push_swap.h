@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 17:16:35 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/07 09:15:15 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,11 +79,24 @@ void	s_4_(t_abo loc);
 void	s_5_(t_abo loc);
 void	s_6_(t_abo loc);
 void	shortest_rotation_b_give(t_abo abo);
-int				perfect_spot(t_abo abo);
+int				spot_dn(t_abo abo);
+int				spot_up(t_abo abo);
 char	*pivot_path(t_abo abo, int pivot, int c);
 void	re_ouch(t_abo abo, char *ops);
 void	gen_pivot_slice(t_stk *s, int *pivot, int slices);
 char	*prev_command(char **h, char *limit);
 void	moderate_shortest_rotation_b_receive(t_abo abo);
+int		any_in_range(t_stk *s, int min, int max);
+void	gen_pivot_quad(t_stk *s, int pivot[4], int slices);
+void	deb_quad_pivot(int pivot[4]);
+void	gen_pivot_quad_sandwich(t_stk *s, int pivot[4], int slices);
+int	shortest_rot_a_quad(t_abo abo, int pivot[4]);
+int		is_in_range(int x, int min, int max);
+void	cautious_top_b(t_abo abo, t_stk *cell);
+int		val_after(t_stk *s, int med);
+t_stk	*cell_val_after(t_stk *s, t_stk *h);
+t_stk	*cell_val_before(t_stk *s, t_stk *h);
+int		val_before(t_stk *s, int med);
+void	short_b_receive_or_flush(t_abo abo);
 
 #endif
