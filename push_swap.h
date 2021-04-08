@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 17:11:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:08:15 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,9 @@ int		opportunistic_flush_b(t_abo abo);
 int	shortest_a_btoa(t_abo abo);
 int		count_natural_a_receive(t_abo abo);
 int		count_reverse_a_receive(t_abo abo);
+int				super_bubble(t_abo abo);
+void	gen_pivot_quad_outside_in(t_stk *s, int pivot[4], int slices);
+void	gen_pivot_quad_ref(t_stk *s, int pivot[4], int slices);
+int	is_in_quad(int x, int pivot[4]);
 
 #endif

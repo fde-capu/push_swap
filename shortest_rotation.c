@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 17:13:24 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:50:09 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -307,13 +307,11 @@ int	shortest_a_btoa(t_abo abo)
 		tol++;
 		return (0);
 	}
-//		op = tol * -1;
 	if (op > 0 && op > tol)
 	{
 		tol++;
 		return (0);
 	}
-//		op = tol;
 	if (op > 0)
 	{
 		while (op-- > 0)
@@ -334,7 +332,6 @@ int	shortest_rot_a_quad(t_abo abo, int pivot[4])
 	int		rra;
 	t_stk	*tgt;
 	static int	tol = -1;
-	static int	eas = 0;
 
 	if (tol == -1)
 		tol = stack_size(*abo.a) / 10;
@@ -368,8 +365,5 @@ int	shortest_rot_a_quad(t_abo abo, int pivot[4])
 			rra--;
 		}
 	}
-	eas++;
-	if (eas % 5 == 0)
-		tol--;
 	return (1);
 }

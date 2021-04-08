@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 17:14:44 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 18:15:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -387,8 +387,8 @@ int	master_rewind(t_abo abo)
 	c = 0;
 	while (stack_size(*abo.b))
 	{
-//		if (++c % 4 == 0)
-//			bubble(abo);
+		if (++c % 4 == 0)
+			bubble(abo);
 		opportunistic_flush_b(abo);
 //			flush_b(abo);
 		while (shortest_a_btoa(abo))
@@ -405,7 +405,7 @@ int	quad_partition(t_abo abo, int pivot[4])
 	static int		c = 0;
 	int		d;
 
-	d = 1;
+	d = 0;
 	flush_b(abo);
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
@@ -428,10 +428,25 @@ int	quad_partition(t_abo abo, int pivot[4])
 		deb_("...");
 		exec(abo, "pb");
 		if (c % 2 == 0)
-			bubble(abo);
+			super_bubble(abo);
 		c++;
 	}
 	return (c);
+}
+
+int	simple_partition(t_abo abo, int pivot[4])
+{
+	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
+	{
+		if (is_in_quad((*abo.a)->val, pivot))
+		{
+			moderate_shortest_rotation_b_receive(abo);
+			exec(abo, "pb");
+		}
+		else
+			shortest_rot_a_quad(abo, pivot);
+	}
+	return (1);
 }
 
 int		auto_slice(t_abo abo)
@@ -448,6 +463,13 @@ int		auto_slice(t_abo abo)
 	(void)abo;
 }
 
+int		soft_slice(t_abo abo)
+{
+	(void)abo;
+	return (3);
+//	return (stack_size(*abo.a) / 4);
+}
+
 int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	t_abo	abo;
@@ -458,7 +480,9 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 	pivot[2] = 0;
 	pivot[3] = 0;
 	abo = make_abo(a, b, o);
-	gen_pivot_soft_quad_sand(*a, pivot, auto_slice(abo));
+	gen_pivot_quad_sandwich(*a, pivot, soft_slice(abo));
+//	gen_pivot_quad_outside_in(*a, pivot, auto_slice(abo));
+//	gen_pivot_quad_ref(*a, pivot, auto_slice(abo));
 	if (flush_final(abo))
 		return (1);
 	while (1)
@@ -468,7 +492,8 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 		else
 			if (flush_final(abo))
 				break ;
-		quad_partition(abo, pivot);
+		simple_partition(abo, pivot);
+//		quad_partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 			return (push_swap_sort(a, b, o));
 		else

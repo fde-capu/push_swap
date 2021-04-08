@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:24:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 15:28:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:56:09 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -250,6 +250,17 @@ int		prev_n_vals(t_stk *s, int x, int n)
 	return (v);
 }
 
+void		gen_pivot_median(t_stk **a, int *pivot)
+{
+	int	tmp;
+
+	tmp = stack_median(*a)->val;
+	if (tmp == *pivot)
+		return (gen_pivot_last(a, pivot));
+	*pivot = tmp;
+	return ;
+}
+
 int	spot_up(t_abo abo)
 {
 	t_stk	*c;
@@ -323,17 +334,6 @@ void	gen_pivot_quad_sandwich(t_stk *s, int pivot[4], int slices)
 	return ;
 }
 
-void		gen_pivot_median(t_stk **a, int *pivot)
-{
-	int	tmp;
-
-	tmp = stack_median(*a)->val;
-	if (tmp == *pivot)
-		return (gen_pivot_last(a, pivot));
-	*pivot = tmp;
-	return ;
-}
-
 void	gen_pivot_soft_quad_sand(t_stk *s, int pivot[4], int slices)
 {
 	int			mini_size;
@@ -348,5 +348,35 @@ void	gen_pivot_soft_quad_sand(t_stk *s, int pivot[4], int slices)
 	pivot[0] = prev_n_vals(s, pivot[1], mini_size);
 	pivot[2] = val_after(s, pivot[1]);
 	pivot[3] = next_n_vals(s, pivot[2], mini_size);
+	return ;
+}
+
+void	gen_pivot_quad_outside_in(t_stk *s, int pivot[4], int slices)
+{
+	int	mini_size;
+
+	mini_size = size_by_slice(s, slices) / 2;
+	deb_("size:");
+	deb_int_(mini_size * 2);
+	NL
+	pivot[0] = min_val(s);
+	pivot[1] = next_n_vals(s, pivot[0], mini_size);
+	pivot[3] = max_val(s);
+	pivot[2] = prev_n_vals(s, pivot[3], mini_size);
+	return ;
+}
+
+void	gen_pivot_quad_ref(t_stk *s, int pivot[4], int slices)
+{
+	int	mini_size;
+
+	mini_size = size_by_slice(s, slices) / 2;
+	deb_("size:");
+	deb_int_(mini_size * 2);
+	NL
+	pivot[0] = s->val;
+	pivot[1] = next_n_vals(s, pivot[0], mini_size);
+	pivot[3] = val_before(s, pivot[0]);
+	pivot[2] = prev_n_vals(s, pivot[3], mini_size);
 	return ;
 }
