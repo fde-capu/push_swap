@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 16:59:51 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 17:13:24 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -285,7 +285,7 @@ int		opportunistic_flush_b(t_abo abo)
 	return (0);
 }
 
-void	shortest_a_btoa(t_abo abo)
+int	shortest_a_btoa(t_abo abo)
 {
 	int	n;
 	int	r;
@@ -302,15 +302,18 @@ void	shortest_a_btoa(t_abo abo)
 	r = count_reverse_a_receive(abo);
 	l = count_lasts_rb(abo);
 	op = rot_solve(n, r, l);
-	if (op < 0 && op * -1 >= tol)
-		op = tol * -1;
-	if (op > 0 && op >= tol)
-		op = tol;
-	if (op >= tol)
+	if (op < 0 && op * -1 > tol)
 	{
-		op = tol;
-		deb_("Long.\n");
+		tol++;
+		return (0);
 	}
+//		op = tol * -1;
+	if (op > 0 && op > tol)
+	{
+		tol++;
+		return (0);
+	}
+//		op = tol;
 	if (op > 0)
 	{
 		while (op-- > 0)
@@ -322,7 +325,7 @@ void	shortest_a_btoa(t_abo abo)
 			exec(abo, "rra");
 	}
 	tol = -1;
-	return ;
+	return (1);
 }
 
 int	shortest_rot_a_quad(t_abo abo, int pivot[4])
