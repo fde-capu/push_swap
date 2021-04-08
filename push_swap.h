@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 16:44:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 13:37:05 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,10 @@ void	short_b_receive_or_flush(t_abo abo);
 int	spot(t_abo abo, char *op);
 int		count_lasts_rb(t_abo abo);
 int		rot_solve(int n, int r, int l);
+void	gen_pivot_soft_quad_sand(t_stk *s, int pivot[4], int slices);
+int		opportunistic_flush_b(t_abo abo);
+void	shortest_a_btoa(t_abo abo);
+int		count_natural_a_receive(t_abo abo);
+int		count_reverse_a_receive(t_abo abo);
 
 #endif

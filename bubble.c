@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/04 20:19:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 08:34:40 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,20 +40,20 @@ int			may_bubble(t_stk *a, int dir)
 	{
 		if (stack_size(a) == 2)
 		{
-			deb_("Must. ");
+			deb_("Must.\n");
 			return (1);
 		}
-		deb_("Case vertex. ");
+		deb_("Case vertex.\n");
 		return (0);
 	}
 	if (higher > med && lower <= med)
 	{
-		deb_("No. ");
+		deb_("No.\n");
 		return (0);
 	}
 	if (lower > higher)
 	{
-		deb_("Yes. ");
+		deb_("Yes.\n");
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 17:19:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:57:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,23 +80,6 @@ char	*lower_c_loc_o(int c[TEST_NUM], t_abo loc[TEST_NUM])
 		}
 	}
 	return (o);
-}
-
-char	*prev_command(char **h, char *limit)
-{
-	char	*c;
-
-	c = *h;
-	if (c <= limit + 2)
-		return (*h);
-	if (*(c - 1) == ',')
-		c -= 2;
-	while (*c != ',' && c > limit)
-		c--;
-	if (c > limit)
-		c++;
-	*h = c;
-	return (*h);
 }
 
 char	*best_rewind(t_abo abo)
@@ -364,49 +347,52 @@ int		count_reverse_a_receive(t_abo abo)
 		return (dist_bot);
 }
 
-void	shortest_btoa(t_abo abo)
+char	*prev_command(char **h, char *limit)
 {
-	int	n;
-	int	r;
-	int	l;
-	int	op;
+	char	*c;
 
-	deb_("shortest_btoa\n");
-	n = count_natural_a_receive(abo);
-	r = count_reverse_a_receive(abo);
-	l = count_lasts_rb(abo);
+	c = *h;
+	if (c <= limit + 2)
+		return (*h);
+	if (*(c - 1) == ',')
+		c -= 2;
+	while (*c != ',' && c > limit)
+		c--;
+	if (c > limit)
+		c++;
+	*h = c;
+	return (*h);
+}
 
-	deb_(*abo.o);
-	deb_("\nnatural, reverse, lasts_rb:");
-	deb_int_(n);
-	deb_int_(r);
-	deb_int_(l);
-	NL
-
-	op = rot_solve(n, r, l);
-	if (op > 0)
-	{
-		while (op-- > 0)
-			exec(abo, "ra");
-	}
-	else
-	{
-		while (op++ < 0)
-			exec(abo, "rra");
-	}
-	return ;
+int		slices_by_size(int sz)
+{
+	if (sz <= 5)
+		return (1);
+	if (sz <= 20)
+		return (2);
+	if (sz <= 100)
+		return (5);
+	if (sz <= 250)
+		return (5);
+	if (sz <= 500)
+		return (7);
+	return (sz / 2);
 }
 
 int	master_rewind(t_abo abo)
 {
+	int	c;
+
 	deb_("Master Rewind\n");
+	c = 0;
 	while (stack_size(*abo.b))
 	{
-		flush_b(abo); // aqui
-		moderate_shortest_rotation_b_receive(abo); // aqui
-		shortest_btoa(abo);
-		if (!(spot(abo, "pa")))
-			exec(abo, "pa");
+//		if (++c % 4 == 0)
+//			bubble(abo);
+		opportunistic_flush_b(abo);
+//			flush_b(abo);
+		shortest_a_btoa(abo);
+		spot(abo, "pa");
 	}
 	flush_a(abo);
 	deb_("\nFinal:\n\n");
@@ -416,35 +402,50 @@ int	master_rewind(t_abo abo)
 
 int	quad_partition(t_abo abo, int pivot[4])
 {
-	int		c;
+	static int		c = 0;
+	int		d;
 
-	c = 0;
+	d = 1;
 	flush_b(abo);
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
 		deb_quad_pivot(pivot);
-		shortest_rot_a_quad(abo, pivot);
+		if (!(shortest_rot_a_quad(abo, pivot)))
+			return (c);
 		moderate_shortest_rotation_b_receive(abo);
+		if (is_in_range((*abo.a)->val, pivot[0], pivot[1]))
+		{
+			if (d < 0)
+				flush_b(abo);
+			d = 1;
+		}
+		else
+		{
+			if (d > 0)
+				flush_b(abo);
+			d = -1;
+		}
 		deb_("...");
 		exec(abo, "pb");
+		if (c % 2 == 0)
+			bubble(abo);
 		c++;
 	}
 	return (c);
 }
 
-int		slices_by_size(int sz)
+int		auto_slice(t_abo abo)
 {
-	if (sz <= 5)
-		return (1);
-	if (sz <= 50)
-		return (2);
-	if (sz <= 100)
-		return (3);
-	if (sz <= 250)
-		return (4);
-	if (sz <= 500)
-		return (5);
-	return (sz / 2);
+	static int	s = -1;
+
+	s = stack_size(*abo.a) / 10 - 3;
+	if (s < 2)
+		s = 2;
+	deb_("Slices:");
+	deb_int_(s);
+	NL
+	return (s);
+	(void)abo;
 }
 
 int		push_swap_sort(t_stk **a, t_stk **b, char **o)
@@ -456,16 +457,17 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 	pivot[1] = 0;
 	pivot[2] = 0;
 	pivot[3] = 0;
-	gen_pivot_quad_sandwich(*a, pivot, slices_by_size(stack_size(*a)));
 	abo = make_abo(a, b, o);
+	gen_pivot_soft_quad_sand(*a, pivot, auto_slice(abo));
 	if (flush_final(abo))
 		return (1);
 	while (1)
 	{
-//		if (bubble(abo) && flush_final(abo))
-//			break ;
-		if (flush_final(abo))
+		if (bubble(abo) && flush_final(abo))
 			break ;
+		else
+			if (flush_final(abo))
+				break ;
 		quad_partition(abo, pivot);
 		if (stack_size(*abo.a) > 2)
 			return (push_swap_sort(a, b, o));

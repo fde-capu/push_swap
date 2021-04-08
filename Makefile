@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/05 12:27:51 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/08 14:22:20 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,6 +91,9 @@ txt20:
 	make tby
 txt30:
 	./argtxt.sh 30
+	make tby
+txt50:
+	./argtxt.sh 50
 	make tby
 txt100:
 	./argtxt.sh 100

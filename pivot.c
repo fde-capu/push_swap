@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:24:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 15:00:13 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/08 15:28:51 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,6 @@
 void		gen_pivot_last(t_stk **a, int *pivot)
 {
 	*pivot = stack_tail(*a)->val;
-	return ;
-}
-
-void		gen_pivot_median(t_stk **a, int *pivot)
-{
-	int	tmp;
-
-	tmp = stack_median(*a)->val;
-	if (tmp == *pivot)
-		return (gen_pivot_last(a, pivot));
-	*pivot = tmp;
 	return ;
 }
 
@@ -65,10 +54,6 @@ t_stk	*stack_median(t_stk *s)
 	l = min_cell(s);
 	while (h != l)
 	{
-		deb_("h, l:");
-		deb_int_(h->val);
-		deb_int_(l->val);
-		NL
 		if (flip)
 		{
 			h = cell_val_before(s, h);
@@ -265,6 +250,61 @@ int		prev_n_vals(t_stk *s, int x, int n)
 	return (v);
 }
 
+int	spot_up(t_abo abo)
+{
+	t_stk	*c;
+
+	deb_("spot_up (a to b)? ");
+	c = b_before_a(abo);
+	if (c == *abo.b && stack_size(*abo.b) >= 2)
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
+int				spot_dn(t_abo abo)
+{
+	t_stk	*c;
+
+	deb_("spot_dn (b to a)? ");
+	c = a_after_b(abo);
+	if (c == *abo.a)
+	{
+		deb_("Yes.\n");
+		return (1);
+	}
+	deb_("No.\n");
+	return (0);
+}
+
+int	spot(t_abo abo, char *op)
+{
+	int	c;
+
+	deb_("Spot!\n");
+	c = 0;
+	if (ft_stridentical(op, "pb"))
+	{
+		while (spot_up(abo))
+		{
+			exec(abo, op);
+			c++;
+		}
+	}
+	if (ft_stridentical(op, "pa"))
+	{
+		while (spot_dn(abo))
+		{
+			exec(abo, op);
+			c++;
+		}
+	}
+	return (c);
+}
+
 void	gen_pivot_quad_sandwich(t_stk *s, int pivot[4], int slices)
 {
 	int			mini_size;
@@ -276,6 +316,34 @@ void	gen_pivot_quad_sandwich(t_stk *s, int pivot[4], int slices)
 	NL
 	if (med == -1)
 		gen_pivot_median(&s, &med);
+	pivot[1] = val_before(s, med);
+	pivot[0] = prev_n_vals(s, pivot[1], mini_size);
+	pivot[2] = val_after(s, pivot[1]);
+	pivot[3] = next_n_vals(s, pivot[2], mini_size);
+	return ;
+}
+
+void		gen_pivot_median(t_stk **a, int *pivot)
+{
+	int	tmp;
+
+	tmp = stack_median(*a)->val;
+	if (tmp == *pivot)
+		return (gen_pivot_last(a, pivot));
+	*pivot = tmp;
+	return ;
+}
+
+void	gen_pivot_soft_quad_sand(t_stk *s, int pivot[4], int slices)
+{
+	int			mini_size;
+	int			med;
+
+	mini_size = stack_size(s) / slices / 2;
+	deb_("size:");
+	deb_int_(mini_size * 2);
+	NL
+	gen_pivot_median(&s, &med);
 	pivot[1] = val_before(s, med);
 	pivot[0] = prev_n_vals(s, pivot[1], mini_size);
 	pivot[2] = val_after(s, pivot[1]);
