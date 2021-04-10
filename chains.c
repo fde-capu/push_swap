@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/10 03:51:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/10 16:44:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -424,11 +424,12 @@ int	master_rewind(t_abo abo)
 //		opportunistic_flush_b(abo);
 //		flush_b(abo);
 //		shortest_a_btoa(abo);
-		if (shortest_b_btoa(abo))
-			spot(abo, "pa");
-		else
+//		if (shortest_b_btoa(abo))
+//			spot(abo, "pa");
+//		else
 			shortest_a_btoa(abo);
 //		while (shortest_a_btoa(abo))
+exec(abo, "pa");
 //			spot(abo, "pa");
 	}
 	flush_a(abo);
@@ -439,15 +440,25 @@ int	master_rewind(t_abo abo)
 
 int	simple_partition(t_abo abo, int pivot[4])
 {
+	t_stk	*hodlr;
+
+	hodlr = 0;
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
-//		full_rot_a_quad(abo, pivot);
-		shortest_rot_a_quad(abo, pivot);
-		if (stack_size(*abo.a) > stack_size(*abo.b))
-			shortest_rotation_b_receive(abo);
+		full_rot_a_quad(abo, pivot);
+//		shortest_rot_a_quad(abo, pivot);
+		if (*abo.b && stack_size(*abo.a) > stack_size(*abo.b))
+		{
+			top_b(abo, hodlr);
+			exec(abo, "pb");
+			if (is_in_range((*abo.b)->val, pivot[2], pivot[3]))
+				hodlr = *abo.b;
+		}
 		else
+		{
 			moderate_shortest_rotation_b_receive(abo);
-		exec(abo, "pb");
+			exec(abo, "pb");
+		}
 	}
 	return (1);
 }
