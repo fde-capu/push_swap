@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/08 17:50:09 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/10 03:43:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,6 +135,23 @@ int		count_lasts_rb(t_abo abo)
 	return (c);
 }
 
+int		count_lasts_ra(t_abo abo)
+{
+	char	*h;
+	int		c;
+
+	c = 0;
+	h = *abo.o + ft_strlen(*abo.o);
+	while (ft_strbegins(prev_command(&h, *abo.o), "ra"))
+		c++;
+	if (c)
+		return (c);
+	h = *abo.o + ft_strlen(*abo.o);
+	while (ft_strbegins(prev_command(&h, *abo.o), "rra"))
+		c--;
+	return (c);
+}
+
 char	*last_command(t_abo abo)
 {
 	char	*h;
@@ -173,6 +190,28 @@ int		rot_solve(int n, int r, int l)
 			op = n;
 	}
 	return (op);
+}
+
+int		count_natural_a_receive(t_abo abo)
+{
+	return (calc_top_a(abo, a_after_b(abo)));
+}
+
+int		count_reverse_a_receive(t_abo abo)
+{
+	int		dist_top;
+	int		dist_bot;
+	t_stk	*cell;
+
+	cell = a_after_b(abo);
+	if (!cell)
+		return (INT_MAX);
+	dist_top = position_top(*abo.a, cell);
+	dist_bot = position_bot(*abo.a, cell);
+	if (dist_top >= dist_bot)
+		return (dist_top);
+	else
+		return (dist_bot);
 }
 
 int		shortest_rotation_a_pivot(t_abo abo, int pivot)
@@ -260,6 +299,38 @@ int	min(int a, int b)
 	return (b);
 }
 
+int		opportunistic_b_receive(t_abo abo)
+{
+	int	c;
+	char	*h;
+
+	if (stack_size(*abo.b) <= 1)
+		return (0);
+	deb_("opportunistic_b_receive\n");
+	c = calc_top_b(abo, b_before_a(abo));
+	deb_("mod:");
+	deb_int_(c);
+	deb_("\n");
+	h = *abo.o + ft_strlen(*abo.o);
+	if (c > 0)
+	{
+		while (c-- && ft_strbegins(prev_command(&h, *abo.o), "ra"))
+		{
+			exec(abo, "rb");
+			c -= spot(abo, "pb");
+		}
+	}
+	if (c < 0)
+	{
+		while (c++ && ft_strbegins(prev_command(&h, *abo.o), "rra"))
+		{
+			exec(abo, "rrb");
+			c -= spot(abo, "pb");
+		}
+	}
+	return (1);
+}
+
 int		opportunistic_flush_b(t_abo abo)
 {
 	int	w;
@@ -283,6 +354,56 @@ int		opportunistic_flush_b(t_abo abo)
 	free(op);
 	deb_("done!\n");
 	return (0);
+}
+
+int	count_natural_b_give(t_abo abo)
+{
+	return (calc_top_b(abo, b_before_a(abo)));
+}
+
+int	count_reverse_b_give(t_abo abo)
+{
+	int		dist_top;
+	int		dist_bot;
+	t_stk	*cell;
+
+	cell = b_before_a(abo);
+	if (!cell)
+		return (INT_MAX);
+	dist_top = position_top(*abo.b, cell);
+	dist_bot = position_bot(*abo.b, cell);
+	if (dist_top >= dist_bot)
+		return (dist_top);
+	else
+		return (dist_bot);
+}
+
+int	shortest_b_btoa(t_abo abo)
+{
+	int	n;
+	int	r;
+	int	l;
+	int	op;
+
+	deb_("shortest_b_btoa\n");
+	if (!abo.b || !*abo.b)
+		return (0);
+	n = count_natural_b_give(abo);
+	r = count_reverse_b_give(abo);
+	l = count_lasts_ra(abo);
+	op = rot_solve(n, r, l);
+	deb_int_(op);
+	if (op > 0)
+	{
+		while (op-- > 0)
+			exec(abo, "rb");
+	}
+	else
+	{
+		while (op++ < 0)
+			exec(abo, "rrb");
+	}
+	return (spot_dn(abo));
 }
 
 int	shortest_a_btoa(t_abo abo)
@@ -326,6 +447,14 @@ int	shortest_a_btoa(t_abo abo)
 	return (1);
 }
 
+int	full_rot_a_quad(t_abo abo, int pivot[4])
+{
+	deb_("full_rot_a_quad\n");
+	while (!(is_in_quad((*abo.a)->val, pivot)))
+		exec(abo, "ra");
+	return (1);
+}
+
 int	shortest_rot_a_quad(t_abo abo, int pivot[4])
 {
 	int		ra;
@@ -366,4 +495,30 @@ int	shortest_rot_a_quad(t_abo abo, int pivot[4])
 		}
 	}
 	return (1);
+}
+
+t_stk	*nx(t_stk *h)
+{
+	h = h->nx;
+	if (!h)
+		h = stack_head(h);
+	return (h);
+}
+
+t_stk	*pv(t_stk *h)
+{
+	h = h->pv;
+	if (!h)
+		h = stack_tail(h);
+	return (h);
+}
+
+t_stk	*nx_in_quad_pivot(t_stk *ref, int pivot[4])
+{
+	t_stk	*h;
+
+	h = nx(ref);
+	while (!(is_in_quad(h->val, pivot)))
+		h = nx(h);
+	return (h);
 }

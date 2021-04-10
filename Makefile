@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/08 14:22:20 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/09 23:09:11 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	5 3 4 1 2
+ARGS_X		=	1 4 2 5 3
 ARGS_Y		=	$(shell cat txt)
 ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
