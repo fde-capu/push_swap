@@ -6,21 +6,21 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 11:55:36 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 16:10:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/12 14:18:38 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	deb_bol_(int i)
+int	deb_bol_(int i)
 {
 	if (DEBUG != 1)
-		return ;
+		return (i);
 	if (i)
 		ft_print_stdout("Yes.\n");
 	else
 		ft_print_stdout("No.\n");
-	return ;
+	return (i);
 }
 
 void	deb_(char *s)
@@ -66,5 +66,15 @@ void	deb2(char *s)
 {
 	if (DEBUG)
 		ft_print_stdout((const char *)s);
+	return ;
+}
+
+void	deb_op_(t_abo abo, char *x)
+{
+	if (!DEBUG)
+		return ;
+	*abo.o = ft_strcatxl(*abo.o, x);
+	deb_("op: ");
+	deb_(x);
 	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/10 16:44:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:21:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,6 +363,32 @@ void	deb_abo(t_abo abo)
 	return ;
 }
 
+int	piv_higher(t_stk *cell, int pivot[4])
+{
+	if (!cell)
+		return (1);
+	deb_int_(cell->val);
+	deb_(":");
+	deb_quad_pivot(pivot);
+	deb_("HIGH? ");
+	if (cell && is_in_range(cell->val, pivot[2], pivot[3]))
+		return (deb_bol_(1));
+	return (deb_bol_(0));
+}
+
+int	piv_lower(t_stk *cell, int pivot[4])
+{
+	if (!cell)
+		return (1);
+	deb_int_(cell->val);
+	deb_(":");
+	deb_quad_pivot(pivot);
+	deb_("LOW? ");
+	if (cell && is_in_range(cell->val, pivot[0], pivot[1]))
+		return (deb_bol_(1));
+	return (deb_bol_(0));
+}
+
 int	quad_partition(t_abo abo, int pivot[4])
 {
 	static int		c = 0;
@@ -427,9 +453,25 @@ int	master_rewind(t_abo abo)
 //		if (shortest_b_btoa(abo))
 //			spot(abo, "pa");
 //		else
-			shortest_a_btoa(abo);
+
+//		if (shortest_a_btoa(abo))
+//		{
+//			spot(abo, "pa");
+//			if (c++ % 2 == 1)
+//				bubble(abo);
+//		}
+//		else
+//		{
+//			opportunistic_flush_b(abo);
+//			flush_a(abo);
+//		}
+
+opportunistic_flush_b(abo);
+if (shortest_a_btoa(abo))
+	exec(abo, "pa");
+
+//		static int deb = 0; if (deb++ == 70) exit (0);
 //		while (shortest_a_btoa(abo))
-exec(abo, "pa");
 //			spot(abo, "pa");
 	}
 	flush_a(abo);
@@ -440,26 +482,59 @@ exec(abo, "pa");
 
 int	simple_partition(t_abo abo, int pivot[4])
 {
-	t_stk	*hodlr;
+	static t_stk	*hodlr;
+	static int		hold;
 
-	hodlr = 0;
+	top_b(abo, hodlr);
+	hold = 0;
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
 		full_rot_a_quad(abo, pivot);
 //		shortest_rot_a_quad(abo, pivot);
-		if (*abo.b && stack_size(*abo.a) > stack_size(*abo.b))
+//		if (*abo.b && stack_size(*abo.a) > stack_size(*abo.b) * 2)
+		if (stack_size(*abo.b) < stack_size(*abo.a) * 4 / 3)
 		{
-			top_b(abo, hodlr);
+			shortest_rotation_b_receive(abo);
 			exec(abo, "pb");
-			if (is_in_range((*abo.b)->val, pivot[2], pivot[3]))
-				hodlr = *abo.b;
 		}
 		else
 		{
 			moderate_shortest_rotation_b_receive(abo);
+			if (piv_lower(*abo.a, pivot))
+			{
+				hold = 1;
+			}
+			if (piv_higher(*abo.a, pivot))
+			{
+				if (hodlr)
+					deb_int_(hodlr->val);
+				if (hold == 1 && hodlr)
+				{
+//					deb_op_(abo, " -B- ");
+					deb_int_(hodlr->val);
+					top_b(abo, hodlr);
+				}
+			}
 			exec(abo, "pb");
+//			if (c++ % 2 == 1)
+//				bubble(abo);
+			if (piv_higher(*abo.b, pivot))
+			{
+				hodlr = *abo.b;
+				deb_(*abo.o);
+				NL
+				deb_quad_pivot(pivot);
+//				deb_op_(abo, " -S- ");
+				if (hodlr)
+					deb_int_(hodlr->val);
+				hold = 0;
+			}
+			deb_("hold");
+			deb_int_(hold);
 		}
 	}
+	deb_("session finished.\n");
+//	deb_op_(abo, " -F- ");
 	return (1);
 }
 
@@ -475,10 +550,9 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 	abo = make_abo(a, b, o);
 	gen_pivot_soft_quad_sand(*a, pivot, soft_slice(abo));
 //	gen_pivot_quad_sandwich(*a, pivot, soft_slice(abo));
-//	deb_quad_pivot(pivot);
 //	gen_pivot_quad_outside_in(*a, pivot, auto_slice(abo));
-//	deb_quad_pivot(pivot);
 //	gen_pivot_quad_ref(*a, pivot, soft_slice(abo));
+//	deb_quad_pivot(pivot);
 	deb_quad_pivot(pivot);
 	if (flush_final(abo))
 		return (1);
@@ -491,10 +565,12 @@ int		push_swap_sort(t_stk **a, t_stk **b, char **o)
 				break ;
 		simple_partition(abo, pivot);
 //		quad_partition(abo, pivot);
+		static int deb = 0; if (++deb > 30) exit (0);
 		if (stack_size(*abo.a) > 2)
 			return (push_swap_sort(a, b, o));
 		else
 			return (master_rewind(abo));
+//			return (combo_rewind(abo));
 	}
 	return (1);
 }

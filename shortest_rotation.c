@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:56:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/10 03:43:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/12 17:20:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -284,14 +284,6 @@ int	is_in_quad(int x, int pivot[4])
 	return (0);
 }
 
-void	deb_op_(t_abo abo, char *x)
-{
-	if (!DEBUG)
-		return ;
-	*abo.o = ft_strcatxl(*abo.o, x);
-	return ;
-}
-
 int	min(int a, int b)
 {
 	if (a <= b)
@@ -396,12 +388,18 @@ int	shortest_b_btoa(t_abo abo)
 	if (op > 0)
 	{
 		while (op-- > 0)
+		{
 			exec(abo, "rb");
+			op -= spot(abo, "pa");
+		}
 	}
 	else
 	{
 		while (op++ < 0)
+		{
 			exec(abo, "rrb");
+			spot(abo, "pa");
+		}
 	}
 	return (spot_dn(abo));
 }
@@ -412,39 +410,33 @@ int	shortest_a_btoa(t_abo abo)
 	int	r;
 	int	l;
 	int	op;
-	static	int	tol = -1;
 
 	deb_("shortest_a_btoa\n");
-	if (tol == -1)
-		tol = stack_size(*abo.b) / 10;
-	if (tol <= 0)
-		tol = 1;
 	n = count_natural_a_receive(abo);
 	r = count_reverse_a_receive(abo);
 	l = count_lasts_rb(abo);
 	op = rot_solve(n, r, l);
-	if (op < 0 && op * -1 > tol)
-	{
-		tol++;
-		return (0);
-	}
-	if (op > 0 && op > tol)
-	{
-		tol++;
-		return (0);
-	}
 	if (op > 0)
 	{
 		while (op-- > 0)
+		{
 			exec(abo, "ra");
+			if(spot(abo, "pa"))
+				return (0);
+		}
+		return (1);
 	}
-	else
+	if (op < 0)
 	{
 		while (op++ < 0)
+		{
 			exec(abo, "rra");
+			if (spot(abo, "pa"))
+				return (0);
+		}
+		return (1);
 	}
-	tol = -1;
-	return (1);
+	return (-1);
 }
 
 int	full_rot_a_quad(t_abo abo, int pivot[4])

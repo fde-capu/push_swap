@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/10 03:43:47 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/12 10:38:10 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,7 @@ int	is_in_quad(int x, int pivot[4]);
 int	full_rot_a_quad(t_abo abo, int pivot[4]);
 void	deb_abo(t_abo abo);
 int	shortest_b_btoa(t_abo abo);
+int	master_rewind(t_abo abo);
+void	deb_op_(t_abo abo, char *x);
 
 #endif
