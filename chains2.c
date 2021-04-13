@@ -6,11 +6,19 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 08:57:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:26:08 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:15:51 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+int		full_rot_a_quad(t_abo abo, int pivot[4])
+{
+	deb_("full_rot_a_quad\n");
+	while (!(is_in_quad((*abo.a)->val, pivot)))
+		exec(abo, "ra");
+	return (1);
+}
 
 int		soft_slice(t_abo abo)
 {

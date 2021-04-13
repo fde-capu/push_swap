@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 14:27:48 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:28:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ t_stk	*stack_clone(t_stk *s)
 	arg_str = ft_str("");
 	while (s)
 	{
-		arg_str = ft_strcatxx(arg_str, ft_itoa(s->val)); 
+		arg_str = ft_strcatxx(arg_str, ft_itoa(s->val));
 		if (s->nx)
 			arg_str = ft_strcatxl(arg_str, ",");
 		s = s->nx;
 	}
 	o = stack_init(arg_str);
-	free (arg_str);
+	free(arg_str);
 	return (o);
 }
 
@@ -65,12 +65,12 @@ t_stk	*stack_nclone(t_stk *s, int n)
 	arg_str = ft_str("");
 	while (s && n--)
 	{
-		arg_str = ft_strcatxx(arg_str, ft_itoa(s->val)); 
+		arg_str = ft_strcatxx(arg_str, ft_itoa(s->val));
 		if (s->nx)
 			arg_str = ft_strcatxl(arg_str, ",");
 		s = s->nx;
 	}
 	o = stack_init(arg_str);
-	free (arg_str);
+	free(arg_str);
 	return (o);
 }

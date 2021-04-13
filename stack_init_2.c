@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/12 10:41:39 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/18 09:58:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:29:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,6 @@ t_stk	*stack_init(char *stk_str)
 	argc = ft_strlen2d(argv);
 	out = init_stack_from_args(argc, argv);
 	ft_strfree2d(argv);
-	free (stk_str);
+	free(stk_str);
 	return (out);
 }

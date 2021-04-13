@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:39:34 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:03:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**gen_red(void)
 {
 	char	**red;
 	char	*b;
-	
+
 	b = ft_str("ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|");
 	b = ft_strcatxl(b, "sb,pa,rb>rb,pa|rrr,rb>ra|rrr,ra>rb|");
 	b = ft_strcatxl(b, "ra,sa,rb>rr,sa|rb,sb,ra>rr,sb|ra,rr*,rb|rb,rr*,ra|");

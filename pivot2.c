@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:00:49 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:05:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 17:32:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,30 @@ t_stk	*filter_le(t_stk *s, int control)
 	}
 	destroy_stack(xa);
 	return (xb);
+}
+
+int		piv_higher(t_stk *cell, int pivot[4])
+{
+	if (!cell)
+		return (1);
+	deb_int_(cell->val);
+	deb_(":");
+	deb_quad_pivot(pivot);
+	deb_("HIGH? ");
+	if (cell && is_in_range(cell->val, pivot[2], pivot[3]))
+		return (deb_bol_(1));
+	return (deb_bol_(0));
+}
+
+int		piv_lower(t_stk *cell, int pivot[4])
+{
+	if (!cell)
+		return (1);
+	deb_int_(cell->val);
+	deb_(":");
+	deb_quad_pivot(pivot);
+	deb_("LOW? ");
+	if (cell && is_in_range(cell->val, pivot[0], pivot[1]))
+		return (deb_bol_(1));
+	return (deb_bol_(0));
 }
