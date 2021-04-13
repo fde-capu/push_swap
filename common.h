@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/12 14:19:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:54:50 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include "defs.h"
 # include "get_next_line_bonus.h"
 
-
-#include <stdio.h>
-
-int	identxl(char *a, char *b);
-int	ident(char *a, char *b);
+int			identxl(char *a, char *b);
+int			ident(char *a, char *b);
 long long	ft_atoi(const char *str);
 long long	ft_atol(const char *str);
 int			ft_isdigit(int c);
@@ -49,7 +46,7 @@ void		rgx_maybe_free(char *blk, int fun);
 int			ft_insp_count(char *h, char x);
 int			rgx_function_n(char *rh);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
-int			ft_strbegins(const char *str, const char *beg);
+int			ft_strbegins(char *str, char *beg);
 int			ft_strbeginsxl(char *str, char *beg);
 char		*ft_inside(char *h);
 void		rgx_set_rep(int *mm, char *mod);
@@ -112,15 +109,14 @@ t_stk		*stack_clone(t_stk *s);
 void		strategy_destroy(t_ttg *k);
 void		op_run_str(char *o, t_stk **a, t_stk **b);
 int			estas_finita(t_stk *a, t_stk *b);
-void	ft_print_int(int i);
+void		ft_print_int(int i);
 t_stk		*min_cell(t_stk *ss);
 t_stk		*max_cell(t_stk *ss);
-long			max_val(t_stk *ss);
+long		max_val(t_stk *ss);
 int			in_order(t_stk *s);
 int			in_reverse(t_stk *s);
-int	deb_bol_(int i);
-void	deb2(char *s);
-void	deb_(char *s);
-void	deb_int_(int i);
+int			deb_bol_(int i);
+void		deb_(char *s);
+void		deb_int_(int i);
 
 #endif

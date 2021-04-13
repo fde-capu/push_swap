@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:06:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 09:37:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:57:06 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int			min_val(t_stk *ss)
 	return (control);
 }
 
-long			max_val(t_stk *ss)
+long		max_val(t_stk *ss)
 {
 	int		control;
 	t_stk	*s;

@@ -6,13 +6,13 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/12 09:07:49 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/13 16:18:06 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEBUG		=	1
+DEBUG		=	0
 SHELL		=	/bin/sh
-ARGS_A_PRE	=	echo "sa\nsa\n" |
+ARGS_A_PRE	=	echo -e "sa\nrra" |
 ARGS_A		=	2 1 0
 ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
@@ -24,9 +24,7 @@ ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
 NAME_B		=	push_swap
 SRCS_A		=	checker.c ops_check.c
-SRCS_B		=	push_swap.c ps_strategy.c \
-	generic_stack_ops.c chains.c bubble.c pivot.c \
-	shortest_rotation.c position.c chains2.c
+SRCS_B		=	push_swap.c
 HEADS_A		=	checker.h
 HEADS_B		=	push_swap.h
 SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
@@ -39,7 +37,12 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	stack_logs.c ft_stridentical.c ops_s.c ops_p.c \
 	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
 	get_next_line_utils_bonus.c stack_init_2.c \
-	order_check.c get_cell.c deb.c neighbor.c redundancies.c
+	order_check.c get_cell.c deb.c neighbor.c redundancies.c \
+	navigation.c utils.c command_string_ops.c count.c \
+	position.c chains2.c ps_strategy.c deb2.c \
+	generic_stack_ops.c chains.c bubble.c pivot.c \
+	shortest_rotation.c count2.c pivot2.c stack_gen.c \
+	cell.c spot.c calc.c redundancies2.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g -D DEBUG=$(DEBUG)
@@ -152,6 +155,8 @@ tbd:	$(NAME_B)
 	ARGS="$(ARGS_D)" && ./$(NAME_B) $$ARGS
 vbd:	$(NAME_B)
 	ARGS="$(ARGS_D)" && $(VALGRIND) ./$(NAME_B) $$ARGS
+vfbd:	$(NAME_B)
+	ARGS="$(ARGS_D)" && $(VALGRIND) $(VALGFLAGS) ./$(NAME_B) $$ARGS
 tbe:	$(NAME_B)
 	ARGS="$(ARGS_E)" && ./$(NAME_B) $$ARGS
 vbe:	$(NAME_B)

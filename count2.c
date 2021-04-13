@@ -1,30 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_strategy.c                                      :+:      :+:    :+:   */
+/*   count2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 14:49:38 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:10:27 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/04/13 14:35:31 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/04/13 14:36:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	strategy_destroy(t_ttg *k)
+int		count_natural_b_give(t_abo abo)
 {
-	free(k->formula);
-	destroy_stack(k->a);
-	destroy_stack(k->b);
-	free(k);
-	return ;
-}
-
-int		count_instructions_in_str(char *str)
-{
-	if (!*str)
-		return (0);
-	next_command(&str);
-	return (1 + count_instructions_in_str(str));
+	return (calc_top_b(abo, b_before_a(abo)));
 }

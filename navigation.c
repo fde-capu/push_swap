@@ -1,46 +1,46 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   navigation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:56:12 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/04/13 12:42:46 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/04/13 14:57:41 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "common.h"
+#include "push_swap.h"
 
-void	ft_print_stdout(const char *str)
+void	rot_b_pb(t_abo abo)
 {
-	write(1, str, ft_strlen(str));
+	shortest_rotation_b_receive(abo);
+	exec(abo, "pb");
 	return ;
 }
 
-void	ft_print_x(char *str)
+t_stk	*nx(t_stk *h)
 {
-	ft_print_stdout((const char *)str);
-	free(str);
-	return ;
+	h = h->nx;
+	if (!h)
+		h = stack_head(h);
+	return (h);
 }
 
-void	ft_print_int(int i)
+t_stk	*pv(t_stk *h)
 {
-	ft_print_x(ft_itoa(i));
-	return ;
+	h = h->pv;
+	if (!h)
+		h = stack_tail(h);
+	return (h);
 }
 
-void	str_replace_chr_chr(char **str, char this, char to_this)
+t_stk	*nx_in_quad_pivot(t_stk *ref, int pivot[4])
 {
-	char	*h;
+	t_stk	*h;
 
-	h = *str;
-	while (*h)
-	{
-		if (*h == this)
-			*h = to_this;
-		h++;
-	}
-	return ;
+	h = nx(ref);
+	while (!(is_in_quad(h->val, pivot)))
+		h = nx(h);
+	return (h);
 }

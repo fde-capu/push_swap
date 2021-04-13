@@ -6,72 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/07 07:23:53 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:13:19 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	s_1_(t_abo loc)
-{
-	while (stack_size(*loc.b))
-	{
-		flush_b(loc);
-		shortest_rotation_a_receive(loc);
-		exec(loc, "pa");
-	}
-	return ;
-}
-
-void	s_2_(t_abo loc)
-{
-	while (stack_size(*loc.b))
-	{
-		shortest_rotation_a_receive(loc);
-		exec(loc, "pa");
-	}
-	return ;
-}
-
-void	s_3_(t_abo loc)
-{
-	while (stack_size(*loc.b))
-	{
-		flush_b(loc);
-		shortest_rotation_a_receive(loc);
-		exec(loc, "pa");
-		bubble(loc);
-	}
-	return ;
-}
-
-void	s_4_(t_abo loc)
-{
-	while (stack_size(*loc.b))
-	{
-		shortest_rotation_a_receive(loc);
-		exec(loc, "pa");
-		bubble(loc);
-	}
-	return ;
-}
-
-void	s_5_(t_abo loc)
-{
-	t_stk	*hold_a;
-	t_stk	*hold_b;
-
-	hold_a = *loc.a;
-	hold_b = *loc.b;
-	while ((*loc.a)->nx != hold_a && (*loc.b)->nx != hold_b)
-	{
-		exec (loc, "ra");
-//		if (perfect_spot(loc))
-//			return ;
-	}
-	s_1_(loc);
-	return ;
-}
 
 t_ttg	**init_ps_strategy(t_ttg **k)
 {
@@ -90,38 +29,12 @@ char	*gen_push_swap(t_stk **a, t_stk **b)
 	return (o);
 }
 
-void	give_it_to_stdout(t_ttg *s)
-{
-	char	*h;
-
-	if (DEBUG)
-	{
-		deb_int_(s->result);
-		return ;
-	}
-	if (!(s->formula))
-		return ;
-	h = s->formula;
-	while (*h)
-	{
-		if (*h == ',')
-			write(1, "\n", 1);
-		else
-			write(1, h, 1);
-		h++;
-	}
-	if (h != s->formula)
-		write(1, "\n", 1);
-	return ;
-}
-
-
 /*
 ** k->function leads here:
 ** push_swap_sort resides in chains.c.
 */
 
-void			chain_push_swap(t_stk **a, t_stk **b, char **o)
+void	chain_push_swap(t_stk **a, t_stk **b, char **o)
 {
 	push_swap_sort(a, b, o);
 	return ;
@@ -137,7 +50,7 @@ void	solve_push_swap(t_ttg *k, t_stk *a)
 	return ;
 }
 
-int			main(int argc, char **argv)
+int		main(int argc, char **argv)
 {
 	t_stk	*stack_a;
 	t_stk	*stack_b;
@@ -164,19 +77,4 @@ int			main(int argc, char **argv)
 		if (argc != 1)
 			exit(error_out());
 	}
-	exit(0);
-}
-
-int		ouch(t_stk **a, t_stk **b, char **o, char *op)
-{
-	*o = ft_strcatxl(*o, ",");
-	*o = ft_strcatxl(*o, op);
-	op_run_str(op, a, b);
-	if (DEBUG == 1)
-	{
-		ft_print_stdout(op);
-		ft_print_stdout(":\n");
-		stack_double_log(*a, *b);
-	}
-	return (1);
 }

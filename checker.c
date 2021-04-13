@@ -6,28 +6,35 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/23 19:42:25 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 16:13:42 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
+int			call_error(char **ops, int out)
 {
-	destroy_stack(stack_a);
-	destroy_stack(stack_b);
 	if (out == ER)
 	{
 		error_out();
-		ft_strfree2d(ops);
+		if (ops)
+			ft_strfree2d(ops);
 		return (-1);
 	}
 	if (out == KO)
 	{
 		ft_print_stdout("KO\n");
-		ft_strfree2d(ops);
+		if (ops)
+			ft_strfree2d(ops);
 		return (0);
 	}
+	return (-2);
+}
+
+int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
+{
+	destroy_stack(stack_a);
+	destroy_stack(stack_b);
 	if (out == OK)
 	{
 		ft_print_stdout("OK\nMoves: ");
@@ -40,6 +47,8 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 			ft_print_stdout("none.");
 		ft_print_stdout("\n");
 	}
+	else
+		return (call_error(ops, out));
 	return (0);
 }
 

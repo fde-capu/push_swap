@@ -1,46 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_print.c                                         :+:      :+:    :+:   */
+/*   deb2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:56:12 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/04/13 15:02:57 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/04/13 15:03:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-void	ft_print_stdout(const char *str)
+void	deb_quad_pivot(int pivot[4])
 {
-	write(1, str, ft_strlen(str));
-	return ;
-}
-
-void	ft_print_x(char *str)
-{
-	ft_print_stdout((const char *)str);
-	free(str);
-	return ;
-}
-
-void	ft_print_int(int i)
-{
-	ft_print_x(ft_itoa(i));
-	return ;
-}
-
-void	str_replace_chr_chr(char **str, char this, char to_this)
-{
-	char	*h;
-
-	h = *str;
-	while (*h)
-	{
-		if (*h == this)
-			*h = to_this;
-		h++;
-	}
+	deb_("pivot:");
+	deb_int_(pivot[0]);
+	deb_int_(pivot[1]);
+	deb_int_(pivot[2]);
+	deb_int_(pivot[3]);
 	return ;
 }

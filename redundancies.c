@@ -6,104 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/30 10:06:54 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:39:34 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	next_command(char **h)
-{
-	if ((!**h) || !*h || !h)
-		return ;
-	while (**h)
-	{
-		if (**h == ',')
-		{
-			(*h)++;
-			break ;
-		}
-		(*h)++;
-	}
-	return ;
-}
-
-char	**strip_sub_code(char *sub_code)
-{
-	char	**code;
-
-	code = ft_split(sub_code, ',');
-	*(code[1] + (ft_strlen(code[1]) - 1)) = 0;
-	return (code);
-}
-
-int	remove_str(char **str, char *rem)
-{
-	char	*h;
-	int		out;
-
-	out = 0;
-	h = *str;
-	while (*h)
-	{
-		if (ft_strbegins(h, rem))
-		{
-			*h = 0;
-			if (*(h + ft_strlen(rem)))
-			{
-				h += ft_strlen(rem) + 1;
-				*str = ft_strcatxl(*str, h);
-			}
-			h = *str;
-			out++;
-			deb_(rem);
-			deb_("|");
-		}
-		next_command(&h);
-	}
-	return (out);
-}
-
-int	check_nested(char *h, char *sub_code, char **end)
-{
-	char	**code;
-	int		c_up;
-	int		c_mid;
-	int		c_dn;
-
-	code = strip_sub_code(sub_code);
-	c_up = 0;
-	c_mid = 0;
-	c_dn = 0;
-	while (ft_strbegins(h, code[0]))
-	{
-		next_command(&h);
-		c_up++;
-	}
-	if (!c_up)
-	{
-		ft_strfree2d(code);
-		return (0);
-	}
-	while (ft_strbegins(h, code[1]))
-	{
-		next_command(&h);
-		c_mid++;
-	}
-	while (ft_strbegins(h, code[2]) && c_up > c_dn)
-	{
-		next_command(&h);
-		c_dn++;
-	}
-	if (!c_dn || c_up > c_dn)
-	{
-		ft_strfree2d(code);
-		return (0);
-	}
-	*end = h;
-	ft_strfree2d(code);
-	return (c_mid + c_up);
-}
 
 char	*gen_repetition(char *sub_code, int rep_count)
 {
@@ -124,7 +31,7 @@ char	*gen_repetition(char *sub_code, int rep_count)
 	return (out);
 }
 
-int	recursive_redundancy(char **str, char *sub_code)
+int		recursive_redundancy(char **str, char *sub_code)
 {
 	int		rep_count;
 	char	*out;
@@ -153,15 +60,13 @@ int	recursive_redundancy(char **str, char *sub_code)
 	return (0);
 }
 
-int	substitute_redundancy(char **str, char *sub_code)
+void	substitute_redundancy(char **str, char *sub_code)
 {
 	char	*h;
 	char	*cue;
 	char	**sub;
 	char	*final_part;
-	int		out;
 
-	out = 0;
 	sub = ft_split(sub_code, '>');
 	h = *str;
 	while (1)
@@ -170,96 +75,57 @@ int	substitute_redundancy(char **str, char *sub_code)
 			break ;
 		if (ft_strbegins(h, sub[0]))
 		{
-			deb_(sub_code);
-			deb_("|");
 			cue = h + ft_strlen(sub[0]);
 			final_part = ft_strcat(sub[1], cue);
 			*h = 0;
 			*str = ft_strcatxx(*str, final_part);
 			h = *str;
-			out++;
 		}
 		next_command(&h);
 	}
 	ft_strfree2d(sub);
-	return (out);
-}
-
-void	treat_loc_redundancies(t_abo loc[TEST_NUM])
-{
-	int	i;
-
-	i = -1;
-	while (++i < TEST_NUM)
-	{
-		treat_str_redundancies(loc[i].o);
-		*loc[i].o = ft_x(*loc[i].o, ft_strtrim(*loc[i].o, ","));
-	}
 	return ;
 }
 
-int		treat_str_redundancies(char **str)
+char	**gen_red(void)
 {
 	char	**red;
-	int		i;
-	int		count;
-
-	deb_("treat_str_redundancies:\n");
-	deb_(*str);
-	deb_("\n> ");
-	count = 0;
-	red = ft_split(REDUNDANCIES, '|');
-	i = ft_strlen2d(red);
-	while (i--)
-	{
-		if (ft_strstr(">", red[i]))
-		{
-			count += substitute_redundancy(str, red[i]);
-			continue ;
-		}
-		if (ft_strstr("*", red[i]))
-		{
-			count += recursive_redundancy(str, red[i]);
-			continue ;
-		}
-		count += remove_str(str, red[i]);
-	}
-	ft_strfree2d(red);
-	deb_("\n");
-	deb_(*str);
-	deb_("\n");
-	return (count);
+	char	*b;
+	
+	b = ft_str("ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|");
+	b = ft_strcatxl(b, "sb,pa,rb>rb,pa|rrr,rb>ra|rrr,ra>rb|");
+	b = ft_strcatxl(b, "ra,sa,rb>rr,sa|rb,sb,ra>rr,sb|ra,rr*,rb|rb,rr*,ra|");
+	b = ft_strcatxl(b, "rra,rrr*,rrb|rrb,rrr*,rra|ra,pb,rra,pa>sa|");
+	b = ft_strcatxl(b, "rb,pa,rrb,pb>sb|sa,sb>ss|sb,sa>ss|");
+	b = ft_strcatxl(b, "sa,pb,sa,pb>ra,pb,pb,rra|sb,pa,sb,pa>rb,pa,pa,rrb|");
+	b = ft_strcatxl(b, "pb,ra,pa>sa,ra|pa,rb,pb>sb,rb|sa,ra,pb>pb,ra|");
+	b = ft_strcatxl(b, "sb,rb,pa>pa,rb");
+	red = ft_split(b, '|');
+	free(b);
+	return (red);
 }
 
-int		treat_redundancies(t_ttg *strat)
+void	treat_redundancies(t_ttg *strat)
 {
 	char	**red;
 	int		i;
-	int		count;
 
-	deb_("treat_redundancies:\n\n");
-	deb_(strat->formula);
-	deb_("\n\n");
-	count = 0;
-	red = ft_split(REDUNDANCIES, '|');
+	red = gen_red();
 	i = ft_strlen2d(red);
 	while (i--)
 	{
 		if (ft_strstr(">", red[i]))
 		{
-			count += substitute_redundancy(&strat->formula, red[i]);
+			substitute_redundancy(&strat->formula, red[i]);
 			continue ;
 		}
 		if (ft_strstr("*", red[i]))
 		{
-			count += recursive_redundancy(&strat->formula, red[i]);
+			recursive_redundancy(&strat->formula, red[i]);
 			continue ;
 		}
-		count += remove_str(&strat->formula, red[i]);
+		remove_str(&strat->formula, red[i]);
 	}
 	ft_strfree2d(red);
-	deb_("\n\n");
-	deb_(strat->formula);
-	deb_("\n\n");
-	return (count);
+	return ;
 }

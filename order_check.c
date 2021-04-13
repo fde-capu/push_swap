@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:57:06 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/26 08:04:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:58:55 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			in_reverse(t_stk *s)
 	return (1);
 }
 
-int				in_order_out_of_rot(t_stk *a)
+int			in_order_out_of_rot(t_stk *a)
 {
 	int		loop;
 	t_stk	*h;
@@ -82,7 +82,7 @@ int				in_order_out_of_rot(t_stk *a)
 	return (1);
 }
 
-int				in_reverse_out_of_rot(t_stk *a)
+int			in_reverse_out_of_rot(t_stk *a)
 {
 	int		loop;
 	t_stk	*h;
