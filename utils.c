@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:44:21 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 17:32:59 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 11:58:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,4 @@ int		min(int a, int b)
 	if (a <= b)
 		return (a);
 	return (b);
-}
-
-int		any_in_quad_pivot(t_abo abo, int pivot[4])
-{
-	t_stk	*h;
-
-	h = *abo.a;
-	while (h)
-	{
-		if (h->val >= pivot[0] && h->val <= pivot[1])
-			return (1);
-		if (h->val >= pivot[2] && h->val <= pivot[3])
-			return (1);
-		h = h->nx;
-	}
-	return (0);
 }

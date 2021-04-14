@@ -6,32 +6,11 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 13:32:02 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 13:23:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:24:01 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
-
-void	stack_log(t_stk *ref_stk)
-{
-	char	*str;
-	int		something;
-	t_stk	*stk;
-
-	stk = ref_stk;
-	something = 0;
-	while (stk)
-	{
-		str = ft_strcatxl(ft_itoa(stk->val), "\n");
-		ft_print_stdout(str);
-		free(str);
-		something = 1;
-		stk = stk->nx;
-	}
-	if (!something)
-		ft_print_stdout("(empty)\n");
-	return ;
-}
 
 char	*stack_double_log_level(t_stk *a, t_stk *b)
 {

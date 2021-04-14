@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 02:13:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:23:29 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char		*ft_check(const char *sh, char *rh);
 char		**ft_insplit(const char *str, char x);
 void		ft_strfree2d(char **str);
 int			strict_atoi(int *i_from_a, const char *argv);
-int			strict_char_set(const char *str, const char *set);
 int			validate_args(int argc, char **argv);
 void		*ft_calloc(size_t count, size_t size);
 void		ft_bzero(void *s, size_t n);
@@ -61,7 +60,6 @@ char		*ft_substr(char const *s, unsigned int start, size_t len);
 int			error_out(void);
 t_stk		*init_stack_from_args(int argc, char **argv);
 t_stk		*stack_init(char *stk_str);
-void		stack_log(t_stk *stk);
 void		destroy_stack(t_stk *stk);
 char		*ft_itoa(int n);
 char		*ft_strcat(const char *dst, const char *src);
@@ -114,8 +112,6 @@ t_stk		*min_cell(t_stk *ss);
 t_stk		*max_cell(t_stk *ss);
 long		max_val(t_stk *ss);
 int			in_order(t_stk *s);
-int			in_reverse(t_stk *s);
-int			deb_bol_(int i);
 void		deb_(char *s);
 void		deb_int_(int i);
 

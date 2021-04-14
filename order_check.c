@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:57:06 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:58:55 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:22:14 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,24 +36,6 @@ int			in_order(t_stk *s)
 		if (s->val < control)
 			return (0);
 		if (s->val > control)
-			control = s->val;
-		s = s->nx;
-	}
-	return (1);
-}
-
-int			in_reverse(t_stk *s)
-{
-	int		control;
-
-	if ((!s) || (stack_size(s) == 1))
-		return (1);
-	control = s->val;
-	while (s)
-	{
-		if (s->val > control)
-			return (0);
-		if (s->val < control)
 			control = s->val;
 		s = s->nx;
 	}

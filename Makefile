@@ -6,7 +6,7 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/14 02:50:19 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/14 13:26:11 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,11 +38,11 @@ SRCS_COMMON	=	args.c ft_atoi.c ft_isdigit.c ft_strtrim.c \
 	ops_r.c ops_rr.c ft_atol.c get_next_line_bonus.c \
 	get_next_line_utils_bonus.c stack_init_2.c \
 	order_check.c get_cell.c deb.c neighbor.c redundancies.c \
-	navigation.c utils.c command_string_ops.c count.c \
-	position.c chains2.c ps_strategy.c deb2.c \
-	generic_stack_ops.c chains.c bubble.c pivot.c \
+	navigation.c utils.c command_string_ops.c \
+	position.c chains2.c ps_strategy.c \
+	generic_stack_ops.c chains.c bubble.c \
 	shortest_rotation.c count2.c pivot2.c stack_gen.c \
-	cell.c spot.c calc.c redundancies2.c shortest_rotation2.c
+	cell.c calc.c redundancies2.c shortest_rotation2.c
 HEAD_COMMON	=	common.h defs.h get_next_line_bonus.h
 CC			=	clang
 CCFLAGS		=	-Wall -Werror -Wextra -g -D DEBUG=$(DEBUG)

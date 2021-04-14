@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 13:39:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:27:12 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,6 @@ int				bubble(t_abo abo)
 	if (ob)
 	{
 		exec(abo, "sb");
-		return (1);
-	}
-	return (0);
-}
-
-int				super_bubble(t_abo abo)
-{
-	int		oa;
-	int		ob;
-
-	deb_("super_Bubble: ");
-	oa = may_bubble(*abo.a, ASCE);
-	ob = may_bubble(*abo.b, DESC);
-	if (oa && ob)
-	{
-		exec(abo, "ss");
 		return (1);
 	}
 	return (0);

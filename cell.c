@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:05:40 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:16:20 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:04:46 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,20 +42,4 @@ int		val_after(t_stk *s, int med)
 		h = h->nx;
 	}
 	return (ctl);
-}
-
-t_stk	*cell_val_after(t_stk *s, t_stk *h)
-{
-	int	c;
-
-	c = val_after(s, h->val);
-	return (cell_by_val(s, c));
-}
-
-t_stk	*cell_val_before(t_stk *s, t_stk *h)
-{
-	int	c;
-
-	c = val_before(s, h->val);
-	return (cell_by_val(s, c));
 }

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:52:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 17:01:04 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 13:06:24 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,4 @@ char	*prev_command(char **h, char *limit)
 		c++;
 	*h = c;
 	return (*h);
-}
-
-char	*last_command(t_abo abo)
-{
-	char	*h;
-
-	h = *abo.o + ft_strlen(*abo.o);
-	prev_command(&h, *abo.o);
-	deb_("last_command ");
-	deb_(h);
-	return (h);
 }
