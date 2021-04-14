@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 11:13:45 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:56:12 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:00:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,6 @@ void	ft_print_x(char *str)
 {
 	ft_print_stdout((const char *)str);
 	free(str);
-	return ;
-}
-
-void	ft_print_int(int i)
-{
-	ft_print_x(ft_itoa(i));
 	return ;
 }
 

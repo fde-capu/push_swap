@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:23:29 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:10:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include "defs.h"
 # include "get_next_line_bonus.h"
 
-int			identxl(char *a, char *b);
 int			ident(char *a, char *b);
 long long	ft_atoi(const char *str);
 long long	ft_atol(const char *str);
@@ -46,7 +45,6 @@ int			ft_insp_count(char *h, char x);
 int			rgx_function_n(char *rh);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			ft_strbegins(const char *str, const char *beg);
-int			ft_strbeginsxl(char *str, char *beg);
 char		*ft_inside(char *h);
 void		rgx_set_rep(int *mm, char *mod);
 char		*ft_inskip(char *h);
@@ -71,7 +69,6 @@ char		**ft_split(char const *s, char c);
 int			stack_size(t_stk *stk);
 void		stack_double_log(t_stk *a, t_stk *b);
 char		*ft_strdup(const char *str);
-char		*ft_strx(char *s1, char *s2);
 char		*ft_strnew(void);
 char		*ft_str(char *str);
 void		*ft_xlloc(void *arg1, void *arg2);
@@ -107,7 +104,6 @@ t_stk		*stack_clone(t_stk *s);
 void		strategy_destroy(t_ttg *k);
 void		op_run_str(char *o, t_stk **a, t_stk **b);
 int			estas_finita(t_stk *a, t_stk *b);
-void		ft_print_int(int i);
 t_stk		*min_cell(t_stk *ss);
 t_stk		*max_cell(t_stk *ss);
 long		max_val(t_stk *ss);
