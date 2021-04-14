@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:34:35 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 02:20:41 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "common.h"
 
-void	treat_redundancies(t_ttg *strat);
+int		treat_redundancies(t_ttg *strat);
 t_ttg	**init_ps_strategy(t_ttg **k);
 void	get_put_dump(t_stk **a, t_stk **b, char **o);
 int		count_instructions_in_str(char *str);
@@ -43,7 +43,7 @@ void	next_command(char **h);
 char	**strip_sub_code(char *sub_code);
 char	*gen_repetition(char *sub_code, int rep_count);
 int		recursive_redundancy(char **str, char *sub_code);
-void	substitute_redundancy(char **str, char *sub_code);
+int		substitute_redundancy(char **str, char *sub_code);
 int		remove_str(char **str, char *rem);
 void	solve_push_swap(t_ttg *k, t_stk *a);
 int		main(int argc, char **argv);
@@ -119,5 +119,9 @@ int		piv_higher(t_stk *cell, int pivot[4]);
 t_abo	make_abo(t_stk **a, t_stk **b, char **o);
 void	rot_b_pb(t_abo abo);
 int		soft_slice(t_abo abo);
+int		tricky_walk_a_atob(t_abo abo, int pivot);
+int		shortest_a_atob(t_abo abo, int pivot);
+t_stk	*pv(t_stk *h);
+t_stk	*nx(t_stk *h);
 
 #endif

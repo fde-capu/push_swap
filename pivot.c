@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:24:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:07:53 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/13 23:27:05 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	gen_pivot_soft_quad_sand(t_stk *s, int pivot[4], int slices)
 	int			mini_size;
 	int			med;
 
-	mini_size = size_by_slice(s, slices) / 2;
+	mini_size = size_by_slice(s, slices) / 2 * 4;
 	deb_("size:");
 	deb_int_(mini_size * 2);
 	med = -1;

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:26:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:31:02 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 02:34:02 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ int		free_str2d_and_return(char **str, int ret)
 	return (ret);
 }
 
-int		check_nested(char *h, char *sub_code, char **end)
+int	check_nested(char *h, char *sub_code, char **end)
 {
 	char	**code;
 	int		c_up;
@@ -65,17 +65,33 @@ int		check_nested(char *h, char *sub_code, char **end)
 	c_up = 0;
 	c_mid = 0;
 	c_dn = 0;
-	while (ft_strbegins(h, code[0]) && c_up++)
+	while (ft_strbegins(h, code[0]))
+	{
 		next_command(&h);
+		c_up++;
+	}
 	if (!c_up)
-		return (free_str2d_and_return(code, 0));
-	while (ft_strbegins(h, code[1]) && c_mid++)
+	{
+		ft_strfree2d(code);
+		return (0);
+	}
+	while (ft_strbegins(h, code[1]))
+	{
 		next_command(&h);
-	while (ft_strbegins(h, code[2]) && c_up > c_dn && c_dn++)
+		c_mid++;
+	}
+	while (ft_strbegins(h, code[2]) && c_up > c_dn)
+	{
 		next_command(&h);
+		c_dn++;
+	}
 	if (!c_dn || c_up > c_dn)
-		return (free_str2d_and_return(code, 0));
+	{
+		ft_strfree2d(code);
+		return (0);
+	}
 	*end = h;
 	ft_strfree2d(code);
 	return (c_mid + c_up);
 }
+

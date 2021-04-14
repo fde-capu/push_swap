@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:00:49 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 17:32:11 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 01:05:27 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,18 @@ t_stk	*filter_le(t_stk *s, int control)
 {
 	t_stk	*xa;
 	t_stk	*xb;
+
+	xa = stack_clone(s);
+	xb = init_stack_empty();
+	while (count_gt(xa, control))
+	{
+		if (xa->val > control)
+			op_run_str("pb", &xa, &xb);
+		else
+			op_run_str("ra", &xa, &xb);
+	}
+	destroy_stack(xb);
+	return (xa);
 
 	xa = stack_clone(s);
 	xb = init_stack_empty();

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:42:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:57:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 00:38:30 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,16 @@ void	rot_b_pb(t_abo abo)
 
 t_stk	*nx(t_stk *h)
 {
-	h = h->nx;
-	if (!h)
-		h = stack_head(h);
-	return (h);
+	if (h->nx)
+		return (h->nx);
+	return (stack_head(h));
 }
 
 t_stk	*pv(t_stk *h)
 {
-	h = h->pv;
-	if (!h)
-		h = stack_tail(h);
-	return (h);
+	if (h->pv)
+		return (h->pv);
+	return (stack_tail(h));
 }
 
 t_stk	*nx_in_quad_pivot(t_stk *ref, int pivot[4])

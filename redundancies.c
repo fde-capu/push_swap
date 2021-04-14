@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 17:03:57 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 02:20:53 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,15 @@ int		recursive_redundancy(char **str, char *sub_code)
 	return (0);
 }
 
-void	substitute_redundancy(char **str, char *sub_code)
+int 	substitute_redundancy(char **str, char *sub_code)
 {
 	char	*h;
 	char	*cue;
 	char	**sub;
 	char	*final_part;
+	int		out;
 
+	out = 0;
 	sub = ft_split(sub_code, '>');
 	h = *str;
 	while (1)
@@ -75,16 +77,19 @@ void	substitute_redundancy(char **str, char *sub_code)
 			break ;
 		if (ft_strbegins(h, sub[0]))
 		{
+			deb_(sub_code);
+			deb_("|");
 			cue = h + ft_strlen(sub[0]);
 			final_part = ft_strcat(sub[1], cue);
 			*h = 0;
 			*str = ft_strcatxx(*str, final_part);
 			h = *str;
+			out++;
 		}
 		next_command(&h);
 	}
 	ft_strfree2d(sub);
-	return ;
+	return (out);
 }
 
 char	**gen_red(void)
@@ -105,11 +110,48 @@ char	**gen_red(void)
 	return (red);
 }
 
-void	treat_redundancies(t_ttg *strat)
+int		treat_redundancies(t_ttg *strat)
+{
+	char	**red;
+	int		i;
+	int		count;
+
+	deb_("treat_redundancies:\n\n");
+	deb_(strat->formula);
+	deb_("\n\n");
+	count = 0;
+# define REDUNDANCIES	"ra,rra|rra,ra|rb,rrb|rrb,rb|pb,pa|pa,pb|sa,pb,ra>ra,pb|sb,pa,rb>rb,pa|rrr,rb>ra|rrr,ra>rb|ra,sa,rb>rr,sa|rb,sb,ra>rr,sb|ra,rr*,rb|rb,rr*,ra|rra,rrr*,rrb|rrb,rrr*,rra|ra,pb,rra,pa>sa|rb,pa,rrb,pb>sb|sa,sb>ss|sb,sa>ss"
+	red = ft_split(REDUNDANCIES, '|');
+	i = ft_strlen2d(red);
+	while (i--)
+	{
+		if (ft_strstr(">", red[i]))
+		{
+			count += substitute_redundancy(&strat->formula, red[i]);
+			continue ;
+		}
+		if (ft_strstr("*", red[i]))
+		{
+			count += recursive_redundancy(&strat->formula, red[i]);
+			continue ;
+		}
+		count += remove_str(&strat->formula, red[i]);
+	}
+	ft_strfree2d(red);
+	deb_("\n\n");
+	deb_(strat->formula);
+	deb_("\n\n");
+	return (count);
+}
+
+void	xtreat_redundancies(t_ttg *strat)
 {
 	char	**red;
 	int		i;
 
+	deb_("treat_redundancies:\n\n");
+	deb_(strat->formula);
+	deb_("\n\n");
 	red = gen_red();
 	i = ft_strlen2d(red);
 	while (i--)
@@ -127,5 +169,8 @@ void	treat_redundancies(t_ttg *strat)
 		remove_str(&strat->formula, red[i]);
 	}
 	ft_strfree2d(red);
+	deb_("\n\n");
+	deb_(strat->formula);
+	deb_("\n\n");
 	return ;
 }

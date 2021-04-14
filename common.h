@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 16:54:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 02:13:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void		rgx_maybe_free(char *blk, int fun);
 int			ft_insp_count(char *h, char x);
 int			rgx_function_n(char *rh);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
-int			ft_strbegins(char *str, char *beg);
+int			ft_strbegins(const char *str, const char *beg);
 int			ft_strbeginsxl(char *str, char *beg);
 char		*ft_inside(char *h);
 void		rgx_set_rep(int *mm, char *mod);

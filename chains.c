@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:23:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 01:44:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,24 @@ int			flush_final(t_abo abo)
 	return (0);
 }
 
+int				abo_combo_rewind(t_abo abo)
+{
+	deb_("abo Combo Rewind!\n");
+	while (stack_size(*abo.b) > 0)
+	{
+		bubble(abo);
+		top_a(abo, a_after_b(abo));
+		top_b(abo, max_cell(*abo.b));
+		ouch(abo.a, abo.b, abo.o, "pa");
+	}
+	flush_a(abo);
+	return (estas_finita(*abo.a, *abo.b));
+}
+
 int			master_rewind(t_abo abo)
 {
+	return (abo_combo_rewind(abo));
+
 	int	c;
 
 	deb_("Master Rewind\n");
@@ -52,7 +68,7 @@ int			simple_partition(t_abo abo, int pivot[4])
 	while (any_in_quad_pivot(abo, pivot) && stack_size(*abo.a) > 2)
 	{
 		full_rot_a_quad(abo, pivot);
-		if (stack_size(*abo.b) < stack_size(*abo.a) * 4 / 3)
+		if (stack_size(*abo.b) < stack_size(*abo.a) * 4 / 3 || 0)
 			rot_b_pb(abo);
 		else
 		{
@@ -78,10 +94,68 @@ void		four_zeroes(int pivot[4])
 	pivot[3] = 0;
 }
 
+void		poor_rot_a(t_abo abo, int pivot)
+{
+	while ((*abo.a)->val > pivot)
+		exec(abo, "ra");
+	return ;
+}
+
+int			any_below_pivot(t_abo abo, int pivot)
+{
+	t_stk	*h;
+
+	h = *abo.a;
+	while (h)
+	{
+		if (h->val <= pivot)
+			return (1);
+		h = h->nx;
+	}
+	return (0);
+}
+
+void		poor_partition(t_abo abo, int pivot)
+{
+	while (any_below_pivot(abo, pivot))
+	{
+		if ((*abo.a)->val <= pivot)
+			rot_b_pb(abo);
+		else
+			shortest_a_atob(abo, pivot);
+	}
+	return ;
+}
+
+int			poor_push_swap(t_stk **a, t_stk **b, char **o)
+{
+	t_abo	abo;
+	int		pivot;
+
+	abo = make_abo(a, b, o);
+	pivot = 0;
+	while (stack_size(*abo.a) > 2)
+	{
+		if (bubble(abo) && flush_final(abo))
+			break ;
+		else
+		{
+			if (flush_final(abo))
+				break ;
+		}
+		gen_pivot_short(abo.a, &pivot);
+		deb_int_(pivot);
+		poor_partition(abo, pivot);
+	}
+	return (master_rewind(abo));
+}
+
 int			push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	t_abo	abo;
 	int		pivot[4];
+
+	return (poor_push_swap(a, b, o));
 
 	four_zeroes(pivot);
 	abo = make_abo(a, b, o);

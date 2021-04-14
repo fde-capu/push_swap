@@ -6,11 +6,11 @@
 #    By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/08 16:20:12 by fde-capu          #+#    #+#              #
-#    Updated: 2021/04/13 17:13:49 by fde-capu         ###   ########.fr        #
+#    Updated: 2021/04/13 20:58:15 by fde-capu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-DEBUG		=	0
+DEBUG		=	1
 SHELL		=	/bin/sh
 ARGS_A_PRE	=	echo -e "sa\nrra" |
 ARGS_A		=	2 1 0
@@ -18,7 +18,7 @@ ARGS_B		=	1 5 2 4 3
 ARGS_C		=	$(shell ./args.sh 5)
 ARGS_D		=	$(shell ./args.sh 100)
 ARGS_E		=	$(shell ./args.sh 500)
-ARGS_X		=	1 4 5 2 3
+ARGS_X		=	5 4 3 2 1
 ARGS_Y		=	$(shell cat txt)
 ARGS_Z		=	$(shell ./args.sh 20)
 NAME_A		=	checker
