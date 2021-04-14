@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 16:13:42 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/14 14:32:04 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 {
 	destroy_stack(stack_a);
 	destroy_stack(stack_b);
+	ft_print_stdout("Moves: ");
+	if (ops)
+		ft_print_x(ft_itoa(ft_strlen2d(ops)));
+	else
+		ft_print_stdout("none.");
+	ft_print_stdout("\n");
 	if (out == OK)
 	{
-		ft_print_stdout("OK\nMoves: ");
-		if (ops)
-		{
-			ft_print_x(ft_itoa(ft_strlen2d(ops)));
-			ft_strfree2d(ops);
-		}
-		else
-			ft_print_stdout("none.");
-		ft_print_stdout("\n");
+		ft_strfree2d(ops);
+		ft_print_stdout("OK\n");
 	}
 	else
 		return (call_error(ops, out));
@@ -63,11 +62,7 @@ int			main(int argc, char **argv)
 	{
 		stack_a = init_stack_from_args(argc, argv);
 		stack_b = init_stack_empty();
-		ft_print_stdout("\nInitial:\n\n");
-		stack_double_log(stack_a, stack_b);
 		op_exec(ops, &stack_a, &stack_b);
-		ft_print_stdout("Final:\n\n");
-		stack_double_log(stack_a, stack_b);
 		if (estas_finita(stack_a, stack_b))
 			exit(end_routine(stack_a, stack_b, ops, OK));
 		exit(end_routine(stack_a, stack_b, ops, KO));
