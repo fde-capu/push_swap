@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:12:58 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 15:42:59 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/16 13:48:37 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ int			end_routine(t_stk *stack_a, t_stk *stack_b, char **ops, int out)
 	destroy_stack(stack_b);
 	if (out == OK)
 	{
-		ft_strfree2d(ops);
+		if (ops)
+			ft_strfree2d(ops);
 		ft_print_stdout("OK\n");
 	}
 	else

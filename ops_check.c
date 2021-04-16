@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:17:20 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/15 09:27:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/16 13:56:21 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			validate_op(char *op)
 {
 	if (ft_check(op, " "))
 		return (0);
-	if (ft_strstr(op, OP_NAMES))
+	if (ft_strstr(op, OP_NAMES) && !(ft_chrinset(' ', op)))
 		return (1);
 	return (0);
 }
