@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/19 14:52:06 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:27:58 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:10:15 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	rgx_mm_mod(int *mm, int oblig, int optio)
 	return ;
 }
 
-int		rgx_mm_manual(int pos, char *keys)
+int	rgx_mm_manual(int pos, char *keys)
 {
 	char	*h;
 
@@ -28,7 +28,10 @@ int		rgx_mm_manual(int pos, char *keys)
 	if (pos == 1)
 	{
 		h = ft_findstr(keys, ',');
-		return (h ? ft_atoi(h + 1) : rgx_mm_manual(0, keys));
+		if (h)
+			return (ft_atoi(h + 1));
+		else
+			return (rgx_mm_manual(0, keys));
 	}
 	return (1);
 }
@@ -58,6 +61,7 @@ void	rgx_set_rep(int *mm, char *mod)
 	if (*mod == '{')
 		rgx_mm_mod(&mm[0], rgx_mm_manual(0, mod), rgx_mm_manual(1, mod));
 	mm[1] -= (mm[0] - 1);
-	mm[1] = mm[0] == 0 && mm[1] == 1 ? 0 : mm[1];
+	if (mm[0] == 0 && mm[1] == 1)
+		mm[1] = 0;
 	return ;
 }

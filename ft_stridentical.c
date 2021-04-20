@@ -6,7 +6,7 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/03 12:50:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:56:36 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:21:20 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	ft_stridentical(const char *s1, const char *s2)
 		a++;
 		b++;
 	}
-	return (!*a && !*b ? 1 : 0);
+	if (!*a && !*b)
+		return (1);
+	return (0);
 }
 
 int	identxl(char *a, char *b)

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 15:57:28 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 17:29:52 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:45:48 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	op_exec(char **ops, t_stk **stack_a, t_stk **stack_b)
 	return ;
 }
 
-int		is_(t_stk *s)
+int	is_(t_stk *s)
 {
 	if (!s)
 		return (0);

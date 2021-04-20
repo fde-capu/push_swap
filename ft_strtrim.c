@@ -6,13 +6,13 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/10 07:18:41 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/29 16:59:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:16:47 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-static char		*st_trimstart(char const *s1, char const *set)
+static char	*st_trimstart(char const *s1, char const *set)
 {
 	char	*r;
 
@@ -43,7 +43,7 @@ static size_t	st_trimlen(char const *s1, char const *set)
 	return (l);
 }
 
-char			*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	char	*m;
 	size_t	l;
@@ -66,7 +66,7 @@ char			*ft_strtrim(char const *s1, char const *set)
 	return (m);
 }
 
-char			*ft_strtrimx(char *s1, char *set)
+char	*ft_strtrimx(char *s1, char *set)
 {
 	char	*trd;
 
@@ -75,7 +75,7 @@ char			*ft_strtrimx(char *s1, char *set)
 	return (trd);
 }
 
-char			*ft_trim(char *str)
+char	*ft_trim(char *str)
 {
 	return (ft_strtrimx(str, TRIM_SET));
 }

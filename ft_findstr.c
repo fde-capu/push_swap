@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/19 20:25:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/06/09 14:13:22 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:22:32 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 char	*ft_findstr(char *str, char c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str && str[i])

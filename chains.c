@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/15 08:20:50 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 02:52:15 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:38:23 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int			flush_final(t_abo abo)
+int	flush_final(t_abo abo)
 {
 	deb_("flush_final? ");
 	if (in_order_out_of_rot(*abo.a) && in_reverse_out_of_rot(*abo.b))
@@ -24,7 +24,7 @@ int			flush_final(t_abo abo)
 	return (0);
 }
 
-int			master_rewind(t_abo abo)
+int	master_rewind(t_abo abo)
 {
 	deb_("abo Combo Rewind!\n");
 	while (stack_size(*abo.b) > 0)
@@ -38,7 +38,7 @@ int			master_rewind(t_abo abo)
 	return (estas_finita(*abo.a, *abo.b));
 }
 
-int			any_below_pivot(t_abo abo, int pivot)
+int	any_below_pivot(t_abo abo, int pivot)
 {
 	t_stk	*h;
 
@@ -52,7 +52,7 @@ int			any_below_pivot(t_abo abo, int pivot)
 	return (0);
 }
 
-void		simple_partition(t_abo abo, int pivot)
+void	simple_partition(t_abo abo, int pivot)
 {
 	while (any_below_pivot(abo, pivot))
 	{
@@ -64,7 +64,7 @@ void		simple_partition(t_abo abo, int pivot)
 	return ;
 }
 
-int			push_swap_sort(t_stk **a, t_stk **b, char **o)
+int	push_swap_sort(t_stk **a, t_stk **b, char **o)
 {
 	t_abo	abo;
 	int		pivot;

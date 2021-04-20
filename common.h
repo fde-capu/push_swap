@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:17:04 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 14:10:27 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:31:35 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include "defs.h"
 # include "get_next_line_bonus.h"
 
+long long	freec_and_retll(char *f, long long r);
+char		*ft_ternary_c(int x, char *vt, char *vf);
+int			ft_ternary_i(int x, int vt, int vf);
 int			ident(char *a, char *b);
 long long	ft_atoi(const char *str);
 long long	ft_atol(const char *str);

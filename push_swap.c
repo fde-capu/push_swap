@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:13:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:17:30 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:05:00 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	solve_push_swap(t_ttg *k, t_stk *a)
 	return ;
 }
 
-int		main(int argc, char **argv)
+int	main(int argc, char **argv)
 {
 	t_stk	*stack_a;
 	t_stk	*stack_b;

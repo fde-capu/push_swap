@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 12:44:21 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 11:58:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:45:28 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ t_abo	make_abo(t_stk **a, t_stk **b, char **o)
 	return (abo);
 }
 
-int		min(int a, int b)
+int	min(int a, int b)
 {
 	if (a <= b)
 		return (a);

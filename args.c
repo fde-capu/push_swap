@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/08 20:24:19 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/10 23:38:44 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:40:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int				all_strict_int(int argc, char **argv)
+int	all_strict_int(int argc, char **argv)
 {
 	int		arg_i;
 	int		*i_from_a;
@@ -28,7 +28,7 @@ int				all_strict_int(int argc, char **argv)
 	return (1);
 }
 
-int				chain_repeated(t_stk *stk)
+int	chain_repeated(t_stk *stk)
 {
 	t_stk	*cmp;
 
@@ -46,7 +46,7 @@ int				chain_repeated(t_stk *stk)
 	return (0);
 }
 
-int				unrepeated(int argc, char **argv)
+int	unrepeated(int argc, char **argv)
 {
 	t_stk	*stk;
 	int		is_it;
@@ -57,7 +57,7 @@ int				unrepeated(int argc, char **argv)
 	return (!is_it);
 }
 
-int				validate_args(int argc, char **argv)
+int	validate_args(int argc, char **argv)
 {
 	if ((argc == 1) || (!(all_strict_int(argc, argv))) \
 		|| (!(unrepeated(argc, argv))))
@@ -65,7 +65,7 @@ int				validate_args(int argc, char **argv)
 	return (1);
 }
 
-int				error_out(void)
+int	error_out(void)
 {
 	write(2, "Error\n", 6);
 	return (1);

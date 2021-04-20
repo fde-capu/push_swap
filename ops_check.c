@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:17:20 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/16 13:56:21 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:06:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "checker.h"
 
-int			validate_op(char *op)
+int	validate_op(char *op)
 {
 	if (ft_check(op, " "))
 		return (0);
@@ -21,14 +21,14 @@ int			validate_op(char *op)
 	return (0);
 }
 
-int			xxret(char *a, char *b, int ret)
+int	xxret(char *a, char *b, int ret)
 {
 	free(a);
 	free(b);
 	return (ret);
 }
 
-int			validate_stdin_ops(char ***ops)
+int	validate_stdin_ops(char ***ops)
 {
 	char	*line;
 	char	*ops_stream;

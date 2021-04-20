@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 09:57:06 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:22:14 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:06:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int			estas_finita(t_stk *a, t_stk *b)
+int	estas_finita(t_stk *a, t_stk *b)
 {
 	deb_("Estas finita? ");
 	if (in_order(a) && !(stack_size(b)))
@@ -24,7 +24,7 @@ int			estas_finita(t_stk *a, t_stk *b)
 	return (0);
 }
 
-int			in_order(t_stk *s)
+int	in_order(t_stk *s)
 {
 	int		control;
 
@@ -42,7 +42,7 @@ int			in_order(t_stk *s)
 	return (1);
 }
 
-int			in_order_out_of_rot(t_stk *a)
+int	in_order_out_of_rot(t_stk *a)
 {
 	int		loop;
 	t_stk	*h;
@@ -64,7 +64,7 @@ int			in_order_out_of_rot(t_stk *a)
 	return (1);
 }
 
-int			in_reverse_out_of_rot(t_stk *a)
+int	in_reverse_out_of_rot(t_stk *a)
 {
 	int		loop;
 	t_stk	*h;

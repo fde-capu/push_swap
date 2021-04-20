@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 16:29:22 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:27:12 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:39:23 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void			set_lower_higher(t_stk *a, int dir, int *lower, int *higher)
+void	set_lower_higher(t_stk *a, int dir, int *lower, int *higher)
 {
 	if (dir == ASCE)
 	{
@@ -27,7 +27,7 @@ void			set_lower_higher(t_stk *a, int dir, int *lower, int *higher)
 	return ;
 }
 
-int				may_bubble(t_stk *a, int dir)
+int	may_bubble(t_stk *a, int dir)
 {
 	int	higher;
 	int	lower;
@@ -38,7 +38,7 @@ int				may_bubble(t_stk *a, int dir)
 	set_lower_higher(a, dir, &lower, &higher);
 	med = stack_median(a)->val;
 	if ((dir == ASCE && higher == min_val(a) && lower == max_val(a))
-	|| (dir == DESC && higher == min_val(a) && lower == max_val(a)))
+		|| (dir == DESC && higher == min_val(a) && lower == max_val(a)))
 	{
 		if (stack_size(a) == 2)
 			return (1);
@@ -51,7 +51,7 @@ int				may_bubble(t_stk *a, int dir)
 	return (0);
 }
 
-int				bubble(t_abo abo)
+int	bubble(t_abo abo)
 {
 	int		oa;
 	int		ob;

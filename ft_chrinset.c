@@ -6,13 +6,13 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 11:24:15 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:00:39 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:23:08 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int		ft_chrinset(char r, char const *sset)
+int	ft_chrinset(char r, char const *sset)
 {
 	char	*s;
 
@@ -26,16 +26,18 @@ int		ft_chrinset(char r, char const *sset)
 	return (0);
 }
 
-int		ft_strchrinset(char *t, char const *sset)
+int	ft_strchrinset(char *t, char const *sset)
 {
 	return (ft_chrinset(*t, sset));
 }
 
-int		ft_chrsame(char a, char b)
+int	ft_chrsame(char a, char b)
 {
 	if (!a && !b)
 		return (1);
 	if (!a || !b)
 		return (0);
-	return (a == b ? 1 : 0);
+	if (a == b)
+		return (1);
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:48:09 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/05/14 16:55:19 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:07:11 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-int		findnl(char *s)
+int	findnl(char *s)
 {
 	while ((s) && (*s))
 	{
@@ -23,7 +23,7 @@ int		findnl(char *s)
 	return (0);
 }
 
-int		len(char *s)
+int	len(char *s)
 {
 	int	c;
 

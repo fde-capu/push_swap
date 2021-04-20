@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 08:57:46 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 12:30:37 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:38:44 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	exec(t_abo abo, char *op)
 	return ;
 }
 
-int		ouch(t_stk **a, t_stk **b, char **o, char *op)
+int	ouch(t_stk **a, t_stk **b, char **o, char *op)
 {
 	*o = ft_strcatxl(*o, ",");
 	*o = ft_strcatxl(*o, op);

@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/25 09:26:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 03:11:13 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:04:20 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*gen_repetition(char *sub_code, int rep_count)
 	return (out);
 }
 
-int		recursive_redundancy(char **str, char *sub_code)
+int	recursive_redundancy(char **str, char *sub_code)
 {
 	int		rep_count;
 	char	*out;

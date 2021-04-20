@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:59:27 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:58:13 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:06:49 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stk		*a_after_b(t_abo abo)
+t_stk	*a_after_b(t_abo abo)
 {
 	int		b;
 	long	c;
@@ -39,7 +39,7 @@ t_stk		*a_after_b(t_abo abo)
 	return (cell);
 }
 
-t_stk		*b_before_a(t_abo abo)
+t_stk	*b_before_a(t_abo abo)
 {
 	int		a;
 	long	c;

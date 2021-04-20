@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/18 10:06:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/13 14:57:06 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:14:59 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-t_stk		*cell_by_val(t_stk *s, int control)
+t_stk	*cell_by_val(t_stk *s, int control)
 {
 	while (s)
 	{
@@ -23,7 +23,7 @@ t_stk		*cell_by_val(t_stk *s, int control)
 	return (0);
 }
 
-int			min_val(t_stk *ss)
+int	min_val(t_stk *ss)
 {
 	int		control;
 	t_stk	*s;
@@ -39,7 +39,7 @@ int			min_val(t_stk *ss)
 	return (control);
 }
 
-long		max_val(t_stk *ss)
+long	max_val(t_stk *ss)
 {
 	int		control;
 	t_stk	*s;
@@ -57,7 +57,7 @@ long		max_val(t_stk *ss)
 	return (control);
 }
 
-t_stk		*min_cell(t_stk *ss)
+t_stk	*min_cell(t_stk *ss)
 {
 	int		control;
 
@@ -65,7 +65,7 @@ t_stk		*min_cell(t_stk *ss)
 	return (cell_by_val(ss, control));
 }
 
-t_stk		*max_cell(t_stk *ss)
+t_stk	*max_cell(t_stk *ss)
 {
 	long		control;
 

@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ps_strategy.c                                      :+:      :+:    :+:   */
+/*   ft_ternary.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/12 14:49:38 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/19 21:05:12 by fde-capu         ###   ########.fr       */
+/*   Created: 2021/04/19 21:10:38 by fde-capu          #+#    #+#             */
+/*   Updated: 2021/04/19 22:31:57 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "common.h"
 
-void	strategy_destroy(t_ttg *k)
+int	ft_ternary_i(int x, int vt, int vf)
 {
-	free(k->formula);
-	destroy_stack(k->a);
-	destroy_stack(k->b);
-	free(k);
-	return ;
+	if (x)
+		return (vt);
+	return (vf);
 }
 
-int	count_instructions_in_str(char *str)
+char	*ft_ternary_c(int x, char *vt, char *vf)
 {
-	if (!*str)
-		return (0);
-	next_command(&str);
-	return (1 + count_instructions_in_str(str));
+	if (x)
+		return (vt);
+	return (vf);
+}
+
+long long	freec_and_retll(char *f, long long r)
+{
+	free (f);
+	return (r);
 }

@@ -6,10 +6,11 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/27 18:48:01 by fde-capu          #+#    #+#             */
-/*   Updated: 2020/05/14 18:45:28 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:14:16 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "common.h"
 #include "get_next_line_bonus.h"
 
 void	clear(char *s)
@@ -25,7 +26,7 @@ void	clear(char *s)
 	return ;
 }
 
-int		get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	static char	save[256][BUFFER_SIZE + 1];
 	int			r;
@@ -50,5 +51,5 @@ int		get_next_line(int fd, char **line)
 	}
 	clear(save[fd]);
 	dosave(*line, save[fd]);
-	return (r ? 1 : 0);
+	return (ft_ternary_i(r, 1, 0));
 }

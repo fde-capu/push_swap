@@ -6,20 +6,20 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/22 17:58:08 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:30:45 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:05:56 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		position_top(t_stk *a, t_stk *h)
+int	position_top(t_stk *a, t_stk *h)
 {
 	if (!h)
 		return (-1);
 	return (position_top(a, h->pv) + 1);
 }
 
-int		position_bot(t_stk *a, t_stk *h)
+int	position_bot(t_stk *a, t_stk *h)
 {
 	if (!h)
 		return (0);

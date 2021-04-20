@@ -6,13 +6,13 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:09:21 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:29:50 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:38:52 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int		calc_top_b(t_abo abo, t_stk *cell)
+int	calc_top_b(t_abo abo, t_stk *cell)
 {
 	int		dist_top;
 	int		dist_bot;

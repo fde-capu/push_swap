@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 06:48:13 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 13:15:26 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:03:55 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_stk	*stack_tail(t_stk *stk)
 	return (stk);
 }
 
-int		stack_size(t_stk *stk)
+int	stack_size(t_stk *stk)
 {
 	if (!stk)
 		return (0);

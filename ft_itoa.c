@@ -6,11 +6,24 @@
 /*   By: fde-capu <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/03/02 16:27:03 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/09 10:59:49 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:02:22 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
+
+long	long_abs(int n)
+{
+	if (n < 0)
+		return ((long)n * -1);
+	return ((long)n);
+}
+
+long	divide_by_ten(long *t)
+{
+	*t = *t / 10;
+	return (*t);
+}
 
 char	*ft_itoa(int n)
 {
@@ -19,9 +32,11 @@ char	*ft_itoa(int n)
 	long			t;
 	char			*r;
 
-	t = n < 0 ? (long)n * -1 : (long)n;
-	len = n < 0 ? 2 : 1;
-	while (t /= 10)
+	t = long_abs(n);
+	len = 1;
+	if (n < 0)
+		len++;
+	while (divide_by_ten(&t))
 		len++;
 	r = ft_calloc(sizeof(char) * (len + 1), 1);
 	if (!r)
@@ -31,8 +46,8 @@ char	*ft_itoa(int n)
 	*w = '0';
 	if (!n)
 		return (r);
-	t = n < 0 ? (long)n * -10 : (long)n * 10;
-	while (t /= 10)
+	t = long_abs(n) * 10;
+	while (divide_by_ten(&t))
 		*w-- = (t % 10) + '0';
 	if (n < 0)
 		*w = '-';

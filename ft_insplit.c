@@ -6,20 +6,21 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/17 12:41:17 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/03/08 23:17:41 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 22:18:36 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "common.h"
 
-int			ft_insp_count(char *h, char x)
+int	ft_insp_count(char *h, char x)
 {
 	int		i;
 
 	i = 1;
 	while (*h)
 	{
-		i += *h == x ? 1 : 0;
+		if (*h == x)
+			i += 1;
 		h = ft_inskip(h);
 	}
 	return (i);
@@ -39,7 +40,7 @@ static int	insp_len(char *h, char x)
 	return (h2 - h);
 }
 
-char		**ft_insplit(const char *str, char x)
+char	**ft_insplit(const char *str, char x)
 {
 	int		i;
 	int		c;

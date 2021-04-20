@@ -6,7 +6,7 @@
 /*   By: fde-capu <fde-capu@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 15:26:07 by fde-capu          #+#    #+#             */
-/*   Updated: 2021/04/14 03:07:43 by fde-capu         ###   ########.fr       */
+/*   Updated: 2021/04/19 21:04:42 by fde-capu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	**strip_sub_code(char *sub_code)
 	return (code);
 }
 
-int		remove_str(char **str, char *rem)
+int	remove_str(char **str, char *rem)
 {
 	char	*h;
 	int		out;
@@ -48,7 +48,7 @@ int		remove_str(char **str, char *rem)
 	return (out);
 }
 
-int		free_str2d_and_return(char **str, int ret)
+int	free_str2d_and_return(char **str, int ret)
 {
 	ft_strfree2d(str);
 	return (ret);
@@ -61,7 +61,7 @@ void	next_command_and_up(char **h, int *v)
 	return ;
 }
 
-int		check_nested(char *h, char *sub_code, char **end)
+int	check_nested(char *h, char *sub_code, char **end)
 {
 	char	**code;
 	int		c_up;
