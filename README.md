@@ -31,6 +31,7 @@ By combining these instructions in some sort of elegant way, we must aim for the
 
 This is my score:
 
+| | |
 | --- | --- |
 | 2 1 0 | 3 |
 | 1 5 2 4 3 | 8 |
